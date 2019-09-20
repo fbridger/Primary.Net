@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
@@ -19,6 +20,20 @@ namespace Primary.Tests
         }
 
         private Api _api;
+
+
+        [Test]
+        public async Task ShouldThrowException()
+        {
+            try
+            {
+                var marketData = await _api.GetMarketDataAsync("RFX", "NOT_FOUND_INSTRUMENT");
+            }
+            catch (Exception ex)
+            {
+                ex.Message.Should().Be(" (Security NOT_FOUND_INSTRUMENT:RFX doesn't exist)");
+            }
+        }
 
         [Test]
         public async Task ShouldGetMarketDataForDollarFuture()

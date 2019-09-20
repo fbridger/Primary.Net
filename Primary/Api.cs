@@ -256,6 +256,11 @@ namespace Primary
 
             var marketData = JsonConvert.DeserializeObject<InstrumentMarketDataResponse>(response);
 
+            if (marketData.Status == Status.Error)
+            {
+                throw new Exception($"{marketData.Message} ({marketData.Description})");
+            }
+
             return marketData.MarketData;
         }
 

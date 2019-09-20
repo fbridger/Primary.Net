@@ -27,6 +27,8 @@ namespace Primary.Tests
             {
                 Assert.That(instrument.Market, Is.Not.Null.And.Not.Empty);
                 Assert.That(instrument.Symbol, Is.Not.Null.And.Not.Empty);
+
+                Console.WriteLine($"{instrument.Market}: {instrument.Symbol}");
             }
         }
 

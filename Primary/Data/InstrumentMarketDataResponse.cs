@@ -5,7 +5,13 @@ namespace Primary.Data
     internal class InstrumentMarketDataResponse
     {
         [JsonProperty("status")]
-        public System.Net.HttpStatusCode Status;
+        public string Status;
+
+        [JsonProperty("message")]
+        public string Message;
+
+        [JsonProperty("description")]
+        public string Description;
 
         [JsonProperty("marketData")]
         public InstrumentMarketData MarketData;

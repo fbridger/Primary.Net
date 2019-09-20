@@ -112,7 +112,7 @@ namespace Primary.Tests.Data
             var result = JsonConvert.DeserializeObject<InstrumentMarketDataResponse>(json);
 
             result.Should().NotBeNull();
-            result.Status.Should().Be(HttpStatusCode.OK);
+            result.Status.Should().Be("OK");
             result.Depth.Should().Be(5);
             result.Aggregated.Should().BeTrue();
             result.MarketData.Open.Should().Be(57.715M);

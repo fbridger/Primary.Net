@@ -82,7 +82,7 @@ namespace Primary.Data
         public decimal ChangePercentage
         {
             get {
-                if (Last.Price != null && Close.Price != null)
+                if (Last != null && Close != null && Last.Price != null && Close.Price != null)
                 {
                     return ((Last.Price.Value / Close.Price.Value) - 1);
                 }

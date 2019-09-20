@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using Primary.Serialization;
+using System.Linq;
 
 namespace Primary.Data
 {
@@ -25,6 +26,8 @@ namespace Primary.Data
 
     internal static class EnumsToApiStrings
     {
+        public const string AllEntryApiStrings = "BI,OF,LA,OP,CL,SE,OI,LO,HI,TV,NV,EV,IV";
+
         public static string ToApiString(this Entry value)
         {
             switch (value)
@@ -44,6 +47,13 @@ namespace Primary.Data
                 case Entry.NominalVolume: return "NV";
                 default: throw new InvalidEnumStringException( value.ToString() );
             }
+        }
+
+        public static string ToApiString(this Entry[] entries)
+        {
+            var entryList = entries.Select(x => ToApiString(x));
+            var apiString = string.Join(',', entryList);
+            return apiString;
         }
 
         public static Entry EntryFromApiString(string value)

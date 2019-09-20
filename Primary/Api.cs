@@ -236,5 +236,29 @@ namespace Primary
         }
 
         #endregion
+
+        #region MarketData
+        public async Task<InstrumentMarketData> GetMarketDataAsync(string marketId, string symbol, short depth = 5, Entry[] entries = null)
+        {
+            var uri = new Uri(_baseUri, "/rest/marketdata/get").ToString();
+
+            var entriesQueryParamValue = entries == null ? Primary.Data.EnumsToApiStrings.AllEntryApiStrings : entries.ToApiString();
+
+            uri = uri.AddQueryParam("symbol", symbol)
+                .AddQueryParam("marketId", marketId)
+                .AddQueryParam("depth", depth)
+                .AddQueryParam("entries", entriesQueryParamValue);
+
+            var response = await uri.ToString().GetJsonFromUrlAsync(request =>
+            {
+                request.Headers.Add("X-Auth-Token", AccessToken);
+            });
+
+            var marketData = JsonConvert.DeserializeObject<InstrumentMarketDataResponse>(response);
+
+            return marketData.MarketData;
+        }
+
+        #endregion
     }
 }

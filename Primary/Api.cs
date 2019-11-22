@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Primary.Data;
@@ -11,9 +12,16 @@ namespace Primary
 {
     public class Api
     {
+        /// <summary>This is the default production endpoint.</summary>
         public static Uri ProductionEndpoint => new Uri("https://api.primary.com.ar");
+
+        /// <summary>This is the default demo endpoint.</summary>
+        /// <remarks>You can get a demo username in https://remarkets.primary.ventures.</remarks>
         public static Uri DemoEndpoint => new Uri("http://api.remarkets.primary.com.ar");
         
+        /// <summary>
+        /// Build a new API object.
+        /// </summary>
         public Api(Uri baseUri)
         {
             _baseUri = baseUri;
@@ -23,8 +31,14 @@ namespace Primary
 
         #region Login
 
-        public string AccessToken { get; set; }
+        public string AccessToken { get; private set; }
 
+        /// <summary>
+        /// Initialize the specified environment.
+        /// </summary>
+        /// <param name="username">User used for authentication.</param>
+        /// <param name="password">Password used for authentication.</param>
+        /// <returns></returns>
         public async Task Login(string username, string password)
         {
             var uri = new Uri(_baseUri, "/auth/getToken");
@@ -50,6 +64,10 @@ namespace Primary
 
         #region Instruments information
 
+        /// <summary>
+        /// Get all instruments currently traded on the exchange.
+        /// </summary>
+        /// <returns>Instruments information.</returns>
         public async Task< IEnumerable<Instrument> > GetAllInstruments()
         {
             var uri = new Uri(_baseUri, "/rest/instruments/all");
@@ -78,6 +96,13 @@ namespace Primary
 
         #region Historical data
         
+        /// <summary>
+        /// Get historical trades for a specific instrument.
+        /// </summary>
+        /// <param name="instrument">Instrument to get information for.</param>
+        /// <param name="dateFrom">First date of trading information.</param>
+        /// <param name="dateTo">Last date of trading information.</param>
+        /// <returns>Trade information for the instrument in the specified period.</returns>
         public async Task< IEnumerable<Trade> > GetHistoricalTrades(Instrument instrument, 
                                                                     DateTime dateFrom, 
                                                                     DateTime dateTo)
@@ -106,20 +131,54 @@ namespace Primary
 
         #endregion
         
+        /// <summary>
+        /// Create a Market Data web socket to receive real-time market data.
+        /// </summary>
+        /// <param name="instruments">Instruments to watch.</param>
+        /// <param name="entries">Market data entries to watch.</param>
+        /// <param name="level"></param>
+        /// <param name="depth">Depth of the book.</param>
+        /// <returns></returns>
         public MarketDataWebSocket CreateSocket(IEnumerable<Instrument> instruments, 
                                                 IEnumerable<Entry> entries,
                                                 uint level, uint depth
+        )
+        {
+            return CreateSocket( instruments, entries, level, depth, new CancellationToken() );
+        }
+
+        /// <summary>
+        /// Create a Market Data web socket to receive real-time market data.
+        /// </summary>
+        /// <param name="instruments">Instruments to watch.</param>
+        /// <param name="entries">Market data entries to watch.</param>
+        /// <param name="level"></param>
+        /// <param name="depth">Depth of the book.</param>
+        /// <param name="cancellationToken">Custom cancellation token to end the socket task.</param>
+        /// <returns></returns>
+        public MarketDataWebSocket CreateSocket(IEnumerable<Instrument> instruments, 
+                                                IEnumerable<Entry> entries,
+                                                uint level, uint depth,
+                                                CancellationToken cancellationToken
         )
         {
             var url = new UriBuilder(_baseUri)
             {
                 Scheme = "ws"
             };
-            return new MarketDataWebSocket(instruments, entries, level, depth, url.Uri, AccessToken);
+            return new MarketDataWebSocket(instruments, entries, level, depth, url.Uri, AccessToken,
+                                           cancellationToken
+            );
         }
 
         #region Orders
 
+        /// <summary>
+        /// Send an order to the specific account.
+        /// </summary>
+        /// <param name="account">Account to send the order to.</param>
+        /// <param name="order">Order to send.</param>
+        /// <returns>Order identifier.</returns>
         public async Task<OrderId> SubmitOrder(string account, Order order)
         {
             var uri = new Uri(_baseUri, "/rest/order/newSingleOrder").ToString();
@@ -156,6 +215,11 @@ namespace Primary
             return response.Order;
         }
         
+        /// <summary>
+        /// Get order information from identifier.
+        /// </summary>
+        /// <param name="orderId">Order identifier.</param>
+        /// <returns>Order information.</returns>
         public async Task<Order> GetOrder(OrderId orderId)
         {
             var uri = new Uri(_baseUri, "/rest/order/id").ToString();
@@ -177,6 +241,10 @@ namespace Primary
             return response.Order;
         }
 
+        /// <summary>
+        /// Cancel an order.
+        /// </summary>
+        /// <param name="orderId">Order identifier to cancel.</param>
         public async Task CancelOrder(OrderId orderId)
         {
             var uri = new Uri(_baseUri, "/rest/order/cancelById").ToString();

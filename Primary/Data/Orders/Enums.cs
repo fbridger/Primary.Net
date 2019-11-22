@@ -6,7 +6,10 @@ namespace Primary.Data.Orders
     [JsonConverter(typeof(OrderTypeJsonSerializer))]
     public enum OrderType
     {
-        Market,
+        /// <summary>Market order.</summary>
+        Market, 
+
+        /// <summary>Limit order.</summary>
         Limit
     }
 
@@ -20,19 +23,35 @@ namespace Primary.Data.Orders
     [JsonConverter(typeof(OrderExpirationJsonSerializer))]
     public enum OrderExpiration
     {
+        /// <summary>Order valid during the day. It will expires when the market closes.</summary>
         Day,
+
+        /// <summary>Immediate or cancel.</summary>
         ImmediateOrCancel,
+
+        /// <summary>Fill or kill.</summary>
         FillOrKill,
+
+        /// <summary>Good Till Date (Must send ExpirationDate field in the Order).</summary>
         GoodTillDate
     }
 
     [JsonConverter(typeof(OrderStatusJsonSerializer))]
     public enum OrderStatus
     {
+        /// <summary>The order was successfully submitted.</summary>
         New,
+        
+        /// <summary>The order was submitted but it is still being processed.</summary>
         PendingNew,
+        
+        /// <summary>The order was rejected.</summary>
         Rejected,
+        
+        /// <summary>The order was cancelled.</summary>
         Cancelled,
+        
+        /// <summary>The order was filled.</summary>
         Filled
     }
 
@@ -88,11 +107,13 @@ namespace Primary.Data.Orders
 
         #endregion
 
+        #region OrderExpiration
+
         public static string ToApiString(this OrderExpiration value)
         {
             switch (value)
             {
-                case OrderExpiration.Day: return "Day";
+                case OrderExpiration.Day: return "DAY";
                 case OrderExpiration.FillOrKill: return "FOK";
                 case OrderExpiration.GoodTillDate: return "GTD";
                 case OrderExpiration.ImmediateOrCancel: return "IOC";
@@ -104,7 +125,7 @@ namespace Primary.Data.Orders
         {
             switch (value)
             {
-                case "Day": return OrderExpiration.Day;
+                case "DAY": return OrderExpiration.Day;
                 case "FOK": return OrderExpiration.FillOrKill;
                 case "GTD": return OrderExpiration.GoodTillDate;
                 case "IOC": return OrderExpiration.ImmediateOrCancel;
@@ -143,6 +164,8 @@ namespace Primary.Data.Orders
 
         #endregion
     }
+
+    #endregion
 
     #region JSON serialization
 

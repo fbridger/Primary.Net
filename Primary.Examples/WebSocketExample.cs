@@ -32,30 +32,24 @@ namespace Primary.Examples
             var entries = new[] { Entry.Bids, Entry.Offers };
 
             Console.WriteLine("Connecting to market data...");
+
             using (var socket = api.CreateSocket(dollarFuture, entries, 1, 1))
             {
                 socket.OnMarketData = OnMarketData;
 
                 var socketTask = await socket.Start();
-                //socket.Cancel();
-                //socketTask.Wait();
+                socketTask.Wait();
                 await socketTask;
-
-                // Fix: use semaphore
-                while (true)
-                {
-                    Thread.Sleep(100);
-                }
             }
         }
 
         private static void OnMarketData(MarketData marketData)
         {
-            var bid = default(float);
-            var offer = default(float);
+            var bid = default(decimal);
+            var offer = default(decimal);
 
-            var bidSize = default(float);
-            var offerSize = default(float);
+            var bidSize = default(decimal);
+            var offerSize = default(decimal);
 
             foreach (var (entry, trades) in marketData.Data)
             {

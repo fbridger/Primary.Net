@@ -7,7 +7,7 @@ namespace Primary.Examples
 {
     internal static class WebSocketExample
     {
-        private static async Task RunExample()
+        private static async Task Main2()
         {
             Console.WriteLine("Connecting to ReMarkets...");
 
@@ -21,9 +21,9 @@ namespace Primary.Examples
 
             var symbols = new[]
             {
-                "DOOct19",
-                "DONov19",
-                "DODic19"
+                "DOMay20",
+                "DOJun20",
+                "DOJul20"
             };
             var dollarFuture = allIInstruments.Where(c => symbols.Contains(c.Symbol));
 
@@ -32,14 +32,12 @@ namespace Primary.Examples
 
             Console.WriteLine("Connecting to market data...");
 
-            using (var socket = api.CreateSocket(dollarFuture, entries, 1, 1))
-            {
-                socket.OnMarketData = OnMarketData;
+            using var socket = api.CreateMarketDataSocket(dollarFuture, entries, 1, 1);
+            socket.OnData = OnMarketData;
 
-                var socketTask = await socket.Start();
-                socketTask.Wait();
-                await socketTask;
-            }
+            var socketTask = await socket.Start();
+            socketTask.Wait();
+            await socketTask;
         }
 
         private static void OnMarketData(MarketData marketData)
@@ -50,21 +48,16 @@ namespace Primary.Examples
             var bidSize = default(decimal);
             var offerSize = default(decimal);
 
-            foreach (var (entry, trades) in marketData.Data)
+            foreach(var trade in marketData.Data.Bids)
             {
-                foreach (var trade in trades)
-                {
-                    if (entry == Entry.Bids)
-                    {
-                        bid = trade.Price;
-                        bidSize = trade.Size;
-                    }
-                    else if (entry == Entry.Offers)
-                    {
-                        offer = trade.Price;
-                        offerSize = trade.Size;
-                    }
-                }
+                bid = trade.Price;
+                bidSize = trade.Size;
+            }
+
+            foreach(var trade in marketData.Data.Offers)
+            {
+                offer = trade.Price;
+                offerSize = trade.Size;
             }
 
             Console.WriteLine($"({marketData.Timestamp}) " +

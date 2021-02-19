@@ -7,6 +7,7 @@ namespace Primary.Examples
     internal static class GetInstrumentsAndDataExample
     {
         private static async Task RunExample()
+        //static async Task Main(string[] args)
         {
             Console.WriteLine("Connecting to ReMarkets...");
             
@@ -31,10 +32,9 @@ namespace Primary.Examples
                 Console.WriteLine($"{dollarFuture.Symbol}");
             }
 
-            const string symbol = "DONov19";
-            Console.WriteLine($"Getting trades for {symbol}");
+            var sampleInstrument = allIInstruments.Last( i => i.Symbol == Tests.Build.DollarFutureSymbol() );
+            Console.WriteLine($"Getting trades for {sampleInstrument.Symbol}");
 
-            var sampleInstrument = allIInstruments.First(s => s.Symbol == symbol);
             var threeDaysAgo = DateTime.Today.AddDays(-5);
 
             foreach (var trade in await api.GetHistoricalTrades(sampleInstrument, threeDaysAgo, DateTime.Today))

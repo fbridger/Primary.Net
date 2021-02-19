@@ -22,5 +22,35 @@ namespace Primary.WinFormsApp.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute(@"<?xml version=""1.0"" encoding=""utf-16""?>
+<ArrayOfString xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"">
+  <string>MERV - XMEV - AL29 - 48hs</string>
+  <string>MERV - XMEV - AL29 - CI</string>
+  <string>MERV - XMEV - AL29D - 48hs</string>
+  <string>MERV - XMEV - AL29D - CI</string>
+</ArrayOfString>")]
+        public global::System.Collections.Specialized.StringCollection WatchedSymbols {
+            get {
+                return ((global::System.Collections.Specialized.StringCollection)(this["WatchedSymbols"]));
+            }
+            set {
+                this["WatchedSymbols"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string UserName {
+            get {
+                return ((string)(this["UserName"]));
+            }
+            set {
+                this["UserName"] = value;
+            }
+        }
     }
 }

@@ -34,7 +34,7 @@ namespace Primary.WinFormsApp
 
         private void UpdateMarketData(MarketData marketData)
         {
-            if (marketData.Instrument.Symbol == this.Text)
+            if (marketData.Instrument?.Symbol == this.Text)
             {
                 txtPrice.Text = marketData.Data?.Last?.Price.ToString();
                 txtChange.Text =  ((marketData.Data?.Last?.Price / marketData.Data?.Close?.Price - 1M) * 100).ToString();

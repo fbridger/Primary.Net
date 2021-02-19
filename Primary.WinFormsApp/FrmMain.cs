@@ -15,10 +15,6 @@ namespace Primary.WinFormsApp
     public partial class FrmMain : Form
     {
         private List<string> watchList;
-        private Primary.Api api;
-        private MarketDataWebSocket marketDataSocket;
-        public delegate void MarketDataEventHandler(MarketData marketData);
-        public event MarketDataEventHandler OnMarketData;
 
         public FrmMain()
         {
@@ -27,17 +23,16 @@ namespace Primary.WinFormsApp
 
         private void FrmMain_Load(object sender, EventArgs e)
         {
-            
+
         }
 
-        private async void Login()
+        private async Task Login()
         {
             var login = new FrmLogin();
 
             if (login.ShowDialog() == DialogResult.OK)
             {
-                this.api = new Api(Api.ProductionEndpoint);
-                var success = await this.api.Login(login.UserName, login.Password);
+                var success = await Argentina.Data.Api.Login(login.UserName, login.Password);
 
                 if (success == false)
                 {
@@ -45,38 +40,32 @@ namespace Primary.WinFormsApp
                     return;
                 }
 
-                InitWatchList();
-                var allInstruments = await this.api.GetAllInstruments();
-                var watchedInstruments = allInstruments.Where(ShouldWatch).ToArray();
+                Properties.Settings.Default.UserName = login.UserName;
+                Properties.Settings.Default.Save();
+
+                await Argentina.Data.Init();
+
+                //InitWatchList();
+                var watchedInstruments = Argentina.Data.AllInstruments.Where(ShouldWatch).ToArray();
 
                 foreach (var watchInstrument in watchedInstruments)
                 {
                     var frmMarketData = new FrmMarketData();
                     frmMarketData.SetInstrument(watchInstrument.Symbol);
-                    this.OnMarketData += frmMarketData.OnMarketData;
+                    Argentina.Data.OnMarketData += frmMarketData.OnMarketData;
                     frmMarketData.MdiParent = this;
                     frmMarketData.Show();
                     frmMarketData.FormClosing += MarketDataClosing;
                 }
 
-                // Subscribe to all entries
-                this.marketDataSocket = this.api.CreateMarketDataSocket(watchedInstruments, Constants.AllEntries, 1, 5);
-
-                this.marketDataSocket.OnData = OnReceiveMarketData;
-                await this.marketDataSocket.Start();
+                await Argentina.Data.WatchIntruments(watchedInstruments);
             }
         }
 
         private void MarketDataClosing(object sender, FormClosingEventArgs e)
         {
             var frmMarketData = (FrmMarketData)sender;
-            this.OnMarketData -= frmMarketData.OnMarketData;
-        }
-
-        private void OnReceiveMarketData(Api api, MarketData marketData)
-        {
-            Console.WriteLine(marketData.Instrument.Symbol + ": " + marketData.Data?.Last?.Price);
-            this.OnMarketData(marketData);
+            Argentina.Data.OnMarketData -= frmMarketData.OnMarketData;
         }
 
         private void InitWatchList()
@@ -84,7 +73,9 @@ namespace Primary.WinFormsApp
             //var bonds = new[] { "AL29", "AL30", "AL35", "AE38", "AL41", "GD29", "GD30", "GD35", "GD38", "GD41", "GD46" };
             var bonds = new[] { "AL30"};
 
-            var allBonds = bonds.Concat(bonds.Select(x => x + "D"));
+            var bondsD = bonds.Select(x => x + "D");
+            var bondsC = bonds.Select(x => x + "C");
+            var allBonds = bonds.Concat(bondsD).Concat(bondsC);
 
             this.watchList = new List<string>();
             foreach (var item in allBonds)
@@ -96,7 +87,7 @@ namespace Primary.WinFormsApp
 
         private bool ShouldWatch(Instrument instrument)
         {
-            return this.watchList.Contains(instrument.Symbol);
+            return Properties.Settings.Default.WatchedSymbols.Contains(instrument.Symbol);
         }
 
         private static string[] ToMervalSymbol(string ticker)
@@ -108,9 +99,16 @@ namespace Primary.WinFormsApp
             };
         }
 
-        private void loginToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void loginToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Login();
+            await Login();
+        }
+
+        private void historicDataToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var frmHistoric = new FrmHistoricData();
+            frmHistoric.MdiParent = this;
+            frmHistoric.Show();
         }
     }
 }

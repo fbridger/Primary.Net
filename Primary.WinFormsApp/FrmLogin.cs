@@ -42,5 +42,15 @@ namespace Primary.WinFormsApp
             txtPassword.Text = string.Empty;
             this.Close();
         }
+
+        private void FrmLogin_Load(object sender, EventArgs e)
+        {
+            this.txtUserName.Text = Properties.Settings.Default.UserName;
+            if (txtUserName.Text.Length > 0)
+            {
+                ActiveControl = txtPassword;
+                txtPassword.Focus();
+            }
+        }
     }
 }

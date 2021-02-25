@@ -7,6 +7,7 @@ using Primary.Data;
 
 namespace Primary.Tests
 {
+
     [TestFixture]
     internal class MarketDataWebSocketTests
     {
@@ -25,13 +26,13 @@ namespace Primary.Tests
         {
             // Get a dollar future
             var instruments = await _api.GetAllInstruments();
-            var instrument = instruments.Last( i => i.Symbol == Build.DollarFutureSymbol() );
+            var instrument = instruments.Last(i => i.Symbol == Build.DollarFutureSymbol());
 
             // Subscribe to market data
-            using var socket = _api.CreateMarketDataSocket(new[] { instrument }, new[] { Entry.Close } , 1, 1);
-            
+            using var socket = _api.CreateMarketDataSocket(new[] { instrument }, new[] { Entry.Close }, 1, 1);
+
             MarketData retrievedData = null;
-            socket.OnData = ( (api, marketData) => retrievedData = marketData );
+            socket.OnData = ((api, marketData) => retrievedData = marketData);
             await socket.Start();
 
             // Wait until data arrives
@@ -44,10 +45,10 @@ namespace Primary.Tests
             Assert.That(retrievedData.Instrument.Symbol, Is.Not.Null.And.Not.Empty);
             Assert.That(retrievedData.Timestamp, Is.Not.EqualTo(default(long)));
 
-            Trade close = retrievedData.Data.Close;
-            
-            Assert.That(close.Price, Is.Not.EqualTo(default(float)));
-            Assert.That(close.DateTime, Is.Not.EqualTo(default(DateTime)));
+            var close = retrievedData.Data.Close;
+
+            Assert.That(close.Price.Value, Is.Not.EqualTo(default(float)));
+            Assert.That(close.DateTime.Value, Is.Not.EqualTo(default(DateTime)));
         }
 
         [Test]
@@ -56,7 +57,7 @@ namespace Primary.Tests
         {
             // Get a dollar future
             var instruments = await _api.GetAllInstruments();
-            var instrument = instruments.Last( i => i.Symbol == Build.DollarFutureSymbol() );
+            var instrument = instruments.Last(i => i.Symbol == Build.DollarFutureSymbol());
 
             // Subscribe to bids and offers
             var entries = new[] { Entry.Bids, Entry.Offers };
@@ -95,14 +96,14 @@ namespace Primary.Tests
         {
             // Get a dollar future
             var instruments = await _api.GetAllInstruments();
-            var instrument = instruments.Last( i => i.Symbol == "I.RFX20" );
+            var instrument = instruments.Last(i => i.Symbol == "I.RFX20");
 
             // Subscribe to all entries
             var entries = new[] { Entry.IndexValue };
             using var socket = _api.CreateMarketDataSocket(new[] { instrument }, entries, 1, 1);
-            
+
             MarketData retrievedData = null;
-            socket.OnData = ( (api, marketData) => retrievedData = marketData);
+            socket.OnData = ((api, marketData) => retrievedData = marketData);
             await socket.Start();
 
             // Wait until data arrives
@@ -115,7 +116,7 @@ namespace Primary.Tests
             Assert.That(retrievedData.Instrument.Symbol, Is.Not.Null.And.Not.Empty);
         }
 
-        public static Entry[] AllEntries = { 
+        public static Entry[] AllEntries = {
             Entry.Bids,
             Entry.Offers,
             Entry.Last,

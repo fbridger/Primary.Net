@@ -2,17 +2,30 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Primary.WinFormsApp.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="WatchedSymbols" Type="System.Collections.Specialized.StringCollection" Scope="User">
+    <Setting Name="ArbitrationTickers" Type="System.Collections.Specialized.StringCollection" Scope="User">
       <Value Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
 &lt;ArrayOfString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
-  &lt;string&gt;MERV - XMEV - AL29 - 48hs&lt;/string&gt;
-  &lt;string&gt;MERV - XMEV - AL29 - CI&lt;/string&gt;
-  &lt;string&gt;MERV - XMEV - AL29D - 48hs&lt;/string&gt;
-  &lt;string&gt;MERV - XMEV - AL29D - CI&lt;/string&gt;
+  &lt;string&gt;AL29&lt;/string&gt;
+  &lt;string&gt;AL30&lt;/string&gt;
+  &lt;string&gt;AE38&lt;/string&gt;
+  &lt;string&gt;GD29&lt;/string&gt;
+  &lt;string&gt;GD30&lt;/string&gt;
+  &lt;string&gt;GD38&lt;/string&gt;
 &lt;/ArrayOfString&gt;</Value>
     </Setting>
     <Setting Name="UserName" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="Password" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="OwnedTickers" Type="System.Collections.Specialized.StringCollection" Scope="User">
+      <Value Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;ArrayOfString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;string&gt;AL29&lt;/string&gt;
+  &lt;string&gt;AL30&lt;/string&gt;
+  &lt;string&gt;AE38&lt;/string&gt;
+&lt;/ArrayOfString&gt;</Value>
     </Setting>
   </Settings>
 </SettingsFile>

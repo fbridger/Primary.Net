@@ -45,7 +45,7 @@ namespace Primary
         /// <returns></returns>
         public async Task<bool> Login(string username, string password)
         {
-            var uri = new Uri(BaseUri, "/auth/getToken");
+            var uri = new Uri(BaseUri, "auth/getToken");
 
             HttpClient.DefaultRequestHeaders.Clear();
             HttpClient.DefaultRequestHeaders.Add("X-Username", username);
@@ -77,7 +77,7 @@ namespace Primary
         /// <returns>Instruments information.</returns>
         public async Task<IEnumerable<Instrument>> GetAllInstruments()
         {
-            var uri = new Uri(BaseUri, "/rest/instruments/all");
+            var uri = new Uri(BaseUri, "rest/instruments/all");
             var response = await HttpClient.GetStringAsync(uri);
 
             var data = JsonConvert.DeserializeObject<GetAllInstrumentsResponse>(response);
@@ -111,7 +111,7 @@ namespace Primary
                                                                     DateTime dateFrom,
                                                                     DateTime dateTo)
         {
-            UriBuilder builder = new UriBuilder(BaseUri + "/rest/data/getTrades");
+            UriBuilder builder = new UriBuilder(BaseUri + "rest/data/getTrades");
             var query = HttpUtility.ParseQueryString(builder.Query);
             query["marketId"] = instrument.Market;
             query["symbol"] = instrument.Symbol;
@@ -143,6 +143,45 @@ namespace Primary
 
             [JsonProperty("trades")]
             public List<Trade> Trades { get; set; }
+        }
+
+        #endregion
+
+        #region Market data REST API
+
+        /// <summary>
+        /// Get all instruments currently traded on the exchange.
+        /// </summary>
+        /// <returns>Instruments information.</returns>
+        public async Task<MarketDataRestApi> GetMarketData(Instrument instrument, short depth = 5, Entry[] entries = null)
+        {
+            var marketData = await GetMarketData(instrument.Market, instrument.Symbol, depth, entries);
+
+            return marketData;
+        }
+
+        /// <summary>
+        /// Get all instruments currently traded on the exchange.
+        /// </summary>
+        /// <returns>Instruments information.</returns>
+        public async Task<MarketDataRestApi> GetMarketData(string marketId, string symbol, short depth = 5, Entry[] entries = null)
+        {
+            var builder = new UriBuilder(BaseUri + "rest/marketdata/get");
+            var query = HttpUtility.ParseQueryString(builder.Query);
+            query["symbol"] = symbol;
+            query["marketId"] = marketId;
+            if (entries == null)
+                query["entries"] = Constants.AllEntries.ToApiString();
+            else
+                query["entries"] = entries.ToApiString();
+            query["depth"] = depth.ToString();
+            builder.Query = query.ToString();
+
+            var stringTask = await HttpClient.GetStringAsync(builder.ToString());
+
+            var marketData = JsonConvert.DeserializeObject<MarketDataRestApi>(stringTask);
+
+            return marketData;
         }
 
         #endregion
@@ -235,7 +274,7 @@ namespace Primary
         /// <returns>Order identifier.</returns>
         public async Task<OrderId> SubmitOrder(string account, Order order)
         {
-            var builder = new UriBuilder(BaseUri + "/rest/order/newSingleOrder");
+            var builder = new UriBuilder(BaseUri + "rest/order/newSingleOrder");
             var query = HttpUtility.ParseQueryString(builder.Query);
             query["marketId"] = "ROFX";
             query["symbol"] = order.Instrument.Symbol;
@@ -278,7 +317,7 @@ namespace Primary
         public async Task<OrderStatus> GetOrderStatus(OrderId orderId)
         {
 
-            var builder = new UriBuilder(BaseUri + "/rest/order/id");
+            var builder = new UriBuilder(BaseUri + "rest/order/id");
             var query = HttpUtility.ParseQueryString(builder.Query);
             query["clOrdId"] = orderId.ClientOrderId;
             query["proprietary"] = orderId.Proprietary;
@@ -302,7 +341,7 @@ namespace Primary
         public async Task CancelOrder(OrderId orderId)
         {
 
-            var builder = new UriBuilder(BaseUri + "/rest/order/cancelById");
+            var builder = new UriBuilder(BaseUri + "rest/order/cancelById");
             var query = HttpUtility.ParseQueryString(builder.Query);
             query["clOrdId"] = orderId.ClientOrderId;
             query["proprietary"] = orderId.Proprietary;

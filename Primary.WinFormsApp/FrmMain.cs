@@ -7,6 +7,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -15,6 +16,7 @@ namespace Primary.WinFormsApp
     public partial class FrmMain : Form
     {
         private List<string> watchList;
+        private List<Task> backgroundTasks = new List<Task>();
 
         public FrmMain()
         {
@@ -41,62 +43,78 @@ namespace Primary.WinFormsApp
                 }
 
                 Properties.Settings.Default.UserName = login.UserName;
+                Properties.Settings.Default.Password = login.Password;
                 Properties.Settings.Default.Save();
 
                 await Argentina.Data.Init();
 
-                //InitWatchList();
+                InitWatchList();
                 var watchedInstruments = Argentina.Data.AllInstruments.Where(ShouldWatch).ToArray();
 
+                /*
                 foreach (var watchInstrument in watchedInstruments)
                 {
                     var frmMarketData = new FrmMarketData();
-                    frmMarketData.SetInstrument(watchInstrument.Symbol);
+                    frmMarketData.SetInstrument(watchInstrument);
                     Argentina.Data.OnMarketData += frmMarketData.OnMarketData;
                     frmMarketData.MdiParent = this;
                     frmMarketData.Show();
                     frmMarketData.FormClosing += MarketDataClosing;
                 }
+                
 
-                await Argentina.Data.WatchIntruments(watchedInstruments);
+                var frmDolarArbitation = new FrmDolarArbitration();
+                frmDolarArbitation.InitData();
+                frmDolarArbitation.MdiParent = this;
+                frmDolarArbitation.Show();
+                Argentina.Data.OnMarketData += frmDolarArbitation.OnMarketData;
+                frmDolarArbitation.FormClosing += MarketDataClosing;
+                */
+
+                var frmArbitrationBestTrades = new FrmArbitrationBestTrades();
+                frmArbitrationBestTrades.MdiParent = this;
+                frmArbitrationBestTrades.Show();
+
+                backgroundTasks.AddRange(Argentina.Data.WatchWithRestApi(watchedInstruments));
             }
         }
 
         private void MarketDataClosing(object sender, FormClosingEventArgs e)
         {
-            var frmMarketData = (FrmMarketData)sender;
-            Argentina.Data.OnMarketData -= frmMarketData.OnMarketData;
+            if(sender is FrmMarketData frmMarketData)
+            {
+                Argentina.Data.OnMarketData -= frmMarketData.OnMarketData;
+            }
+            else if (sender is FrmDolarArbitration frmDolarArbitration)
+            {
+                Argentina.Data.OnMarketData -= frmDolarArbitration.OnMarketData;
+            }
         }
 
         private void InitWatchList()
         {
             //var bonds = new[] { "AL29", "AL30", "AL35", "AE38", "AL41", "GD29", "GD30", "GD35", "GD38", "GD41", "GD46" };
-            var bonds = new[] { "AL30"};
+            var owned = Properties.Settings.Default.OwnedTickers.Cast<string>().ToList();
+            var arbitration = Properties.Settings.Default.ArbitrationTickers.Cast<string>().ToList();
 
-            var bondsD = bonds.Select(x => x + "D");
-            var bondsC = bonds.Select(x => x + "C");
-            var allBonds = bonds.Concat(bondsD).Concat(bondsC);
+            var bonds = arbitration.Concat(owned).Distinct();
 
             this.watchList = new List<string>();
-            foreach (var item in allBonds)
+            foreach (var item in bonds)
             {
-                watchList.AddRange(ToMervalSymbol(item));
+                watchList.AddRange(item.GetAllSymbols());
             }
 
         }
 
         private bool ShouldWatch(Instrument instrument)
         {
-            return Properties.Settings.Default.WatchedSymbols.Contains(instrument.Symbol);
-        }
-
-        private static string[] ToMervalSymbol(string ticker)
-        {
-            return new[] { 
-                $"MERV - XMEV - {ticker} - 48hs", 
-                $"MERV - XMEV - {ticker} - 24hs", 
-                $"MERV - XMEV - {ticker} - CI" 
-            };
+            if (watchList.Contains(instrument.Symbol))
+            {
+                return true;
+            }
+            
+            return false;
         }
 
         private async void loginToolStripMenuItem_Click(object sender, EventArgs e)

@@ -24,7 +24,7 @@ namespace Primary.WinFormsApp
 
         private void FrmHistoricData_Load(object sender, EventArgs e)
         {
-            cmbInstruments.DataSource = Argentina.Data.AllInstruments.OrderBy(x => x.SymbolWithoutPrefix).ToList();
+            cmbInstruments.DataSource = Argentina.Data.AllInstruments.OrderBy(x => x.SymbolWithoutPrefix()).ToList();
             cmbInstruments.DisplayMember = "SymbolWithoutPrefix";
             
         }

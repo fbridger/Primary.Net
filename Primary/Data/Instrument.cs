@@ -16,45 +16,40 @@ namespace Primary.Data
         [JsonProperty("symbol")]
         public string Symbol { get; set; }
 
-        public string SymbolWithoutPrefix
+        public string SymbolWithoutPrefix()
         {
-            get {
-                if (Symbol.StartsWith(MervalPrefix))
-                {
-                   return Symbol.Substring(MervalPrefix.Length).Trim();
-                }
-                return Symbol;
+            if (Symbol.StartsWith(MervalPrefix))
+            {
+                return Symbol.Substring(MervalPrefix.Length).Trim();
             }
+            return Symbol;
         }
 
-        public string Ticker
+        public string Ticker()
         {
-            get {
-                if (Symbol.StartsWith(MervalPrefix))
+            if (Symbol.StartsWith(MervalPrefix))
+            {
+                int tickerLength = Symbol.LastIndexOf('-') - MervalPrefix.Length;
+                if (tickerLength > 0)
                 {
-                    int tickerLength = Symbol.LastIndexOf('-') - MervalPrefix.Length;
-                    if (tickerLength > 0)
-                    {
-                        return Symbol.Substring(MervalPrefix.Length, tickerLength).Trim();
-                    }
-                    return Symbol.Substring(MervalPrefix.Length).Trim();
+                    return Symbol.Substring(MervalPrefix.Length, tickerLength).Trim();
                 }
-                return Symbol;
+                return Symbol.Substring(MervalPrefix.Length).Trim();
             }
+            return Symbol;
         }
 
-        public string SettlementTerm
+        public string SettlementTerm()
         {
-            get {
-                if (Symbol.StartsWith(MervalPrefix))
+            if (Symbol.StartsWith(MervalPrefix))
+            {
+                if (Symbol.LastIndexOf('-') > MervalPrefix.Length)
                 {
-                    if (Symbol.LastIndexOf('-') > MervalPrefix.Length)
-                    {
-                        return Symbol.Substring(Symbol.LastIndexOf('-')).Trim();
-                    }
+                    return Symbol.Substring(Symbol.LastIndexOf('-')).Trim();
                 }
-                return string.Empty;
             }
+            return string.Empty;
+
         }
     }
 }

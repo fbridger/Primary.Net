@@ -1,8 +1,11 @@
 ﻿using Newtonsoft.Json;
 using Primary.Serialization;
+using System;
+using System.Linq;
 
 namespace Primary.Data
 {
+
     [JsonConverter(typeof(EntryJsonSerializer))]
     public enum Entry
     {
@@ -50,6 +53,14 @@ namespace Primary.Data
 
     internal static class EnumsToApiStrings
     {
+        public static string ToApiString(this Entry[] entries)
+        {
+            var entryList = entries.Select(x => ToApiString(x));
+            var querystring = string.Join(",", entryList);
+            return querystring;
+        }
+
+
         public static string ToApiString(this Entry value)
         {
             return value switch

@@ -7,6 +7,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -14,17 +15,18 @@ namespace Primary.WinFormsApp
 {
     public partial class FrmMarketData : Form
     {
-        
+        private Instrument _instrument;
+
         public FrmMarketData()
         {
             InitializeComponent();
         }
 
-        public void OnMarketData(MarketData marketData)
+        public void OnMarketData(Instrument instrument, Entries data)
         {
             try
             {
-                this.Invoke(new Action(() => this.UpdateMarketData(marketData)));
+                this.Invoke(new Action(() => this.UpdateMarketData(instrument, data)));
             }
             catch (Exception ex)
             {
@@ -32,12 +34,12 @@ namespace Primary.WinFormsApp
             }
         }
 
-        private void UpdateMarketData(MarketData marketData)
+        private void UpdateMarketData(Instrument instrument, Entries data)
         {
-            if (marketData.Instrument?.Symbol == this.Text)
+            if (instrument?.Symbol == this.Text)
             {
-                txtPrice.Text = marketData.Data?.Last?.Price.ToString();
-                txtChange.Text =  ((marketData.Data?.Last?.Price / marketData.Data?.Close?.Price - 1M) * 100).ToString();
+                txtPrice.Text = data?.Last?.Price.ToString();
+                txtChange.Text = ((data?.Last?.Price / data?.Close?.Price - 1M) * 100).ToString();
 
                 var dataTable = new DataTable();
                 dataTable.Columns.Add("BidSize", typeof(decimal));
@@ -48,13 +50,13 @@ namespace Primary.WinFormsApp
                 for (int i = 0; i < 5; i++)
                 {
                     var row = dataTable.NewRow();
-                    var bid = marketData.Data?.Bids?.ElementAtOrDefault(i);
+                    var bid = data?.Bids?.ElementAtOrDefault(i);
                     if (bid != null)
                     {
                         row["BidSize"] = bid.Size;
                         row["BidPrice"] = bid.Price;
                     }
-                    var offer = marketData.Data?.Offers?.ElementAtOrDefault(i);
+                    var offer = data?.Offers?.ElementAtOrDefault(i);
                     if (offer != null)
                     {
                         row["OfferSize"] = offer.Size;
@@ -68,9 +70,10 @@ namespace Primary.WinFormsApp
 
         }
 
-        public void SetInstrument(string symbol)
+        public void SetInstrument(Instrument instrument)
         {
-            this.Text = symbol;
+            _instrument = instrument;
+            this.Text = instrument.Symbol;
         }
 
         private void grdBook_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -81,5 +84,6 @@ namespace Primary.WinFormsApp
         private void FrmMarketData_FormClosing(object sender, FormClosingEventArgs e)
         {
         }
+
     }
 }

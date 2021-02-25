@@ -27,17 +27,19 @@ namespace Primary.WinFormsApp.Properties {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute(@"<?xml version=""1.0"" encoding=""utf-16""?>
 <ArrayOfString xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"">
-  <string>MERV - XMEV - AL29 - 48hs</string>
-  <string>MERV - XMEV - AL29 - CI</string>
-  <string>MERV - XMEV - AL29D - 48hs</string>
-  <string>MERV - XMEV - AL29D - CI</string>
+  <string>AL29</string>
+  <string>AL30</string>
+  <string>AE38</string>
+  <string>GD29</string>
+  <string>GD30</string>
+  <string>GD38</string>
 </ArrayOfString>")]
-        public global::System.Collections.Specialized.StringCollection WatchedSymbols {
+        public global::System.Collections.Specialized.StringCollection ArbitrationTickers {
             get {
-                return ((global::System.Collections.Specialized.StringCollection)(this["WatchedSymbols"]));
+                return ((global::System.Collections.Specialized.StringCollection)(this["ArbitrationTickers"]));
             }
             set {
-                this["WatchedSymbols"] = value;
+                this["ArbitrationTickers"] = value;
             }
         }
         
@@ -50,6 +52,33 @@ namespace Primary.WinFormsApp.Properties {
             }
             set {
                 this["UserName"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Password {
+            get {
+                return ((string)(this["Password"]));
+            }
+            set {
+                this["Password"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("<?xml version=\"1.0\" encoding=\"utf-16\"?>\r\n<ArrayOfString xmlns:xsi=\"http://www.w3." +
+            "org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\">\r\n  <s" +
+            "tring>AL29</string>\r\n  <string>AL30</string>\r\n  <string>AE38</string>\r\n</ArrayOf" +
+            "String>")]
+        public global::System.Collections.Specialized.StringCollection OwnedTickers {
+            get {
+                return ((global::System.Collections.Specialized.StringCollection)(this["OwnedTickers"]));
+            }
+            set {
+                this["OwnedTickers"] = value;
             }
         }
     }

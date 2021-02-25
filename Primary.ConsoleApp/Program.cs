@@ -70,7 +70,14 @@ namespace Primary.ConsoleApp
 
         private static void WriteData(Api api, MarketData marketData)
         {
-            Console.WriteLine(marketData.Instrument.Symbol + ": " + marketData.Data?.Last?.Price);
+            if (marketData.Status == "ERROR")
+            {
+                Console.WriteLine(marketData.Status);
+            }
+            else
+            {
+                Console.WriteLine(marketData.Instrument.Symbol + ": " + marketData.Data?.Last?.Price);
+            }
         }
 
         private static void InitWatchList()

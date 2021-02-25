@@ -41,6 +41,93 @@ namespace Primary.Data
         public Instrument[] Products;
     }
 
+    public class MarketDataRestApi
+    {
+        public System.Net.HttpStatusCode Status { get; set; }
+
+        public bool Aggregated { get; set; }
+
+        /// <summary>Market data grouped by entry.</summary>
+        [JsonProperty("marketData")]
+        public Entries Data { get; set; }
+    }
+
+    public class Entries
+    {
+        [JsonProperty("BI")] public Trade[] Bids { get; set; }
+        [JsonProperty("OF")] public Trade[] Offers { get; set; }
+
+        [JsonProperty("LA")] public NullableTrade Last { get; set; }
+        [JsonProperty("OP")] public decimal? Open { get; set; }
+        [JsonProperty("CL")] public NullableTrade Close { get; set; }
+
+        [JsonProperty("SE")] public NullableTrade SettlementPrice { get; set; }
+        [JsonProperty("OI")] public NullableTrade OpenInterest { get; set; }
+
+        [JsonProperty("HI")] public decimal? SessionHighPrice { get; set; }
+        [JsonProperty("LO")] public decimal? SessionLowPrice { get; set; }
+        [JsonProperty("IV")] public decimal? IndexValue { get; set; }
+
+        [JsonProperty("TV")] public decimal? Volume { get; set; }
+        [JsonProperty("NV")] public decimal? NominalVolume { get; set; }
+        [JsonProperty("EV")] public decimal? EffectiveVolume { get; set; }
+
+        public bool HasOffers()
+        {
+            return Offers != null && Offers.Length > 0 && Offers[0].Price > 0;
+        }
+
+        public decimal GetTopOfferSize()
+        {
+            if (HasOffers())
+            {
+                return Offers[0].Size;
+            }
+
+            return default;
+        }
+
+        public decimal GetTopOfferPrice()
+        {
+            if (HasOffers())
+            {
+                return Offers[0].Price;
+            }
+
+            return default;
+        }
+
+        public bool HasBids()
+        {
+            return Bids != null && Bids.Length > 0 && Bids[0].Price > 0;
+        }
+
+        public decimal GetTopBidSize()
+        {
+            if (HasBids())
+            {
+                return Bids[0].Size;
+            }
+
+            return default;
+        }
+
+        public decimal GetTopBidPrice()
+        {
+            if (HasBids())
+            {
+                return Bids[0].Price;
+            }
+
+            return default;
+        }
+
+        public bool HasLastPrice()
+        {
+            return Last != null && Last.Price.HasValue;
+        }
+    }
+
     /// <summary>
     /// Real-time market data receive from the MarketDataWebSocket.
     /// </summary>
@@ -58,25 +145,7 @@ namespace Primary.Data
         [JsonProperty("marketData")]
         public Entries Data { get; set; }
 
-        public class Entries
-        {
-            [JsonProperty("BI")] public Trade[] Bids { get; set; }
-            [JsonProperty("OF")] public Trade[] Offers { get; set; }
-
-            [JsonProperty("LA")] public Trade Last { get; set; }
-            [JsonProperty("OP")] public decimal? Open { get; set; }
-            [JsonProperty("CL")] public Trade Close { get; set; }
-
-            [JsonProperty("SE")] public Trade SettlementPrice { get; set; }
-            [JsonProperty("OI")] public Trade OpenInterest { get; set; }
-
-            [JsonProperty("HI")] public decimal? SessionHighPrice { get; set; }
-            [JsonProperty("LO")] public decimal? SessionLowPrice { get; set; }
-            [JsonProperty("IV")] public decimal? IndexValue { get; set; }
-
-            [JsonProperty("TV")] public decimal? Volume { get; set; }
-            [JsonProperty("NV")] public decimal? NominalVolume { get; set; }
-            [JsonProperty("EV")] public decimal? EffectiveVolume { get; set; }
-        }                        
+        [JsonProperty("status")]
+        public string Status { get; set; }
     }
 }

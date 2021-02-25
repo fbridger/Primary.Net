@@ -70,7 +70,7 @@ namespace Primary.WinFormsApp
                 Console.WriteLine(marketData.Instrument?.Symbol + ": " + marketData.Data?.Last?.Price);
                 LatestMarketData.AddOrUpdate(marketData.Instrument.Symbol, marketData.Data, (key, data) => marketData.Data);
 
-                OnMarketData(marketData.Instrument, marketData.Data);
+                OnMarketData?.Invoke(marketData.Instrument, marketData.Data);
 
             }
         }
@@ -85,10 +85,7 @@ namespace Primary.WinFormsApp
 
                     LatestMarketData.AddOrUpdate(instrument.Symbol, marketDataRestApi.Data, (key, data) => marketDataRestApi.Data);
 
-                    if (OnMarketData != null)
-                    {
-                        OnMarketData(instrument, marketDataRestApi.Data);
-                    }
+                    OnMarketData?.Invoke(instrument, marketDataRestApi.Data);
 
                     await Task.Delay(TimeSpan.FromSeconds(3), _tokenSource.Token);
 

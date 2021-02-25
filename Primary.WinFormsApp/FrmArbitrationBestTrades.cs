@@ -62,12 +62,6 @@ namespace Primary.WinFormsApp
                     row["DolarVenta"] = bestTrade.Arbitration.Venta;
                     row["DolarVentaLast"] = bestTrade.Arbitration.Last;
 
-                    
-                    row["BookOwnedCompra"] = bestTrade.Owned.Dolar.Data.HasBids() ? bestTrade.Owned.Dolar.Data.Bids[0].ToReadableBid() : null;
-                    row["BookArbitrationVenta"] = bestTrade.Arbitration.Dolar.Data.HasOffers() ? bestTrade.Arbitration.Dolar.Data.Offers[0].ToReadableOffer() : null;
-                    row["BookArbitrationCompra"] = bestTrade.Arbitration.Pesos.Data.HasBids() ? bestTrade.Arbitration.Pesos.Data.Bids[0].ToReadableBid() : null;
-                    row["BookOwnedVenta"] = bestTrade.Owned.Pesos.Data.HasOffers() ? bestTrade.Owned.Pesos.Data.Offers[0].ToReadableOffer() : null;
-
                     row["DolarArbitrationTrade"] = bestTrade;
 
                     if (existingRow == null)
@@ -126,11 +120,6 @@ namespace Primary.WinFormsApp
             _dataTable.Columns.Add("DolarCompraLast", typeof(decimal));
             _dataTable.Columns.Add("DolarVenta", typeof(decimal));
             _dataTable.Columns.Add("DolarVentaLast", typeof(decimal));
-
-            _dataTable.Columns.Add("BookOwnedCompra", typeof(string));
-            _dataTable.Columns.Add("BookArbitrationVenta", typeof(string));
-            _dataTable.Columns.Add("BookArbitrationCompra", typeof(string));
-            _dataTable.Columns.Add("BookOwnedVenta", typeof(string));
 
             _dataTable.Columns.Add("DolarArbitrationTrade", typeof(DolarArbitrationTrade));
 

@@ -75,7 +75,7 @@ namespace Primary.WinFormsApp
                 frmArbitrationBestTrades.MdiParent = this;
                 frmArbitrationBestTrades.Show();
 
-                backgroundTasks.AddRange(Argentina.Data.WatchWithRestApi(watchedInstruments));
+                backgroundTasks.Add(Argentina.Data.WatchWithWebSocket(watchedInstruments));
             }
         }
 

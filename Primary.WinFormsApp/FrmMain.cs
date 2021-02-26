@@ -23,9 +23,9 @@ namespace Primary.WinFormsApp
             InitializeComponent();
         }
 
-        private void FrmMain_Load(object sender, EventArgs e)
+        private async void FrmMain_Load(object sender, EventArgs e)
         {
-
+            await Login();
         }
 
         private async Task Login()
@@ -51,29 +51,14 @@ namespace Primary.WinFormsApp
                 InitWatchList();
                 var watchedInstruments = Argentina.Data.AllInstruments.Where(ShouldWatch).ToArray();
 
-                /*
-                foreach (var watchInstrument in watchedInstruments)
+                foreach (var item in Argentina.Data.AllInstruments.OrderBy(x => x.SymbolWithoutPrefix()))
                 {
-                    var frmMarketData = new FrmMarketData();
-                    frmMarketData.SetInstrument(watchInstrument);
-                    Argentina.Data.OnMarketData += frmMarketData.OnMarketData;
-                    frmMarketData.MdiParent = this;
-                    frmMarketData.Show();
-                    frmMarketData.FormClosing += MarketDataClosing;
+                    cmbInstruments.Items.Add(item);
                 }
-                
 
-                var frmDolarArbitation = new FrmDolarArbitration();
-                frmDolarArbitation.InitData();
-                frmDolarArbitation.MdiParent = this;
-                frmDolarArbitation.Show();
-                Argentina.Data.OnMarketData += frmDolarArbitation.OnMarketData;
-                frmDolarArbitation.FormClosing += MarketDataClosing;
-                */
-
-                var frmArbitrationBestTrades = new FrmArbitrationBestTrades();
-                frmArbitrationBestTrades.MdiParent = this;
-                frmArbitrationBestTrades.Show();
+                var frmArbitrationAnalyzer = new FrmArbitrationAnalyzer();
+                frmArbitrationAnalyzer.MdiParent = this;
+                frmArbitrationAnalyzer.Show();
 
                 backgroundTasks.Add(Argentina.Data.WatchWithWebSocket(watchedInstruments));
             }
@@ -81,14 +66,7 @@ namespace Primary.WinFormsApp
 
         private void MarketDataClosing(object sender, FormClosingEventArgs e)
         {
-            if(sender is FrmMarketData frmMarketData)
-            {
-                Argentina.Data.OnMarketData -= frmMarketData.OnMarketData;
-            }
-            else if (sender is FrmDolarArbitration frmDolarArbitration)
-            {
-                Argentina.Data.OnMarketData -= frmDolarArbitration.OnMarketData;
-            }
+
         }
 
         private void InitWatchList()
@@ -127,6 +105,23 @@ namespace Primary.WinFormsApp
             var frmHistoric = new FrmHistoricData();
             frmHistoric.MdiParent = this;
             frmHistoric.Show();
+        }
+
+        private void buscadorDeArbitrajesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var frmArbitrationAnalyzer = new FrmArbitrationAnalyzer();
+            frmArbitrationAnalyzer.MdiParent = this;
+            frmArbitrationAnalyzer.Show();
+
+        }
+
+        private void cmbInstruments_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var instrument = cmbInstruments.SelectedItem as Instrument;
+            var frmMarketData = new FrmMarketData();
+            frmMarketData.SetInstrument(instrument);
+            frmMarketData.MdiParent = this;
+            frmMarketData.Show();
         }
     }
 }

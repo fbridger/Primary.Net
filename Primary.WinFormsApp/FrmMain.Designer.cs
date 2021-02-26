@@ -31,6 +31,9 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.loginToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.historicDataToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.buscadorDeArbitrajesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.marketDataToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cmbInstruments = new System.Windows.Forms.ToolStripComboBox();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -38,7 +41,9 @@
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.loginToolStripMenuItem,
-            this.historicDataToolStripMenuItem});
+            this.historicDataToolStripMenuItem,
+            this.buscadorDeArbitrajesToolStripMenuItem,
+            this.marketDataToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(800, 24);
@@ -58,6 +63,27 @@
             this.historicDataToolStripMenuItem.Size = new System.Drawing.Size(87, 20);
             this.historicDataToolStripMenuItem.Text = "Historic Data";
             this.historicDataToolStripMenuItem.Click += new System.EventHandler(this.historicDataToolStripMenuItem_Click);
+            // 
+            // buscadorDeArbitrajesToolStripMenuItem
+            // 
+            this.buscadorDeArbitrajesToolStripMenuItem.Name = "buscadorDeArbitrajesToolStripMenuItem";
+            this.buscadorDeArbitrajesToolStripMenuItem.Size = new System.Drawing.Size(137, 20);
+            this.buscadorDeArbitrajesToolStripMenuItem.Text = "Buscador de Arbitrajes";
+            this.buscadorDeArbitrajesToolStripMenuItem.Click += new System.EventHandler(this.buscadorDeArbitrajesToolStripMenuItem_Click);
+            // 
+            // marketDataToolStripMenuItem
+            // 
+            this.marketDataToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.cmbInstruments});
+            this.marketDataToolStripMenuItem.Name = "marketDataToolStripMenuItem";
+            this.marketDataToolStripMenuItem.Size = new System.Drawing.Size(80, 20);
+            this.marketDataToolStripMenuItem.Text = "MarketData";
+            // 
+            // cmbInstruments
+            // 
+            this.cmbInstruments.Name = "cmbInstruments";
+            this.cmbInstruments.Size = new System.Drawing.Size(121, 23);
+            this.cmbInstruments.SelectedIndexChanged += new System.EventHandler(this.cmbInstruments_SelectedIndexChanged);
             // 
             // FrmMain
             // 
@@ -83,6 +109,9 @@
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem loginToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem historicDataToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem buscadorDeArbitrajesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem marketDataToolStripMenuItem;
+        private System.Windows.Forms.ToolStripComboBox cmbInstruments;
     }
 }
 

@@ -67,7 +67,7 @@ namespace Primary.WinFormsApp
         {
             if (marketData.Instrument != null)
             {
-                Console.WriteLine(marketData.Instrument?.Symbol + ": " + marketData.Data?.Last?.Price);
+                //Console.WriteLine(marketData.Instrument?.Symbol + ": " + marketData.Data?.Last?.Price);
                 LatestMarketData.AddOrUpdate(marketData.Instrument.Symbol, marketData.Data, (key, data) => marketData.Data);
 
                 OnMarketData?.Invoke(marketData.Instrument, marketData.Data);

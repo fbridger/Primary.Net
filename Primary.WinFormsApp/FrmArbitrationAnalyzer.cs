@@ -5,12 +5,12 @@ using System.Windows.Forms;
 
 namespace Primary.WinFormsApp
 {
-    public partial class FrmArbitrationBestTrades : Form
+    public partial class FrmArbitrationAnalyzer : Form
     {
         private DolarArbitrationProcessor _processor;
         private DataTable _dataTable;
 
-        public FrmArbitrationBestTrades()
+        public FrmArbitrationAnalyzer()
         {
             InitializeComponent();
         }

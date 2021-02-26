@@ -1,6 +1,6 @@
 ﻿namespace Primary.WinFormsApp
 {
-    partial class FrmArbitrationBestTrades
+    partial class FrmArbitrationAnalyzer
     {
         /// <summary>
         /// Required designer variable.

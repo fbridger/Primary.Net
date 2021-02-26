@@ -124,7 +124,7 @@ namespace Primary.Data
 
         public bool HasLastPrice()
         {
-            return Last != null && Last.Price.HasValue;
+            return Last != null && Last.Price.HasValue && Last.Price.Value != default;
         }
     }
 

@@ -83,7 +83,17 @@ namespace Primary.WinFormsApp
 
         private void FrmMarketData_FormClosing(object sender, FormClosingEventArgs e)
         {
+            Argentina.Data.OnMarketData -= this.OnMarketData;
         }
 
+        private void txtPrice_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void FrmMarketData_Load(object sender, EventArgs e)
+        {
+            Argentina.Data.OnMarketData += this.OnMarketData;
+        }
     }
 }

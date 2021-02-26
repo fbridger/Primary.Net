@@ -73,23 +73,17 @@
     <Compile Include="DolarArbitrationProcessor.cs" />
     <Compile Include="DolarArbitrationInstruments.cs" />
     <Compile Include="DolarTradedInstrument.cs" />
-    <Compile Include="FrmArbitrationBestTrades.cs">
+    <Compile Include="FrmArbitrationAnalyzer.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FrmArbitrationBestTrades.Designer.cs">
-      <DependentUpon>FrmArbitrationBestTrades.cs</DependentUpon>
+    <Compile Include="FrmArbitrationAnalyzer.Designer.cs">
+      <DependentUpon>FrmArbitrationAnalyzer.cs</DependentUpon>
     </Compile>
     <Compile Include="FrmArbitrationTrade.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FrmArbitrationTrade.Designer.cs">
       <DependentUpon>FrmArbitrationTrade.cs</DependentUpon>
-    </Compile>
-    <Compile Include="FrmDolarArbitration.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FrmDolarArbitration.Designer.cs">
-      <DependentUpon>FrmDolarArbitration.cs</DependentUpon>
     </Compile>
     <Compile Include="FrmHistoricData.cs">
       <SubType>Form</SubType>
@@ -120,14 +114,11 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StringExtensions.cs" />
-    <EmbeddedResource Include="FrmArbitrationBestTrades.resx">
-      <DependentUpon>FrmArbitrationBestTrades.cs</DependentUpon>
+    <EmbeddedResource Include="FrmArbitrationAnalyzer.resx">
+      <DependentUpon>FrmArbitrationAnalyzer.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmArbitrationTrade.resx">
       <DependentUpon>FrmArbitrationTrade.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FrmDolarArbitration.resx">
-      <DependentUpon>FrmDolarArbitration.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmHistoricData.resx">
       <DependentUpon>FrmHistoricData.cs</DependentUpon>

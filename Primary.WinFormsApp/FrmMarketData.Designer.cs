@@ -93,6 +93,7 @@
             this.txtPrice.ReadOnly = true;
             this.txtPrice.Size = new System.Drawing.Size(129, 20);
             this.txtPrice.TabIndex = 1;
+            this.txtPrice.TextChanged += new System.EventHandler(this.txtPrice_TextChanged);
             // 
             // txtChange
             // 
@@ -116,6 +117,7 @@
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.Text = "FrmMarketData";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmMarketData_FormClosing);
+            this.Load += new System.EventHandler(this.FrmMarketData_Load);
             ((System.ComponentModel.ISupportInitialize)(this.grdBook)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

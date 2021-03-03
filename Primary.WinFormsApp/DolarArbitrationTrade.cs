@@ -44,19 +44,19 @@
         /// <returns></returns>
         public int GetOwnedVentaMaxSize()
         {
-            var ownedCompraSize = Owned.Pesos.Data.GetTopBidSize();
-            var ownedCompraPrice = Owned.Pesos.Data.GetTopBidPrice();
+            var ownedCompraSize = Owned.Buy.Data.GetTopBidSize();
+            var ownedCompraPrice = Owned.Buy.Data.GetTopBidPrice();
             var ownedCompra = ownedCompraSize * ownedCompraPrice;
 
-            var arbitrationVentaSize = Arbitration.Pesos.Data.GetTopBidSize();
-            var arbitrationVentaPrice = Arbitration.Pesos.Data.GetTopBidPrice();
+            var arbitrationVentaSize = Arbitration.Buy.Data.GetTopBidSize();
+            var arbitrationVentaPrice = Arbitration.Buy.Data.GetTopBidPrice();
             var arbitrationVenta = arbitrationVentaSize * arbitrationVentaPrice;
 
-            var arbitrationCompraSize = Arbitration.Dolar.Data.GetTopBidSize();
-            var arbitrationCompraPrice = Arbitration.Dolar.Data.GetTopBidPrice();
+            var arbitrationCompraSize = Arbitration.Sell.Data.GetTopBidSize();
+            var arbitrationCompraPrice = Arbitration.Sell.Data.GetTopBidPrice();
 
-            var ownedVentaSize = Owned.Pesos.Data.GetTopBidSize();
-            var ownedVentaPrice = Owned.Pesos.Data.GetTopBidPrice();
+            var ownedVentaSize = Owned.Buy.Data.GetTopBidSize();
+            var ownedVentaPrice = Owned.Buy.Data.GetTopBidPrice();
 
             return 0;
         }

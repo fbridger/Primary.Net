@@ -26,10 +26,10 @@ namespace Primary.WinFormsApp
 
                 foreach (var bestTrade in trades)
                 {
-                    var ownedVenta = bestTrade.Owned.Dolar.Instrument.SymbolWithoutPrefix();
-                    var arbitrationCompra = bestTrade.Arbitration.Dolar.Instrument.SymbolWithoutPrefix();
-                    var arbitrationVenta = bestTrade.Arbitration.Pesos.Instrument.SymbolWithoutPrefix();
-                    var ownedCompra = bestTrade.Owned.Pesos.Instrument.SymbolWithoutPrefix();
+                    var ownedVenta = bestTrade.Owned.Sell.Instrument.SymbolWithoutPrefix();
+                    var arbitrationCompra = bestTrade.Arbitration.Sell.Instrument.SymbolWithoutPrefix();
+                    var arbitrationVenta = bestTrade.Arbitration.Buy.Instrument.SymbolWithoutPrefix();
+                    var ownedCompra = bestTrade.Owned.Buy.Instrument.SymbolWithoutPrefix();
 
                     DataRow row;
                     var existingRow = _dataTable.Rows.Find(new[] { ownedVenta, arbitrationCompra, arbitrationVenta, ownedCompra });
@@ -51,10 +51,10 @@ namespace Primary.WinFormsApp
                     row["Profit"] = bestTrade.Profit;
                     row["ProfitLast"] = bestTrade.ProfitLast;
 
-                    row["OwnedVenta"] = bestTrade.Owned.Dolar.Data.HasBids() ? (object)bestTrade.Owned.Dolar.Data.Bids[0].Price : DBNull.Value;
-                    row["ArbitrationCompra"] = bestTrade.Arbitration.Dolar.Data.HasOffers() ? (object)bestTrade.Arbitration.Dolar.Data.Offers[0].Price : DBNull.Value;
-                    row["ArbitrationVenta"] = bestTrade.Arbitration.Pesos.Data.HasBids() ? (object)bestTrade.Arbitration.Pesos.Data.Bids[0].Price : DBNull.Value;
-                    row["OwnedCompra"] = bestTrade.Owned.Pesos.Data.HasOffers() ? (object)bestTrade.Owned.Pesos.Data.Offers[0].Price : DBNull.Value;
+                    row["OwnedVenta"] = bestTrade.Owned.Sell.Data.HasBids() ? (object)bestTrade.Owned.Sell.Data.Bids[0].Price : DBNull.Value;
+                    row["ArbitrationCompra"] = bestTrade.Arbitration.Sell.Data.HasOffers() ? (object)bestTrade.Arbitration.Sell.Data.Offers[0].Price : DBNull.Value;
+                    row["ArbitrationVenta"] = bestTrade.Arbitration.Buy.Data.HasBids() ? (object)bestTrade.Arbitration.Buy.Data.Bids[0].Price : DBNull.Value;
+                    row["OwnedCompra"] = bestTrade.Owned.Buy.Data.HasOffers() ? (object)bestTrade.Owned.Buy.Data.Offers[0].Price : DBNull.Value;
 
 
                     row["DolarCompra"] = bestTrade.Owned.Compra;

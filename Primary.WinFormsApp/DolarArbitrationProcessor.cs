@@ -43,10 +43,18 @@ namespace Primary.WinFormsApp
 
             foreach (var dolarArbitrationData in dolarArbitrationPairCollection)
             {
-                var dolarTrades = dolarArbitrationData.GetDolarArbitrationTrades();
+                
+                var dolarTrades = dolarArbitrationData.GetBuyPesosSellDolarArbitrationTrades();
                 trades.AddRange(dolarTrades.Where(x => x.Profit > 0.005m || x.ProfitLast > 0.005m));
-                var cableTrades = dolarArbitrationData.GetCableArbitrationTrades();
+                var cableTrades = dolarArbitrationData.GetBuyPesosSellCableArbitrationTrades();
                 trades.AddRange(cableTrades.Where(x => x.Profit > 0.005m || x.ProfitLast > 0.005m));
+                
+
+                var dolarCableTrades = dolarArbitrationData.GetBuyDolarSellCableArbitrationTrades();
+                trades.AddRange(dolarCableTrades.Where(x => x.Profit > 0.005m || x.ProfitLast > 0.005m));
+
+                var cableDolarTrades = dolarArbitrationData.GetSellDolarBuyCableArbitrationTrades();
+                trades.AddRange(cableDolarTrades.Where(x => x.Profit > 0.005m || x.ProfitLast > 0.005m));
             }
 
             return trades;

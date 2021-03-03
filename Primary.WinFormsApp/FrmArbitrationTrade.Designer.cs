@@ -30,7 +30,6 @@
         {
             this.components = new System.ComponentModel.Container();
             this.grpOwnedVenta = new System.Windows.Forms.GroupBox();
-            this.lblOwnedVentaTotal = new System.Windows.Forms.Label();
             this.lblBookOwnedVentaOffer = new System.Windows.Forms.Label();
             this.lblOwnedVentaLast = new System.Windows.Forms.Label();
             this.lblBookOwnedVentaBid = new System.Windows.Forms.Label();
@@ -51,7 +50,6 @@
             this.label7 = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.grpArbitrationVenta = new System.Windows.Forms.GroupBox();
-            this.lblArbitrationVentaTotal = new System.Windows.Forms.Label();
             this.lblBookArbitrationVentaOffer = new System.Windows.Forms.Label();
             this.lblArbitrationVentaLast = new System.Windows.Forms.Label();
             this.lblBookArbitrationVentaBid = new System.Windows.Forms.Label();
@@ -78,6 +76,11 @@
             this.lblArbitrationDiff = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.numDolar = new System.Windows.Forms.NumericUpDown();
+            this.lblComisionTotal = new System.Windows.Forms.Label();
+            this.lblTotalProfit = new System.Windows.Forms.Label();
+            this.lblProfitPesos = new System.Windows.Forms.Label();
             this.grpOwnedVenta.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numOwnedVentaPrice)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numOwnedVentaSize)).BeginInit();
@@ -91,12 +94,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.numOwnedCompraPrice)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numOwnedCompraSize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numComision)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numDolar)).BeginInit();
             this.SuspendLayout();
             // 
             // grpOwnedVenta
             // 
             this.grpOwnedVenta.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.grpOwnedVenta.Controls.Add(this.lblOwnedVentaTotal);
             this.grpOwnedVenta.Controls.Add(this.lblBookOwnedVentaOffer);
             this.grpOwnedVenta.Controls.Add(this.lblOwnedVentaLast);
             this.grpOwnedVenta.Controls.Add(this.lblBookOwnedVentaBid);
@@ -112,16 +115,6 @@
             this.grpOwnedVenta.TabIndex = 1;
             this.grpOwnedVenta.TabStop = false;
             this.grpOwnedVenta.Text = "1. Venta de Bono en Cartera";
-            // 
-            // lblOwnedVentaTotal
-            // 
-            this.lblOwnedVentaTotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblOwnedVentaTotal.Location = new System.Drawing.Point(6, 119);
-            this.lblOwnedVentaTotal.Name = "lblOwnedVentaTotal";
-            this.lblOwnedVentaTotal.Size = new System.Drawing.Size(184, 18);
-            this.lblOwnedVentaTotal.TabIndex = 10;
-            this.lblOwnedVentaTotal.Text = "Total  - Comision";
-            this.lblOwnedVentaTotal.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // lblBookOwnedVentaOffer
             // 
@@ -373,7 +366,6 @@
             // grpArbitrationVenta
             // 
             this.grpArbitrationVenta.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.grpArbitrationVenta.Controls.Add(this.lblArbitrationVentaTotal);
             this.grpArbitrationVenta.Controls.Add(this.lblBookArbitrationVentaOffer);
             this.grpArbitrationVenta.Controls.Add(this.lblArbitrationVentaLast);
             this.grpArbitrationVenta.Controls.Add(this.lblBookArbitrationVentaBid);
@@ -389,16 +381,6 @@
             this.grpArbitrationVenta.TabIndex = 12;
             this.grpArbitrationVenta.TabStop = false;
             this.grpArbitrationVenta.Text = "3. Venta de Bono a Arbitrar";
-            // 
-            // lblArbitrationVentaTotal
-            // 
-            this.lblArbitrationVentaTotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblArbitrationVentaTotal.Location = new System.Drawing.Point(12, 116);
-            this.lblArbitrationVentaTotal.Name = "lblArbitrationVentaTotal";
-            this.lblArbitrationVentaTotal.Size = new System.Drawing.Size(180, 18);
-            this.lblArbitrationVentaTotal.TabIndex = 12;
-            this.lblArbitrationVentaTotal.Text = "Total  - Comision";
-            this.lblArbitrationVentaTotal.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // lblBookArbitrationVentaOffer
             // 
@@ -689,11 +671,12 @@
             // label3
             // 
             this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label3.Location = new System.Drawing.Point(1083, 67);
+            this.label3.Location = new System.Drawing.Point(1087, 64);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(83, 18);
             this.label3.TabIndex = 15;
             this.label3.Text = "Comisión %:";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // lblArbitrationDiff
             // 
@@ -728,11 +711,70 @@
             this.label5.Text = "Dolar Compra:";
             this.label5.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
+            // label8
+            // 
+            this.label8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label8.Location = new System.Drawing.Point(908, 64);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(83, 18);
+            this.label8.TabIndex = 20;
+            this.label8.Text = "Dolar $:";
+            this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // numDolar
+            // 
+            this.numDolar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.numDolar.DecimalPlaces = 2;
+            this.numDolar.Location = new System.Drawing.Point(997, 65);
+            this.numDolar.Name = "numDolar";
+            this.numDolar.Size = new System.Drawing.Size(80, 20);
+            this.numDolar.TabIndex = 19;
+            this.numDolar.Value = new decimal(new int[] {
+            95,
+            0,
+            0,
+            0});
+            // 
+            // lblComisionTotal
+            // 
+            this.lblComisionTotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblComisionTotal.Location = new System.Drawing.Point(448, 400);
+            this.lblComisionTotal.Name = "lblComisionTotal";
+            this.lblComisionTotal.Size = new System.Drawing.Size(183, 18);
+            this.lblComisionTotal.TabIndex = 12;
+            this.lblComisionTotal.Text = "Total Comisión:";
+            this.lblComisionTotal.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // lblTotalProfit
+            // 
+            this.lblTotalProfit.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTotalProfit.Location = new System.Drawing.Point(637, 400);
+            this.lblTotalProfit.Name = "lblTotalProfit";
+            this.lblTotalProfit.Size = new System.Drawing.Size(183, 18);
+            this.lblTotalProfit.TabIndex = 21;
+            this.lblTotalProfit.Text = "Total Ganancia:";
+            this.lblTotalProfit.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // lblProfitPesos
+            // 
+            this.lblProfitPesos.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblProfitPesos.Location = new System.Drawing.Point(784, 400);
+            this.lblProfitPesos.Name = "lblProfitPesos";
+            this.lblProfitPesos.Size = new System.Drawing.Size(183, 18);
+            this.lblProfitPesos.TabIndex = 22;
+            this.lblProfitPesos.Text = "Total Ganancia:";
+            this.lblProfitPesos.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // FrmArbitrationTrade
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1268, 556);
+            this.Controls.Add(this.lblProfitPesos);
+            this.Controls.Add(this.lblTotalProfit);
+            this.Controls.Add(this.lblComisionTotal);
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.numDolar);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.lblArbitrationDiff);
@@ -765,6 +807,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numOwnedCompraPrice)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numOwnedCompraSize)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numComision)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numDolar)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -816,9 +859,12 @@
         private System.Windows.Forms.Label lblBookOwnedCompraOffer;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label lblArbitrationDiff;
-        private System.Windows.Forms.Label lblOwnedVentaTotal;
-        private System.Windows.Forms.Label lblArbitrationVentaTotal;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.NumericUpDown numDolar;
+        private System.Windows.Forms.Label lblComisionTotal;
+        private System.Windows.Forms.Label lblTotalProfit;
+        private System.Windows.Forms.Label lblProfitPesos;
     }
 }

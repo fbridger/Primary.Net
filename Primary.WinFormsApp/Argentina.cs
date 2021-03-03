@@ -111,5 +111,34 @@ namespace Primary.WinFormsApp
             }
 
         }
+
+        public IEnumerable<Task> RefreshMarketData(Instrument[] instruments)
+        {
+            foreach (var instrument in instruments)
+            {
+                yield return RefreshMarketData(instrument);
+            }
+        }
+
+        public async Task RefreshMarketData(Instrument instrument)
+        {
+            try
+            {
+                var marketDataRestApi = await Api.GetMarketData(instrument);
+
+                LatestMarketData.AddOrUpdate(instrument.Symbol, marketDataRestApi.Data, (key, data) => marketDataRestApi.Data);
+
+                OnMarketData?.Invoke(instrument, marketDataRestApi.Data);
+            }
+            catch (WebException ex)
+            {
+                Console.WriteLine(ex);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                throw ex;
+            }
+        }
     }
 }

@@ -17,13 +17,13 @@ namespace Primary.WinFormsApp
             Pesos24 = new InstrumentWithData(Argentina.Data.AllInstruments.Single(x => x.Symbol == ticker.ToMervalSymbol24H()));
             PesosCI = new InstrumentWithData(Argentina.Data.AllInstruments.Single(x => x.Symbol == ticker.ToMervalSymbolCI()));
 
-            Dolar48 = new InstrumentWithData(Argentina.Data.AllInstruments.Single(x => x.Symbol == ticker.AddDolarSuffix().ToMervalSymbol48H()));
-            Dolar24 = new InstrumentWithData(Argentina.Data.AllInstruments.Single(x => x.Symbol == ticker.AddDolarSuffix().ToMervalSymbol24H()));
-            DolarCI = new InstrumentWithData(Argentina.Data.AllInstruments.Single(x => x.Symbol == ticker.AddDolarSuffix().ToMervalSymbolCI()));
+            Dolar48 = new InstrumentWithData(Argentina.Data.AllInstruments.Single(x => x.Symbol == ticker.AddDolarSuffix().ToMervalSymbol48H()), false);
+            Dolar24 = new InstrumentWithData(Argentina.Data.AllInstruments.Single(x => x.Symbol == ticker.AddDolarSuffix().ToMervalSymbol24H()), false);
+            DolarCI = new InstrumentWithData(Argentina.Data.AllInstruments.Single(x => x.Symbol == ticker.AddDolarSuffix().ToMervalSymbolCI()), false);
 
-            Cable48 = new InstrumentWithData(Argentina.Data.AllInstruments.Single(x => x.Symbol == ticker.AddCableSuffix().ToMervalSymbol48H()));
-            Cable24 = new InstrumentWithData(Argentina.Data.AllInstruments.Single(x => x.Symbol == ticker.AddCableSuffix().ToMervalSymbol24H()));
-            CableCI = new InstrumentWithData(Argentina.Data.AllInstruments.Single(x => x.Symbol == ticker.AddCableSuffix().ToMervalSymbolCI()));
+            Cable48 = new InstrumentWithData(Argentina.Data.AllInstruments.Single(x => x.Symbol == ticker.AddCableSuffix().ToMervalSymbol48H()), false);
+            Cable24 = new InstrumentWithData(Argentina.Data.AllInstruments.Single(x => x.Symbol == ticker.AddCableSuffix().ToMervalSymbol24H()), false);
+            CableCI = new InstrumentWithData(Argentina.Data.AllInstruments.Single(x => x.Symbol == ticker.AddCableSuffix().ToMervalSymbolCI()), false);
 
             RefreshData();
         }
@@ -106,6 +106,47 @@ namespace Primary.WinFormsApp
                 Cable48.UpdateData(symbol, data) ||
                 Cable24.UpdateData(symbol, data) ||
                 CableCI.UpdateData(symbol, data);
+        }
+
+
+        public IEnumerable<DolarTrade> GetDolarCableTrades()
+        {
+            yield return new DolarTrade(PesosCI, CableCI);
+            yield return new DolarTrade(Pesos24, CableCI);
+            yield return new DolarTrade(Pesos48, CableCI);
+            yield return new DolarTrade(Pesos24, Cable24);
+            yield return new DolarTrade(Pesos48, Cable24);
+            yield return new DolarTrade(Pesos48, Cable48);
+        }
+
+        public IEnumerable<DolarTrade> GetDolarMEPTrades()
+        {
+            yield return new DolarTrade(PesosCI, DolarCI);
+            yield return new DolarTrade(Pesos24, DolarCI);
+            yield return new DolarTrade(Pesos48, DolarCI);
+            yield return new DolarTrade(Pesos24, Dolar24);
+            yield return new DolarTrade(Pesos48, Dolar24);
+            yield return new DolarTrade(Pesos48, Dolar48);
+        }
+
+        public IEnumerable<DolarTrade> GetDolarMEPCableTrades()
+        {
+            yield return new DolarTrade(DolarCI, CableCI);
+            yield return new DolarTrade(Dolar24, CableCI);
+            yield return new DolarTrade(Dolar48, CableCI);
+            yield return new DolarTrade(Dolar24, Cable24);
+            yield return new DolarTrade(Dolar48, Cable24);
+            yield return new DolarTrade(Dolar48, Cable48);
+        }
+
+        public IEnumerable<DolarTrade> GetDolarCableMEPTrades()
+        {
+            yield return new DolarTrade(CableCI, DolarCI);
+            yield return new DolarTrade(Cable24, DolarCI);
+            yield return new DolarTrade(Cable48, DolarCI);
+            yield return new DolarTrade(Cable24, Dolar24);
+            yield return new DolarTrade(Cable48, Dolar24);
+            yield return new DolarTrade(Cable48, Dolar48);
         }
 
     }

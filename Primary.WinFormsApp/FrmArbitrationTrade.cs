@@ -30,37 +30,37 @@ namespace Primary.WinFormsApp
             lblArbitrationDiff.Text = (_trade.Arbitration.Last / _trade.Owned.Last - 1m).ToString("P");
             lblArbitrationLast.Text = _trade.Arbitration.Last.ToCurrency();
 
-            lblOwnedVentaLast.Text = _trade.Owned.Dolar.Data.Last.Price.Value.ToUSD();
+            lblOwnedVentaLast.Text = _trade.Owned.Sell.Data.Last.Price.Value.ToUSD();
             if (!OwnedVentaChanged())
             {
-                numOwnedVentaPrice.Value = _trade.Owned.Dolar.Data.GetTopBidPrice();
+                numOwnedVentaPrice.Value = _trade.Owned.Sell.Data.GetTopBidPrice();
             }
-            lblBookOwnedVentaBid.Text = _trade.Owned.Dolar.Data.ToReadableBids();
-            lblBookOwnedVentaOffer.Text = _trade.Owned.Dolar.Data.ToReadableOffers();
+            lblBookOwnedVentaBid.Text = _trade.Owned.Sell.Data.ToReadableBids();
+            lblBookOwnedVentaOffer.Text = _trade.Owned.Sell.Data.ToReadableOffers();
 
-            lblArbitrationCompraLast.Text = _trade.Arbitration.Dolar.Data.Last.Price.Value.ToUSD();
+            lblArbitrationCompraLast.Text = _trade.Arbitration.Sell.Data.Last.Price.Value.ToUSD();
             if (!ArbitrationCompraChanged())
             {
-                numArbitrationCompraPrice.Value = _trade.Arbitration.Dolar.Data.GetTopOfferPrice();
+                numArbitrationCompraPrice.Value = _trade.Arbitration.Sell.Data.GetTopOfferPrice();
             }
-            lblBookArbitrationCompraBid.Text = _trade.Arbitration.Dolar.Data.ToReadableBids();
-            lblBookArbitrationCompraOffer.Text = _trade.Arbitration.Dolar.Data.ToReadableOffers();
+            lblBookArbitrationCompraBid.Text = _trade.Arbitration.Sell.Data.ToReadableBids();
+            lblBookArbitrationCompraOffer.Text = _trade.Arbitration.Sell.Data.ToReadableOffers();
 
-            lblArbitrationVentaLast.Text = _trade.Arbitration.Pesos.Data.Last.Price.Value.ToCurrency();
+            lblArbitrationVentaLast.Text = _trade.Arbitration.Buy.Data.Last.Price.Value.ToCurrency();
             if (!ArbitrationVentaChanged())
             {
-                numArbitrationVentaPrice.Value = _trade.Arbitration.Pesos.Data.GetTopBidPrice();
+                numArbitrationVentaPrice.Value = _trade.Arbitration.Buy.Data.GetTopBidPrice();
             }
-            lblBookArbitrationVentaBid.Text = _trade.Arbitration.Pesos.Data.ToReadableBids();
-            lblBookArbitrationVentaOffer.Text = _trade.Arbitration.Pesos.Data.ToReadableOffers();
+            lblBookArbitrationVentaBid.Text = _trade.Arbitration.Buy.Data.ToReadableBids();
+            lblBookArbitrationVentaOffer.Text = _trade.Arbitration.Buy.Data.ToReadableOffers();
 
-            lblOwnedCompraLast.Text = _trade.Owned.Pesos.Data.Last.Price.Value.ToCurrency();
+            lblOwnedCompraLast.Text = _trade.Owned.Buy.Data.Last.Price.Value.ToCurrency();
             if (!OwnedCompraChanged())
             {
-                numOwnedCompraPrice.Value = _trade.Owned.Pesos.Data.GetTopOfferPrice();
+                numOwnedCompraPrice.Value = _trade.Owned.Buy.Data.GetTopOfferPrice();
             }
-            lblBookOwnedCompraBid.Text = _trade.Owned.Pesos.Data.ToReadableBids();
-            lblBookOwnedCompraOffer.Text = _trade.Owned.Pesos.Data.ToReadableOffers();
+            lblBookOwnedCompraBid.Text = _trade.Owned.Buy.Data.ToReadableBids();
+            lblBookOwnedCompraOffer.Text = _trade.Owned.Buy.Data.ToReadableOffers();
 
         }
 
@@ -68,28 +68,34 @@ namespace Primary.WinFormsApp
         {
             _trade = trade;
 
-            grpOwnedVenta.Text += " - " + _trade.Owned.Dolar.Instrument.SymbolWithoutPrefix();
-            grpArbitrationCompra.Text += " - " + _trade.Arbitration.Dolar.Instrument.SymbolWithoutPrefix();
-            grpArbitrationVenta.Text += " - " + _trade.Arbitration.Pesos.Instrument.SymbolWithoutPrefix();
-            grpOwnedCompra.Text += " - " + _trade.Owned.Pesos.Instrument.SymbolWithoutPrefix();
+            grpOwnedVenta.Text += " - " + _trade.Owned.Sell.Instrument.SymbolWithoutPrefix();
+            grpArbitrationCompra.Text += " - " + _trade.Arbitration.Sell.Instrument.SymbolWithoutPrefix();
+            grpArbitrationVenta.Text += " - " + _trade.Arbitration.Buy.Instrument.SymbolWithoutPrefix();
+            grpOwnedCompra.Text += " - " + _trade.Owned.Buy.Instrument.SymbolWithoutPrefix();
 
             numOwnedVentaSize.Value = 1000; // TODO: Get Max Size
-            numOwnedVentaPrice.Value = _trade.Owned.Dolar.Data.Last.Price.Value;
-            numArbitrationCompraPrice.Value = _trade.Arbitration.Dolar.Data.Last.Price.Value;
-            numArbitrationVentaPrice.Value = _trade.Arbitration.Pesos.Data.Last.Price.Value;
-            numOwnedCompraPrice.Value = _trade.Owned.Pesos.Data.Last.Price.Value;
+            numOwnedVentaPrice.Value = _trade.Owned.Sell.Data.Last.Price.Value;
+            numArbitrationCompraPrice.Value = _trade.Arbitration.Sell.Data.Last.Price.Value;
+            numArbitrationVentaPrice.Value = _trade.Arbitration.Buy.Data.Last.Price.Value;
+            numOwnedCompraPrice.Value = _trade.Owned.Buy.Data.Last.Price.Value;
 
         }
 
         public void CalculateOwnedVenta()
         {
             _ownedVentaImporte = numOwnedVentaSize.Value * numOwnedVentaPrice.Value / 100m;
-            _ownedVentaComision = _ownedVentaImporte * Comision;
+            if (_trade.Owned.Sell.IsPesos)
+            {
+                _ownedVentaComision = _ownedVentaImporte * Comision;
+            }
+            else
+            {
+                _ownedVentaComision = _ownedVentaImporte * Comision * numDolar.Value;
+            }
             numOwnedCompraSize.Value = numOwnedVentaSize.Value;
 
             lblOwnedVentaImporte.Text = "Importe: " + _ownedVentaImporte.ToUSD();
-            lblOwnedComision.Text = "Comisión: " + _ownedVentaComision.ToUSD();
-            lblOwnedVentaTotal.Text = "Total: " + (_ownedVentaImporte - _ownedVentaComision).ToUSD();
+            lblOwnedComision.Text = "Comisión: " + _ownedVentaComision.ToCurrency();
 
             CalculateArbitrationCompraSize();
         }
@@ -98,7 +104,7 @@ namespace Primary.WinFormsApp
         {
             if (numArbitrationCompraPrice.Value > 0)
             {
-                numArbitrationCompraSize.Value = (_ownedVentaImporte - _ownedVentaComision) / numArbitrationCompraPrice.Value * 100m;
+                numArbitrationCompraSize.Value = (_ownedVentaImporte) / numArbitrationCompraPrice.Value * 100m;
             }
             CalculateArbitrationCompraTotal();
             CalculateArbitrationVentaSize();
@@ -119,11 +125,17 @@ namespace Primary.WinFormsApp
         public void CalculateArbitrationVentaTotal()
         {
             _arbitrationVentaImporte = numArbitrationVentaSize.Value * numArbitrationVentaPrice.Value / 100m;
-            _arbtrationVentaComision = _arbitrationVentaImporte * Comision;
+            if (_trade.Arbitration.Buy.IsPesos)
+            {
+                _arbtrationVentaComision = _arbitrationVentaImporte * Comision;
+            }
+            else
+            {
+                _arbtrationVentaComision = _arbitrationVentaImporte * Comision * numDolar.Value;
+            }
 
             lblArbitrationVentaImporte.Text = "Importe: " + _arbitrationVentaImporte.ToCurrency();
             lblArbitrationComision.Text = "Comisión: " + _arbtrationVentaComision.ToCurrency();
-            lblArbitrationVentaTotal.Text = "Total: " + (_arbitrationVentaImporte - _arbtrationVentaComision).ToCurrency();
 
             CalculateOwnedCompraTotalAndProfit();
         }
@@ -132,13 +144,26 @@ namespace Primary.WinFormsApp
         {
             var ownedCompraTotal = numOwnedCompraSize.Value * numOwnedCompraPrice.Value / 100m;
             lblOwnedCompraImporte.Text = "Importe: " + ownedCompraTotal.ToCurrency();
-
-            var profit = _arbitrationVentaImporte - _arbtrationVentaComision - ownedCompraTotal;
+            lblComisionTotal.Text = "Total Comision: " +  (_ownedVentaComision + _arbtrationVentaComision).ToCurrency();
 
             var dolarVenta = numOwnedVentaPrice.Value > 0 ? numOwnedCompraPrice.Value / numOwnedVentaPrice.Value : 0;
             var dolarCompra = numArbitrationCompraPrice.Value > 0 ? numArbitrationVentaPrice.Value / numArbitrationCompraPrice.Value : 0;
             var dolarDiff = dolarVenta > 0 ? dolarCompra / dolarVenta - 1 : 0;
+
+            decimal profit;
+
+            if (_trade.Owned.Buy.IsPesos)
+            {
+                profit = _arbitrationVentaImporte - ownedCompraTotal - _ownedVentaComision - _arbtrationVentaComision;
+                lblTotalProfit.Text = "Total: " + (_arbitrationVentaImporte - ownedCompraTotal).ToCurrency();
+            }
+            else
+            {
+                profit = (_arbitrationVentaImporte - ownedCompraTotal) * numDolar.Value - _ownedVentaComision - _arbtrationVentaComision;
+                lblTotalProfit.Text = "Total: " + (_arbitrationVentaImporte - ownedCompraTotal).ToUSD();
+            }
             lblProfit.Text = "Profit: " + profit.ToCurrency() + Environment.NewLine + $"Dolar Venta: {dolarVenta:C2}     {dolarDiff:P}     Dolar Compra: {dolarCompra:C2}";
+            lblProfitPesos.Text = "Profit $: " + (profit).ToCurrency();
 
             if (profit < 0)
             {
@@ -232,76 +257,76 @@ namespace Primary.WinFormsApp
 
         private void lblOwnedVentaLast_Click(object sender, EventArgs e)
         {
-            numOwnedVentaPrice.Value = _trade.Owned.Dolar.Data.Last.Price.Value;
+            numOwnedVentaPrice.Value = _trade.Owned.Sell.Data.Last.Price.Value;
             numOwnedVentaPrice_KeyPress(sender, null);
         }
 
         private void lblBookOwnedVentaBid_Click(object sender, EventArgs e)
         {
-            numOwnedVentaPrice.Value = _trade.Owned.Dolar.Data.GetTopBidPrice();
-            numOwnedVentaSize.Value = _trade.Owned.Dolar.Data.GetTopBidSize();
+            numOwnedVentaPrice.Value = _trade.Owned.Sell.Data.GetTopBidPrice();
+            numOwnedVentaSize.Value = _trade.Owned.Sell.Data.GetTopBidSize();
             numOwnedVentaPrice.ForeColor = System.Drawing.Color.Red;
         }
 
         private void lblBookOwnedVentaOffer_Click(object sender, EventArgs e)
         {
-            numOwnedVentaPrice.Value = _trade.Owned.Dolar.Data.GetTopOfferPrice();
-            numOwnedVentaSize.Value = _trade.Owned.Dolar.Data.GetTopOfferSize();
+            numOwnedVentaPrice.Value = _trade.Owned.Sell.Data.GetTopOfferPrice();
+            numOwnedVentaSize.Value = _trade.Owned.Sell.Data.GetTopOfferSize();
             numOwnedVentaPrice_KeyPress(sender, null);
         }
 
         private void lblArbitrationCompraLast_Click(object sender, EventArgs e)
         {
-            numArbitrationCompraPrice.Value = _trade.Arbitration.Dolar.Data.Last.Price.Value;
+            numArbitrationCompraPrice.Value = _trade.Arbitration.Sell.Data.Last.Price.Value;
             numArbitrationCompraPrice_KeyPress(sender, null);
         }
 
         private void lblBookArbitrationCompraBid_Click(object sender, EventArgs e)
         {
-            numArbitrationCompraPrice.Value = _trade.Arbitration.Dolar.Data.GetTopBidPrice();
+            numArbitrationCompraPrice.Value = _trade.Arbitration.Sell.Data.GetTopBidPrice();
             numArbitrationCompraPrice_KeyPress(sender, null);
         }
 
         private void lblBookArbitrationCompraOffer_Click(object sender, EventArgs e)
         {
-            numArbitrationCompraPrice.Value = _trade.Arbitration.Dolar.Data.GetTopOfferPrice();
+            numArbitrationCompraPrice.Value = _trade.Arbitration.Sell.Data.GetTopOfferPrice();
             numArbitrationCompraPrice.ForeColor = System.Drawing.Color.Red;
         }
 
         private void lblArbitrationVentaLast_Click(object sender, EventArgs e)
         {
-            numArbitrationVentaPrice.Value = _trade.Arbitration.Pesos.Data.Last.Price.Value;
+            numArbitrationVentaPrice.Value = _trade.Arbitration.Buy.Data.Last.Price.Value;
             numArbitrationVentaPrice_KeyPress(sender, null);
         }
 
         private void lblBookArbitrationVentaBid_Click(object sender, EventArgs e)
         {
-            numArbitrationVentaPrice.Value = _trade.Arbitration.Pesos.Data.GetTopBidPrice();
+            numArbitrationVentaPrice.Value = _trade.Arbitration.Buy.Data.GetTopBidPrice();
             numArbitrationVentaPrice.ForeColor = System.Drawing.Color.Red;
 
         }
 
         private void lblBookArbitrationVentaOffer_Click(object sender, EventArgs e)
         {
-            numArbitrationVentaPrice.Value = _trade.Arbitration.Pesos.Data.GetTopOfferPrice();
+            numArbitrationVentaPrice.Value = _trade.Arbitration.Buy.Data.GetTopOfferPrice();
             numArbitrationVentaPrice_KeyPress(sender, null);
         }
 
         private void lblOwnedCompraLast_Click(object sender, EventArgs e)
         {
-            numOwnedCompraPrice.Value = _trade.Owned.Pesos.Data.Last.Price.Value;
+            numOwnedCompraPrice.Value = _trade.Owned.Buy.Data.Last.Price.Value;
             numOwnedCompraPrice_KeyPress(sender, null);
         }
 
         private void lblBookOwnedCompraBid_Click(object sender, EventArgs e)
         {
-            numOwnedCompraPrice.Value = _trade.Owned.Pesos.Data.GetTopBidPrice();
+            numOwnedCompraPrice.Value = _trade.Owned.Buy.Data.GetTopBidPrice();
             numOwnedCompraPrice_KeyPress(sender, null);
         }
 
         private void lblBookOwnedCompraOffer_Click(object sender, EventArgs e)
         {
-            numOwnedCompraPrice.Value = _trade.Owned.Pesos.Data.GetTopOfferPrice();
+            numOwnedCompraPrice.Value = _trade.Owned.Buy.Data.GetTopOfferPrice();
             numOwnedCompraPrice.ForeColor = System.Drawing.Color.Red;
         }
     }

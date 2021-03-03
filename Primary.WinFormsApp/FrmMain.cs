@@ -17,6 +17,8 @@ namespace Primary.WinFormsApp
     {
         private List<string> watchList;
         private List<Task> backgroundTasks = new List<Task>();
+        private Instrument[] _watchedInstruments;
+        private DateTime _lastUpdate;
 
         public FrmMain()
         {
@@ -49,7 +51,7 @@ namespace Primary.WinFormsApp
                 await Argentina.Data.Init();
 
                 InitWatchList();
-                var watchedInstruments = Argentina.Data.AllInstruments.Where(ShouldWatch).ToArray();
+                _watchedInstruments = Argentina.Data.AllInstruments.Where(ShouldWatch).ToArray();
 
                 foreach (var item in Argentina.Data.AllInstruments.OrderBy(x => x.SymbolWithoutPrefix()))
                 {
@@ -57,10 +59,31 @@ namespace Primary.WinFormsApp
                 }
 
                 var frmArbitrationAnalyzer = new FrmArbitrationAnalyzer();
-                frmArbitrationAnalyzer.MdiParent = this;
+                //frmArbitrationAnalyzer.MdiParent = this;
                 frmArbitrationAnalyzer.Show();
 
-                backgroundTasks.Add(Argentina.Data.WatchWithWebSocket(watchedInstruments));
+                Argentina.Data.OnMarketData += Data_OnMarketData;
+
+                backgroundTasks.Add(Argentina.Data.WatchWithWebSocket(_watchedInstruments));
+            }
+        }
+
+        private void Data_OnMarketData(Instrument instrument, Entries data)
+        {
+            try
+            {
+                var dif = DateTime.Now - _lastUpdate;
+
+                if (dif.TotalSeconds > 1)
+                {
+                    _lastUpdate = DateTime.Now;
+                    this.Invoke(new Action(() => this.Text = $"Arbitrador - Last WebSocket Message: {_lastUpdate:HH:mm:ss} {dif.TotalSeconds:#0} seconds ago"));
+                    
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
             }
         }
 
@@ -103,14 +126,14 @@ namespace Primary.WinFormsApp
         private void historicDataToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var frmHistoric = new FrmHistoricData();
-            frmHistoric.MdiParent = this;
+            //frmHistoric.MdiParent = this;
             frmHistoric.Show();
         }
 
         private void buscadorDeArbitrajesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var frmArbitrationAnalyzer = new FrmArbitrationAnalyzer();
-            frmArbitrationAnalyzer.MdiParent = this;
+            //frmArbitrationAnalyzer.MdiParent = this;
             frmArbitrationAnalyzer.Show();
 
         }
@@ -120,8 +143,20 @@ namespace Primary.WinFormsApp
             var instrument = cmbInstruments.SelectedItem as Instrument;
             var frmMarketData = new FrmMarketData();
             frmMarketData.SetInstrument(instrument);
-            frmMarketData.MdiParent = this;
+            //frmMarketData.MdiParent = this;
             frmMarketData.Show();
+        }
+
+        private void dolarPricesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var frmDolarPrices = new FrmDolarPrices();
+            //frmDolarPrices.MdiParent = this;
+            frmDolarPrices.Show();
+        }
+
+        private void refreshDataToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Argentina.Data.RefreshMarketData(_watchedInstruments).ToArray();
         }
     }
 }

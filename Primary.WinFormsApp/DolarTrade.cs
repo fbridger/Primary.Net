@@ -5,13 +5,20 @@
     /// </summary>
     public class DolarTrade
     {
-        public DolarTrade(InstrumentWithData pesos, InstrumentWithData dolar)
+        public DolarTrade(InstrumentWithData buy, InstrumentWithData sell)
         {
-            Pesos = pesos;
-            Dolar = dolar;
+            Buy = buy;
+            Sell = sell;
         }
-        public InstrumentWithData Pesos { get; set; }
-        public InstrumentWithData Dolar { get; set; }
+        public InstrumentWithData Buy { get; set; }
+        public InstrumentWithData Sell { get; set; }
+
+        public string Trade
+        {
+            get {
+                return Buy.Instrument.SymbolWithoutPrefix() + " / " + Sell.Instrument.SymbolWithoutPrefix();
+            }
+        }
 
         /// <summary>
         /// Obtiene el ultimo tipo de cambio para el Dolar utilizando Pesos.Last / Dolar.Last
@@ -19,9 +26,9 @@
         public decimal Last
         {
             get {
-                if (HasData() && Pesos.Data.HasLastPrice() && Dolar.Data.HasLastPrice())
+                if (HasData() && Buy.Data.HasLastPrice() && Sell.Data.HasLastPrice())
                 {
-                    return Pesos.Data.Last.Price.Value / Dolar.Data.Last.Price.Value;
+                    return Buy.Data.Last.Price.Value / Sell.Data.Last.Price.Value;
                 }
                 return default;
             }
@@ -33,9 +40,9 @@
         public decimal Compra // Barato
         {
             get {
-                if (HasData() && Pesos.Data.HasOffers() && Dolar.Data.HasBids())
+                if (HasData() && Buy.Data.HasOffers() && Sell.Data.HasBids())
                 {
-                    return Pesos.Data.Offers[0].Price / Dolar.Data.Bids[0].Price;
+                    return Buy.Data.Offers[0].Price / Sell.Data.Bids[0].Price;
                 }
                 return default;
             }
@@ -47,9 +54,9 @@
         public decimal Venta // Caro
         {
             get {
-                if (HasData() && Pesos.Data.HasBids() && Dolar.Data.HasOffers())
+                if (HasData() && Buy.Data.HasBids() && Sell.Data.HasOffers())
                 {
-                    return Pesos.Data.Bids[0].Price / Dolar.Data.Offers[0].Price;
+                    return Buy.Data.Bids[0].Price / Sell.Data.Offers[0].Price;
                 }
                 return default;
             }
@@ -57,7 +64,7 @@
 
         public bool HasData()
         {
-            return Pesos.Data != null && Dolar.Data != null;
+            return Buy.Data != null && Sell.Data != null;
         }
     }
 }

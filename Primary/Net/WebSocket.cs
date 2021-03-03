@@ -100,6 +100,10 @@ namespace Primary.Net
                     OnData(_api, data);
                 }
                 catch (OperationCanceledException) { }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
 
                 if (CancelToken.IsCancellationRequested)
                 {

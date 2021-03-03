@@ -43,6 +43,9 @@ namespace Primary.WinFormsApp
 
         public static string ToReadableBids(this Entries entries)
         {
+            if (entries.HasBids() == false)
+                return "NO BIDS";
+
             var bid = new StringBuilder();
             foreach (var item in entries.Bids)
             {
@@ -52,6 +55,9 @@ namespace Primary.WinFormsApp
         }
         public static string ToReadableOffers(this Entries entries)
         {
+            if (entries.HasOffers() == false)
+                return "NO OFFERS";
+
             var offer = new StringBuilder();
             foreach (var item in entries.Offers)
             {

@@ -23,23 +23,22 @@ namespace Primary.WinFormsApp.Properties {
             }
         }
         
-        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute(@"<?xml version=""1.0"" encoding=""utf-16""?>
 <ArrayOfString xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"">
   <string>AL29</string>
   <string>AL30</string>
+  <string>AL35</string>
   <string>AE38</string>
   <string>GD29</string>
   <string>GD30</string>
+  <string>GD35</string>
   <string>GD38</string>
 </ArrayOfString>")]
         public global::System.Collections.Specialized.StringCollection ArbitrationTickers {
             get {
                 return ((global::System.Collections.Specialized.StringCollection)(this["ArbitrationTickers"]));
-            }
-            set {
-                this["ArbitrationTickers"] = value;
             }
         }
         
@@ -67,18 +66,34 @@ namespace Primary.WinFormsApp.Properties {
             }
         }
         
-        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("<?xml version=\"1.0\" encoding=\"utf-16\"?>\r\n<ArrayOfString xmlns:xsi=\"http://www.w3." +
-            "org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\">\r\n  <s" +
-            "tring>AL29</string>\r\n  <string>AL30</string>\r\n  <string>AE38</string>\r\n</ArrayOf" +
-            "String>")]
+        [global::System.Configuration.DefaultSettingValueAttribute(@"<?xml version=""1.0"" encoding=""utf-16""?>
+<ArrayOfString xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"">
+  <string>AL29</string>
+  <string>AL30</string>
+  <string>AL35</string>
+  <string>AE38</string>
+  <string>GD29</string>
+  <string>GD30</string>
+  <string>GD35</string>
+  <string>GD38</string>
+</ArrayOfString>")]
         public global::System.Collections.Specialized.StringCollection OwnedTickers {
             get {
                 return ((global::System.Collections.Specialized.StringCollection)(this["OwnedTickers"]));
             }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Setting {
+            get {
+                return ((string)(this["Setting"]));
+            }
             set {
-                this["OwnedTickers"] = value;
+                this["Setting"] = value;
             }
         }
     }

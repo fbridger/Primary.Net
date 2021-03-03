@@ -34,6 +34,8 @@
             this.buscadorDeArbitrajesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.marketDataToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cmbInstruments = new System.Windows.Forms.ToolStripComboBox();
+            this.dolarPricesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.refreshDataToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -43,7 +45,9 @@
             this.loginToolStripMenuItem,
             this.historicDataToolStripMenuItem,
             this.buscadorDeArbitrajesToolStripMenuItem,
-            this.marketDataToolStripMenuItem});
+            this.marketDataToolStripMenuItem,
+            this.dolarPricesToolStripMenuItem,
+            this.refreshDataToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(800, 24);
@@ -85,6 +89,20 @@
             this.cmbInstruments.Size = new System.Drawing.Size(121, 23);
             this.cmbInstruments.SelectedIndexChanged += new System.EventHandler(this.cmbInstruments_SelectedIndexChanged);
             // 
+            // dolarPricesToolStripMenuItem
+            // 
+            this.dolarPricesToolStripMenuItem.Name = "dolarPricesToolStripMenuItem";
+            this.dolarPricesToolStripMenuItem.Size = new System.Drawing.Size(81, 20);
+            this.dolarPricesToolStripMenuItem.Text = "Dolar Prices";
+            this.dolarPricesToolStripMenuItem.Click += new System.EventHandler(this.dolarPricesToolStripMenuItem_Click);
+            // 
+            // refreshDataToolStripMenuItem
+            // 
+            this.refreshDataToolStripMenuItem.Name = "refreshDataToolStripMenuItem";
+            this.refreshDataToolStripMenuItem.Size = new System.Drawing.Size(85, 20);
+            this.refreshDataToolStripMenuItem.Text = "Refresh Data";
+            this.refreshDataToolStripMenuItem.Click += new System.EventHandler(this.refreshDataToolStripMenuItem_Click);
+            // 
             // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -112,6 +130,8 @@
         private System.Windows.Forms.ToolStripMenuItem buscadorDeArbitrajesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem marketDataToolStripMenuItem;
         private System.Windows.Forms.ToolStripComboBox cmbInstruments;
+        private System.Windows.Forms.ToolStripMenuItem dolarPricesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem refreshDataToolStripMenuItem;
     }
 }
 

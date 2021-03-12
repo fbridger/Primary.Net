@@ -37,24 +37,36 @@ namespace Primary.WinFormsApp
             }
         }
 
-        public List<DolarArbitrationTrade> GetArbitrationTrades()
+        public List<DolarArbitrationTrade> GetArbitrationTrades(decimal minProfit = 0.005m, bool mep = true, bool ccl = true, bool dc = true, bool cd = true)
         {
             var trades = new List<DolarArbitrationTrade>();
 
             foreach (var dolarArbitrationData in dolarArbitrationPairCollection)
             {
-                
-                var dolarTrades = dolarArbitrationData.GetBuyPesosSellDolarArbitrationTrades();
-                trades.AddRange(dolarTrades.Where(x => x.Profit > 0.005m || x.ProfitLast > 0.005m));
-                var cableTrades = dolarArbitrationData.GetBuyPesosSellCableArbitrationTrades();
-                trades.AddRange(cableTrades.Where(x => x.Profit > 0.005m || x.ProfitLast > 0.005m));
-                
 
-                var dolarCableTrades = dolarArbitrationData.GetBuyDolarSellCableArbitrationTrades();
-                trades.AddRange(dolarCableTrades.Where(x => x.Profit > 0.005m || x.ProfitLast > 0.005m));
+                if (mep)
+                {
+                    var dolarTrades = dolarArbitrationData.GetDolarMEPArbitrations();
+                    trades.AddRange(dolarTrades.Where(x => x.Profit > minProfit || x.ProfitLast > minProfit));
+                }
 
-                var cableDolarTrades = dolarArbitrationData.GetSellDolarBuyCableArbitrationTrades();
-                trades.AddRange(cableDolarTrades.Where(x => x.Profit > 0.005m || x.ProfitLast > 0.005m));
+                if (ccl)
+                {
+                    var cableTrades = dolarArbitrationData.GetDolarCableArbitrations();
+                    trades.AddRange(cableTrades.Where(x => x.Profit > minProfit || x.ProfitLast > minProfit));
+                }
+
+                if (dc)
+                {
+                    var cableDolarTrades = dolarArbitrationData.GetSellDolarBuyCableArbitrationTrades();
+                    trades.AddRange(cableDolarTrades.Where(x => x.Profit > minProfit || x.ProfitLast > minProfit));
+                }
+
+                if (cd)
+                {
+                    var dolarCableTrades = dolarArbitrationData.GetBuyDolarSellCableArbitrationTrades();
+                    trades.AddRange(dolarCableTrades.Where(x => x.Profit > minProfit || x.ProfitLast > minProfit));
+                }
             }
 
             return trades;

@@ -44,27 +44,27 @@
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.splMEP = new System.Windows.Forms.SplitContainer();
             this.grdMEPLeft = new System.Windows.Forms.DataGridView();
+            this.grdMEPRight = new System.Windows.Forms.DataGridView();
+            this.spliCCL = new System.Windows.Forms.SplitContainer();
+            this.grdCCLLeft = new System.Windows.Forms.DataGridView();
+            this.grdCCLRight = new System.Windows.Forms.DataGridView();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.Trade = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Dolar = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Compra = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Venta = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.grdMEPRight = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.spliCCL = new System.Windows.Forms.SplitContainer();
-            this.grdCCLLeft = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.grdCCLRight = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumn9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
             this.splitContainer2.Panel1.SuspendLayout();
             this.splitContainer2.Panel2.SuspendLayout();
@@ -87,6 +87,7 @@
             // 
             this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer2.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.splitContainer2.Name = "splitContainer2";
             this.splitContainer2.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
@@ -97,14 +98,16 @@
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.spliCCL);
-            this.splitContainer2.Size = new System.Drawing.Size(1022, 609);
-            this.splitContainer2.SplitterDistance = 304;
+            this.splitContainer2.Size = new System.Drawing.Size(1363, 750);
+            this.splitContainer2.SplitterDistance = 374;
+            this.splitContainer2.SplitterWidth = 5;
             this.splitContainer2.TabIndex = 3;
             // 
             // splMEP
             // 
             this.splMEP.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splMEP.Location = new System.Drawing.Point(0, 0);
+            this.splMEP.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.splMEP.Name = "splMEP";
             // 
             // splMEP.Panel1
@@ -114,8 +117,9 @@
             // splMEP.Panel2
             // 
             this.splMEP.Panel2.Controls.Add(this.grdMEPRight);
-            this.splMEP.Size = new System.Drawing.Size(1022, 304);
-            this.splMEP.SplitterDistance = 536;
+            this.splMEP.Size = new System.Drawing.Size(1363, 374);
+            this.splMEP.SplitterDistance = 714;
+            this.splMEP.SplitterWidth = 5;
             this.splMEP.TabIndex = 5;
             // 
             // grdMEPLeft
@@ -133,50 +137,14 @@
             this.Venta});
             this.grdMEPLeft.Dock = System.Windows.Forms.DockStyle.Fill;
             this.grdMEPLeft.Location = new System.Drawing.Point(0, 0);
+            this.grdMEPLeft.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.grdMEPLeft.MultiSelect = false;
             this.grdMEPLeft.Name = "grdMEPLeft";
             this.grdMEPLeft.ReadOnly = true;
+            this.grdMEPLeft.RowHeadersWidth = 51;
             this.grdMEPLeft.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.grdMEPLeft.Size = new System.Drawing.Size(536, 304);
+            this.grdMEPLeft.Size = new System.Drawing.Size(714, 374);
             this.grdMEPLeft.TabIndex = 0;
-            // 
-            // Trade
-            // 
-            this.Trade.DataPropertyName = "Trade";
-            this.Trade.HeaderText = "$ / USD";
-            this.Trade.Name = "Trade";
-            this.Trade.ReadOnly = true;
-            this.Trade.Width = 72;
-            // 
-            // Dolar
-            // 
-            this.Dolar.DataPropertyName = "Last";
-            dataGridViewCellStyle1.Format = "C2";
-            this.Dolar.DefaultCellStyle = dataGridViewCellStyle1;
-            this.Dolar.HeaderText = "Last";
-            this.Dolar.Name = "Dolar";
-            this.Dolar.ReadOnly = true;
-            this.Dolar.Width = 52;
-            // 
-            // Compra
-            // 
-            this.Compra.DataPropertyName = "Compra";
-            dataGridViewCellStyle2.Format = "C2";
-            this.Compra.DefaultCellStyle = dataGridViewCellStyle2;
-            this.Compra.HeaderText = "Compra";
-            this.Compra.Name = "Compra";
-            this.Compra.ReadOnly = true;
-            this.Compra.Width = 68;
-            // 
-            // Venta
-            // 
-            this.Venta.DataPropertyName = "Venta";
-            dataGridViewCellStyle3.Format = "C2";
-            this.Venta.DefaultCellStyle = dataGridViewCellStyle3;
-            this.Venta.HeaderText = "Venta";
-            this.Venta.Name = "Venta";
-            this.Venta.ReadOnly = true;
-            this.Venta.Width = 60;
             // 
             // grdMEPRight
             // 
@@ -193,55 +161,20 @@
             this.dataGridViewTextBoxColumn4});
             this.grdMEPRight.Dock = System.Windows.Forms.DockStyle.Fill;
             this.grdMEPRight.Location = new System.Drawing.Point(0, 0);
+            this.grdMEPRight.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.grdMEPRight.MultiSelect = false;
             this.grdMEPRight.Name = "grdMEPRight";
             this.grdMEPRight.ReadOnly = true;
+            this.grdMEPRight.RowHeadersWidth = 51;
             this.grdMEPRight.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.grdMEPRight.Size = new System.Drawing.Size(482, 304);
+            this.grdMEPRight.Size = new System.Drawing.Size(644, 374);
             this.grdMEPRight.TabIndex = 1;
-            // 
-            // dataGridViewTextBoxColumn1
-            // 
-            this.dataGridViewTextBoxColumn1.DataPropertyName = "Trade";
-            this.dataGridViewTextBoxColumn1.HeaderText = "$ / USD";
-            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            this.dataGridViewTextBoxColumn1.ReadOnly = true;
-            this.dataGridViewTextBoxColumn1.Width = 72;
-            // 
-            // dataGridViewTextBoxColumn2
-            // 
-            this.dataGridViewTextBoxColumn2.DataPropertyName = "Last";
-            dataGridViewCellStyle4.Format = "C2";
-            this.dataGridViewTextBoxColumn2.DefaultCellStyle = dataGridViewCellStyle4;
-            this.dataGridViewTextBoxColumn2.HeaderText = "Last";
-            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
-            this.dataGridViewTextBoxColumn2.ReadOnly = true;
-            this.dataGridViewTextBoxColumn2.Width = 52;
-            // 
-            // dataGridViewTextBoxColumn3
-            // 
-            this.dataGridViewTextBoxColumn3.DataPropertyName = "Compra";
-            dataGridViewCellStyle5.Format = "C2";
-            this.dataGridViewTextBoxColumn3.DefaultCellStyle = dataGridViewCellStyle5;
-            this.dataGridViewTextBoxColumn3.HeaderText = "Compra";
-            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
-            this.dataGridViewTextBoxColumn3.ReadOnly = true;
-            this.dataGridViewTextBoxColumn3.Width = 68;
-            // 
-            // dataGridViewTextBoxColumn4
-            // 
-            this.dataGridViewTextBoxColumn4.DataPropertyName = "Venta";
-            dataGridViewCellStyle6.Format = "C2";
-            this.dataGridViewTextBoxColumn4.DefaultCellStyle = dataGridViewCellStyle6;
-            this.dataGridViewTextBoxColumn4.HeaderText = "Venta";
-            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
-            this.dataGridViewTextBoxColumn4.ReadOnly = true;
-            this.dataGridViewTextBoxColumn4.Width = 60;
             // 
             // spliCCL
             // 
             this.spliCCL.Dock = System.Windows.Forms.DockStyle.Fill;
             this.spliCCL.Location = new System.Drawing.Point(0, 0);
+            this.spliCCL.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.spliCCL.Name = "spliCCL";
             // 
             // spliCCL.Panel1
@@ -251,8 +184,9 @@
             // spliCCL.Panel2
             // 
             this.spliCCL.Panel2.Controls.Add(this.grdCCLRight);
-            this.spliCCL.Size = new System.Drawing.Size(1022, 301);
-            this.spliCCL.SplitterDistance = 536;
+            this.spliCCL.Size = new System.Drawing.Size(1363, 371);
+            this.spliCCL.SplitterDistance = 714;
+            this.spliCCL.SplitterWidth = 5;
             this.spliCCL.TabIndex = 4;
             // 
             // grdCCLLeft
@@ -270,50 +204,14 @@
             this.dataGridViewTextBoxColumn8});
             this.grdCCLLeft.Dock = System.Windows.Forms.DockStyle.Fill;
             this.grdCCLLeft.Location = new System.Drawing.Point(0, 0);
+            this.grdCCLLeft.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.grdCCLLeft.MultiSelect = false;
             this.grdCCLLeft.Name = "grdCCLLeft";
             this.grdCCLLeft.ReadOnly = true;
+            this.grdCCLLeft.RowHeadersWidth = 51;
             this.grdCCLLeft.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.grdCCLLeft.Size = new System.Drawing.Size(536, 301);
+            this.grdCCLLeft.Size = new System.Drawing.Size(714, 371);
             this.grdCCLLeft.TabIndex = 1;
-            // 
-            // dataGridViewTextBoxColumn5
-            // 
-            this.dataGridViewTextBoxColumn5.DataPropertyName = "Trade";
-            this.dataGridViewTextBoxColumn5.HeaderText = "$ / USD";
-            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
-            this.dataGridViewTextBoxColumn5.ReadOnly = true;
-            this.dataGridViewTextBoxColumn5.Width = 72;
-            // 
-            // dataGridViewTextBoxColumn6
-            // 
-            this.dataGridViewTextBoxColumn6.DataPropertyName = "Last";
-            dataGridViewCellStyle7.Format = "C2";
-            this.dataGridViewTextBoxColumn6.DefaultCellStyle = dataGridViewCellStyle7;
-            this.dataGridViewTextBoxColumn6.HeaderText = "Last";
-            this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
-            this.dataGridViewTextBoxColumn6.ReadOnly = true;
-            this.dataGridViewTextBoxColumn6.Width = 52;
-            // 
-            // dataGridViewTextBoxColumn7
-            // 
-            this.dataGridViewTextBoxColumn7.DataPropertyName = "Compra";
-            dataGridViewCellStyle8.Format = "C2";
-            this.dataGridViewTextBoxColumn7.DefaultCellStyle = dataGridViewCellStyle8;
-            this.dataGridViewTextBoxColumn7.HeaderText = "Compra";
-            this.dataGridViewTextBoxColumn7.Name = "dataGridViewTextBoxColumn7";
-            this.dataGridViewTextBoxColumn7.ReadOnly = true;
-            this.dataGridViewTextBoxColumn7.Width = 68;
-            // 
-            // dataGridViewTextBoxColumn8
-            // 
-            this.dataGridViewTextBoxColumn8.DataPropertyName = "Venta";
-            dataGridViewCellStyle9.Format = "C2";
-            this.dataGridViewTextBoxColumn8.DefaultCellStyle = dataGridViewCellStyle9;
-            this.dataGridViewTextBoxColumn8.HeaderText = "Venta";
-            this.dataGridViewTextBoxColumn8.Name = "dataGridViewTextBoxColumn8";
-            this.dataGridViewTextBoxColumn8.ReadOnly = true;
-            this.dataGridViewTextBoxColumn8.Width = 60;
             // 
             // grdCCLRight
             // 
@@ -330,50 +228,14 @@
             this.dataGridViewTextBoxColumn12});
             this.grdCCLRight.Dock = System.Windows.Forms.DockStyle.Fill;
             this.grdCCLRight.Location = new System.Drawing.Point(0, 0);
+            this.grdCCLRight.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.grdCCLRight.MultiSelect = false;
             this.grdCCLRight.Name = "grdCCLRight";
             this.grdCCLRight.ReadOnly = true;
+            this.grdCCLRight.RowHeadersWidth = 51;
             this.grdCCLRight.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.grdCCLRight.Size = new System.Drawing.Size(482, 301);
+            this.grdCCLRight.Size = new System.Drawing.Size(644, 371);
             this.grdCCLRight.TabIndex = 1;
-            // 
-            // dataGridViewTextBoxColumn9
-            // 
-            this.dataGridViewTextBoxColumn9.DataPropertyName = "Trade";
-            this.dataGridViewTextBoxColumn9.HeaderText = "$ / USD";
-            this.dataGridViewTextBoxColumn9.Name = "dataGridViewTextBoxColumn9";
-            this.dataGridViewTextBoxColumn9.ReadOnly = true;
-            this.dataGridViewTextBoxColumn9.Width = 72;
-            // 
-            // dataGridViewTextBoxColumn10
-            // 
-            this.dataGridViewTextBoxColumn10.DataPropertyName = "Last";
-            dataGridViewCellStyle10.Format = "C2";
-            this.dataGridViewTextBoxColumn10.DefaultCellStyle = dataGridViewCellStyle10;
-            this.dataGridViewTextBoxColumn10.HeaderText = "Last";
-            this.dataGridViewTextBoxColumn10.Name = "dataGridViewTextBoxColumn10";
-            this.dataGridViewTextBoxColumn10.ReadOnly = true;
-            this.dataGridViewTextBoxColumn10.Width = 52;
-            // 
-            // dataGridViewTextBoxColumn11
-            // 
-            this.dataGridViewTextBoxColumn11.DataPropertyName = "Compra";
-            dataGridViewCellStyle11.Format = "C2";
-            this.dataGridViewTextBoxColumn11.DefaultCellStyle = dataGridViewCellStyle11;
-            this.dataGridViewTextBoxColumn11.HeaderText = "Compra";
-            this.dataGridViewTextBoxColumn11.Name = "dataGridViewTextBoxColumn11";
-            this.dataGridViewTextBoxColumn11.ReadOnly = true;
-            this.dataGridViewTextBoxColumn11.Width = 68;
-            // 
-            // dataGridViewTextBoxColumn12
-            // 
-            this.dataGridViewTextBoxColumn12.DataPropertyName = "Venta";
-            dataGridViewCellStyle12.Format = "C2";
-            this.dataGridViewTextBoxColumn12.DefaultCellStyle = dataGridViewCellStyle12;
-            this.dataGridViewTextBoxColumn12.HeaderText = "Venta";
-            this.dataGridViewTextBoxColumn12.Name = "dataGridViewTextBoxColumn12";
-            this.dataGridViewTextBoxColumn12.ReadOnly = true;
-            this.dataGridViewTextBoxColumn12.Width = 60;
             // 
             // timer1
             // 
@@ -381,12 +243,181 @@
             this.timer1.Interval = 3000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
+            // Trade
+            // 
+            this.Trade.DataPropertyName = "Trade";
+            this.Trade.HeaderText = "$ / USD";
+            this.Trade.MinimumWidth = 6;
+            this.Trade.Name = "Trade";
+            this.Trade.ReadOnly = true;
+            this.Trade.Width = 86;
+            // 
+            // Dolar
+            // 
+            this.Dolar.DataPropertyName = "Last";
+            dataGridViewCellStyle1.Format = "C2";
+            this.Dolar.DefaultCellStyle = dataGridViewCellStyle1;
+            this.Dolar.HeaderText = "Last";
+            this.Dolar.MinimumWidth = 6;
+            this.Dolar.Name = "Dolar";
+            this.Dolar.ReadOnly = true;
+            this.Dolar.Width = 64;
+            // 
+            // Compra
+            // 
+            this.Compra.DataPropertyName = "Compra";
+            dataGridViewCellStyle2.Format = "C2";
+            this.Compra.DefaultCellStyle = dataGridViewCellStyle2;
+            this.Compra.HeaderText = "Offer $ / Bid U$S";
+            this.Compra.MinimumWidth = 6;
+            this.Compra.Name = "Compra";
+            this.Compra.ReadOnly = true;
+            this.Compra.Width = 108;
+            // 
+            // Venta
+            // 
+            this.Venta.DataPropertyName = "Venta";
+            dataGridViewCellStyle3.Format = "C2";
+            this.Venta.DefaultCellStyle = dataGridViewCellStyle3;
+            this.Venta.HeaderText = "Offer U$S / Bid $";
+            this.Venta.MinimumWidth = 6;
+            this.Venta.Name = "Venta";
+            this.Venta.ReadOnly = true;
+            this.Venta.Width = 103;
+            // 
+            // dataGridViewTextBoxColumn1
+            // 
+            this.dataGridViewTextBoxColumn1.DataPropertyName = "Trade";
+            this.dataGridViewTextBoxColumn1.HeaderText = "$ / USD";
+            this.dataGridViewTextBoxColumn1.MinimumWidth = 6;
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            this.dataGridViewTextBoxColumn1.ReadOnly = true;
+            this.dataGridViewTextBoxColumn1.Width = 86;
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            this.dataGridViewTextBoxColumn2.DataPropertyName = "Last";
+            dataGridViewCellStyle4.Format = "C2";
+            this.dataGridViewTextBoxColumn2.DefaultCellStyle = dataGridViewCellStyle4;
+            this.dataGridViewTextBoxColumn2.HeaderText = "Last";
+            this.dataGridViewTextBoxColumn2.MinimumWidth = 6;
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            this.dataGridViewTextBoxColumn2.ReadOnly = true;
+            this.dataGridViewTextBoxColumn2.Width = 64;
+            // 
+            // dataGridViewTextBoxColumn3
+            // 
+            this.dataGridViewTextBoxColumn3.DataPropertyName = "Compra";
+            dataGridViewCellStyle5.Format = "C2";
+            this.dataGridViewTextBoxColumn3.DefaultCellStyle = dataGridViewCellStyle5;
+            this.dataGridViewTextBoxColumn3.HeaderText = "Offer $ / Bid U$S";
+            this.dataGridViewTextBoxColumn3.MinimumWidth = 6;
+            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
+            this.dataGridViewTextBoxColumn3.ReadOnly = true;
+            this.dataGridViewTextBoxColumn3.Width = 108;
+            // 
+            // dataGridViewTextBoxColumn4
+            // 
+            this.dataGridViewTextBoxColumn4.DataPropertyName = "Venta";
+            dataGridViewCellStyle6.Format = "C2";
+            this.dataGridViewTextBoxColumn4.DefaultCellStyle = dataGridViewCellStyle6;
+            this.dataGridViewTextBoxColumn4.HeaderText = "Offer U$S / Bid $";
+            this.dataGridViewTextBoxColumn4.MinimumWidth = 6;
+            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
+            this.dataGridViewTextBoxColumn4.ReadOnly = true;
+            this.dataGridViewTextBoxColumn4.Width = 103;
+            // 
+            // dataGridViewTextBoxColumn5
+            // 
+            this.dataGridViewTextBoxColumn5.DataPropertyName = "Trade";
+            this.dataGridViewTextBoxColumn5.HeaderText = "$ / USD";
+            this.dataGridViewTextBoxColumn5.MinimumWidth = 6;
+            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
+            this.dataGridViewTextBoxColumn5.ReadOnly = true;
+            this.dataGridViewTextBoxColumn5.Width = 86;
+            // 
+            // dataGridViewTextBoxColumn6
+            // 
+            this.dataGridViewTextBoxColumn6.DataPropertyName = "Last";
+            dataGridViewCellStyle7.Format = "C2";
+            this.dataGridViewTextBoxColumn6.DefaultCellStyle = dataGridViewCellStyle7;
+            this.dataGridViewTextBoxColumn6.HeaderText = "Last";
+            this.dataGridViewTextBoxColumn6.MinimumWidth = 6;
+            this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
+            this.dataGridViewTextBoxColumn6.ReadOnly = true;
+            this.dataGridViewTextBoxColumn6.Width = 64;
+            // 
+            // dataGridViewTextBoxColumn7
+            // 
+            this.dataGridViewTextBoxColumn7.DataPropertyName = "Compra";
+            dataGridViewCellStyle8.Format = "C2";
+            this.dataGridViewTextBoxColumn7.DefaultCellStyle = dataGridViewCellStyle8;
+            this.dataGridViewTextBoxColumn7.HeaderText = "Offer $ / Bid U$S";
+            this.dataGridViewTextBoxColumn7.MinimumWidth = 6;
+            this.dataGridViewTextBoxColumn7.Name = "dataGridViewTextBoxColumn7";
+            this.dataGridViewTextBoxColumn7.ReadOnly = true;
+            this.dataGridViewTextBoxColumn7.Width = 108;
+            // 
+            // dataGridViewTextBoxColumn8
+            // 
+            this.dataGridViewTextBoxColumn8.DataPropertyName = "Venta";
+            dataGridViewCellStyle9.Format = "C2";
+            this.dataGridViewTextBoxColumn8.DefaultCellStyle = dataGridViewCellStyle9;
+            this.dataGridViewTextBoxColumn8.HeaderText = "Offer U$S / Bid $";
+            this.dataGridViewTextBoxColumn8.MinimumWidth = 6;
+            this.dataGridViewTextBoxColumn8.Name = "dataGridViewTextBoxColumn8";
+            this.dataGridViewTextBoxColumn8.ReadOnly = true;
+            this.dataGridViewTextBoxColumn8.Width = 103;
+            // 
+            // dataGridViewTextBoxColumn9
+            // 
+            this.dataGridViewTextBoxColumn9.DataPropertyName = "Trade";
+            this.dataGridViewTextBoxColumn9.HeaderText = "$ / USD";
+            this.dataGridViewTextBoxColumn9.MinimumWidth = 6;
+            this.dataGridViewTextBoxColumn9.Name = "dataGridViewTextBoxColumn9";
+            this.dataGridViewTextBoxColumn9.ReadOnly = true;
+            this.dataGridViewTextBoxColumn9.Width = 86;
+            // 
+            // dataGridViewTextBoxColumn10
+            // 
+            this.dataGridViewTextBoxColumn10.DataPropertyName = "Last";
+            dataGridViewCellStyle10.Format = "C2";
+            this.dataGridViewTextBoxColumn10.DefaultCellStyle = dataGridViewCellStyle10;
+            this.dataGridViewTextBoxColumn10.HeaderText = "Last";
+            this.dataGridViewTextBoxColumn10.MinimumWidth = 6;
+            this.dataGridViewTextBoxColumn10.Name = "dataGridViewTextBoxColumn10";
+            this.dataGridViewTextBoxColumn10.ReadOnly = true;
+            this.dataGridViewTextBoxColumn10.Width = 64;
+            // 
+            // dataGridViewTextBoxColumn11
+            // 
+            this.dataGridViewTextBoxColumn11.DataPropertyName = "Compra";
+            dataGridViewCellStyle11.Format = "C2";
+            this.dataGridViewTextBoxColumn11.DefaultCellStyle = dataGridViewCellStyle11;
+            this.dataGridViewTextBoxColumn11.HeaderText = "Offer $ / Bid U$S";
+            this.dataGridViewTextBoxColumn11.MinimumWidth = 6;
+            this.dataGridViewTextBoxColumn11.Name = "dataGridViewTextBoxColumn11";
+            this.dataGridViewTextBoxColumn11.ReadOnly = true;
+            this.dataGridViewTextBoxColumn11.Width = 108;
+            // 
+            // dataGridViewTextBoxColumn12
+            // 
+            this.dataGridViewTextBoxColumn12.DataPropertyName = "Venta";
+            dataGridViewCellStyle12.Format = "C2";
+            this.dataGridViewTextBoxColumn12.DefaultCellStyle = dataGridViewCellStyle12;
+            this.dataGridViewTextBoxColumn12.HeaderText = "Offer U$S / Bid $";
+            this.dataGridViewTextBoxColumn12.MinimumWidth = 6;
+            this.dataGridViewTextBoxColumn12.Name = "dataGridViewTextBoxColumn12";
+            this.dataGridViewTextBoxColumn12.ReadOnly = true;
+            this.dataGridViewTextBoxColumn12.Width = 103;
+            // 
             // FrmDolarPrices
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1022, 609);
+            this.ClientSize = new System.Drawing.Size(1363, 750);
             this.Controls.Add(this.splitContainer2);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "FrmDolarPrices";
             this.Text = "Dolar Prices";
             this.Load += new System.EventHandler(this.FrmDolarPrices_Load);
@@ -415,25 +446,25 @@
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.SplitContainer spliCCL;
         private System.Windows.Forms.DataGridView grdCCLLeft;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn7;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn8;
         private System.Windows.Forms.DataGridView grdCCLRight;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn9;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn10;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn11;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn12;
         private System.Windows.Forms.SplitContainer splMEP;
         private System.Windows.Forms.DataGridView grdMEPLeft;
         private System.Windows.Forms.DataGridView grdMEPRight;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
         private System.Windows.Forms.DataGridViewTextBoxColumn Trade;
         private System.Windows.Forms.DataGridViewTextBoxColumn Dolar;
         private System.Windows.Forms.DataGridViewTextBoxColumn Compra;
         private System.Windows.Forms.DataGridViewTextBoxColumn Venta;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn7;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn8;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn9;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn10;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn11;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn12;
     }
 }

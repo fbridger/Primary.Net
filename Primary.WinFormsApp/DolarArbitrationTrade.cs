@@ -17,9 +17,9 @@
         public decimal Profit
         {
             get {
-                if (Arbitration.Venta > 0 && Owned.Compra > 0)
+                if (Arbitration.SellPrice > 0 && Owned.BuyPrice > 0)
                 {
-                    return (Arbitration.Venta / Owned.Compra) - 1;
+                    return (Arbitration.SellPrice / Owned.BuyPrice) - 1;
                 }
 
                 return -100;

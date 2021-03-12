@@ -10,7 +10,15 @@
             Buy = buy;
             Sell = sell;
         }
+
+        /// <summary>
+        /// Obtiene el instrumento que se desea comprar
+        /// </summary>
         public InstrumentWithData Buy { get; set; }
+
+        /// <summary>
+        /// Obtiene el instrumento que se desea vender
+        /// </summary>
         public InstrumentWithData Sell { get; set; }
 
         public string Trade
@@ -37,7 +45,7 @@
         /// <summary>
         /// Obtiene el tipo de cambio para Comprar Dolar utilizando Pesos.Offers / Dolar.Bids
         /// </summary>
-        public decimal Compra // Barato
+        public decimal BuyPrice // Barato
         {
             get {
                 if (HasData() && Buy.Data.HasOffers() && Sell.Data.HasBids())
@@ -51,7 +59,7 @@
         /// <summary>
         /// Obtiene el tipo de cambio para Vender Dolar utilizando Pesos.Bids / Dolar.Offers
         /// </summary>
-        public decimal Venta // Caro
+        public decimal SellPrice // Caro
         {
             get {
                 if (HasData() && Buy.Data.HasBids() && Sell.Data.HasOffers())

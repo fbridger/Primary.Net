@@ -20,7 +20,8 @@ namespace Primary.WinFormsApp
             try
             {
                 _processor.RefreshData();
-                var trades = _processor.GetArbitrationTrades();
+                var minProfit = numMinProfit.Value / 100;
+                var trades = _processor.GetArbitrationTrades(minProfit, chkMEP.Checked, chkCCL.Checked, chkDolarDC.Checked, chkDolarCD.Checked);
 
                 var processedRows = new List<DataRow>();
 
@@ -57,9 +58,9 @@ namespace Primary.WinFormsApp
                     row["OwnedCompra"] = bestTrade.Owned.Buy.Data.HasOffers() ? (object)bestTrade.Owned.Buy.Data.Offers[0].Price : DBNull.Value;
 
 
-                    row["DolarCompra"] = bestTrade.Owned.Compra;
+                    row["DolarCompra"] = bestTrade.Owned.BuyPrice;
                     row["DolarCompraLast"] = bestTrade.Owned.Last;
-                    row["DolarVenta"] = bestTrade.Arbitration.Venta;
+                    row["DolarVenta"] = bestTrade.Arbitration.SellPrice;
                     row["DolarVentaLast"] = bestTrade.Arbitration.Last;
 
                     row["DolarArbitrationTrade"] = bestTrade;

@@ -36,7 +36,7 @@ namespace Primary.WinFormsApp
             foreach (var dolarArbitrationData in dolarTradedInstruments)
             {
                 
-                var dolarTrades = dolarArbitrationData.GetDolarMEPCableTrades().Where(x => x.Last > 0 || x.Compra > 0 || x.Venta > 0);
+                var dolarTrades = dolarArbitrationData.GetDolarMEPTrades().Where(x => x.Last > 0 || x.BuyPrice > 0 || x.SellPrice > 0);
                 trades.AddRange(dolarTrades);
                 
             }
@@ -50,7 +50,7 @@ namespace Primary.WinFormsApp
 
             foreach (var dolarArbitrationData in dolarTradedInstruments)
             {
-                var dolarTrades = dolarArbitrationData.GetDolarMEPCableTrades().Where(x => x.Last > 0 || x.Compra > 0 || x.Venta > 0);
+                var dolarTrades = dolarArbitrationData.GetDolarCableTrades().Where(x => x.Last > 0 || x.BuyPrice > 0 || x.SellPrice > 0);
                 trades.AddRange(dolarTrades);
             }
 

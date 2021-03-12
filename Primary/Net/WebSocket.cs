@@ -100,6 +100,10 @@ namespace Primary.Net
                     OnData(_api, data);
                 }
                 catch (OperationCanceledException) { }
+                catch (WebSocketException wsEx)
+                {
+                    throw wsEx;
+                }
                 catch (Exception ex)
                 {
                     throw ex;

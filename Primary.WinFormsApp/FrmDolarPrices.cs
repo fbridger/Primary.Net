@@ -60,8 +60,8 @@ namespace Primary.WinFormsApp
                 }
 
                 row["Last"] = trade.Last;
-                row["Compra"] = trade.Compra;
-                row["Venta"] = trade.Venta;
+                row["Compra"] = trade.BuyPrice;
+                row["Venta"] = trade.SellPrice;
 
                 if (existingRow == null)
                 {

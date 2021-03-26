@@ -41,7 +41,7 @@ namespace Primary.WinFormsApp
         {
             var processedRows = new List<DataRow>();
 
-            foreach (var trade in mepTrades)
+            foreach (var trade in mepTrades.Where(x => x.BuyPrice > 0 && x.SellPrice > 0))
             {
                 var tradeKey = trade.Trade;
 

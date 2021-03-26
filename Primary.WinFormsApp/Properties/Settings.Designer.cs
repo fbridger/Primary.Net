@@ -31,10 +31,14 @@ namespace Primary.WinFormsApp.Properties {
   <string>AL30</string>
   <string>AL35</string>
   <string>AE38</string>
+  <string>AL41</string>
   <string>GD29</string>
   <string>GD30</string>
   <string>GD35</string>
   <string>GD38</string>
+  <string>GD41</string>
+  <string>GD46</string>
+  <string>GOLD</string>
 </ArrayOfString>")]
         public global::System.Collections.Specialized.StringCollection ArbitrationTickers {
             get {
@@ -91,6 +95,42 @@ namespace Primary.WinFormsApp.Properties {
         public bool Enabled24Hours {
             get {
                 return ((bool)(this["Enabled24Hours"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute(@"<?xml version=""1.0"" encoding=""utf-16""?>
+<ArrayOfString xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"">
+  <string>GGAL</string>
+  <string>BMA</string>
+  <string>BBAR</string>
+  <string>PAM</string>
+  <string>AMZN</string>
+  <string>BABA</string>
+  <string>BIOX</string>
+  <string>BRKB</string>
+  <string>KO</string>
+  <string>GOLD</string>
+  <string>DISN</string>
+  <string>YPFD</string>
+  <string>ALUA</string>
+  <string>TXAR</string>
+  <string>AL29</string>
+  <string>AL30</string>
+  <string>AL35</string>
+  <string>AE38</string>
+  <string>AL41</string>
+  <string>GD29</string>
+  <string>GD30</string>
+  <string>GD35</string>
+  <string>GD38</string>
+  <string>GD41</string>
+  <string>GD46</string>
+</ArrayOfString>")]
+        public global::System.Collections.Specialized.StringCollection WatchedTickers {
+            get {
+                return ((global::System.Collections.Specialized.StringCollection)(this["WatchedTickers"]));
             }
         }
     }

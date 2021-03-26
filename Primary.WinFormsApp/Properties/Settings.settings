@@ -9,10 +9,14 @@
   &lt;string&gt;AL30&lt;/string&gt;
   &lt;string&gt;AL35&lt;/string&gt;
   &lt;string&gt;AE38&lt;/string&gt;
+  &lt;string&gt;AL41&lt;/string&gt;
   &lt;string&gt;GD29&lt;/string&gt;
   &lt;string&gt;GD30&lt;/string&gt;
   &lt;string&gt;GD35&lt;/string&gt;
   &lt;string&gt;GD38&lt;/string&gt;
+  &lt;string&gt;GD41&lt;/string&gt;
+  &lt;string&gt;GD46&lt;/string&gt;
+  &lt;string&gt;GOLD&lt;/string&gt;
 &lt;/ArrayOfString&gt;</Value>
     </Setting>
     <Setting Name="UserName" Type="System.String" Scope="User">
@@ -36,6 +40,36 @@
     </Setting>
     <Setting Name="Enabled24Hours" Type="System.Boolean" Scope="Application">
       <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="WatchedTickers" Type="System.Collections.Specialized.StringCollection" Scope="Application">
+      <Value Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;ArrayOfString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;string&gt;GGAL&lt;/string&gt;
+  &lt;string&gt;BMA&lt;/string&gt;
+  &lt;string&gt;BBAR&lt;/string&gt;
+  &lt;string&gt;PAM&lt;/string&gt;
+  &lt;string&gt;AMZN&lt;/string&gt;
+  &lt;string&gt;BABA&lt;/string&gt;
+  &lt;string&gt;BIOX&lt;/string&gt;
+  &lt;string&gt;BRKB&lt;/string&gt;
+  &lt;string&gt;KO&lt;/string&gt;
+  &lt;string&gt;GOLD&lt;/string&gt;
+  &lt;string&gt;DISN&lt;/string&gt;
+  &lt;string&gt;YPFD&lt;/string&gt;
+  &lt;string&gt;ALUA&lt;/string&gt;
+  &lt;string&gt;TXAR&lt;/string&gt;
+  &lt;string&gt;AL29&lt;/string&gt;
+  &lt;string&gt;AL30&lt;/string&gt;
+  &lt;string&gt;AL35&lt;/string&gt;
+  &lt;string&gt;AE38&lt;/string&gt;
+  &lt;string&gt;AL41&lt;/string&gt;
+  &lt;string&gt;GD29&lt;/string&gt;
+  &lt;string&gt;GD30&lt;/string&gt;
+  &lt;string&gt;GD35&lt;/string&gt;
+  &lt;string&gt;GD38&lt;/string&gt;
+  &lt;string&gt;GD41&lt;/string&gt;
+  &lt;string&gt;GD46&lt;/string&gt;
+&lt;/ArrayOfString&gt;</Value>
     </Setting>
   </Settings>
 </SettingsFile>

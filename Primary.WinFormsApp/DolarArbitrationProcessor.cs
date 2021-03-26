@@ -47,25 +47,25 @@ namespace Primary.WinFormsApp
                 if (mep)
                 {
                     var dolarTrades = dolarArbitrationData.GetDolarMEPArbitrations();
-                    trades.AddRange(dolarTrades.Where(x => x.Profit > minProfit || x.ProfitLast > minProfit));
+                    trades.AddRange(dolarTrades.Where(x => x.Profit > minProfit));
                 }
 
                 if (ccl)
                 {
                     var cableTrades = dolarArbitrationData.GetDolarCableArbitrations();
-                    trades.AddRange(cableTrades.Where(x => x.Profit > minProfit || x.ProfitLast > minProfit));
+                    trades.AddRange(cableTrades.Where(x => x.Profit > minProfit));
                 }
 
                 if (dc)
                 {
                     var cableDolarTrades = dolarArbitrationData.GetSellDolarBuyCableArbitrationTrades();
-                    trades.AddRange(cableDolarTrades.Where(x => x.Profit > minProfit || x.ProfitLast > minProfit));
+                    trades.AddRange(cableDolarTrades.Where(x => x.Profit > minProfit));
                 }
 
                 if (cd)
                 {
                     var dolarCableTrades = dolarArbitrationData.GetBuyDolarSellCableArbitrationTrades();
-                    trades.AddRange(dolarCableTrades.Where(x => x.Profit > minProfit || x.ProfitLast > minProfit));
+                    trades.AddRange(dolarCableTrades.Where(x => x.Profit > minProfit));
                 }
             }
 

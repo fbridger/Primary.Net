@@ -15,6 +15,7 @@ namespace Primary
     public class Api
     {
         /// <summary>This is the default production endpoint.</summary>
+        //public static Uri ProductionEndpoint => new Uri("https://mtzdma.primary.ventures");
         public static Uri ProductionEndpoint => new Uri("https://api.primary.com.ar");
 
         /// <summary>This is the default demo endpoint.</summary>
@@ -61,6 +62,13 @@ namespace Primary
             }
 
             return result.IsSuccessStatusCode;
+        }
+
+        public void SetAccessToken(string token)
+        {
+            AccessToken = token;
+            HttpClient.DefaultRequestHeaders.Clear();
+            HttpClient.DefaultRequestHeaders.Add("X-Auth-Token", AccessToken);
         }
 
         public const string DemoUsername = "naicigam2046";

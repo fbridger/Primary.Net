@@ -86,6 +86,16 @@ namespace Primary.WinFormsApp
         {
             return value.ToString("C2");
         }
+
+        public static decimal Variation(this Entries entries)
+        {
+            if (entries.Close != null && entries.Close.Price.HasValue && entries.Last != null && entries.Last.Price.HasValue)
+            {
+                return entries.Last.Price.Value / entries.Close.Price.Value - 1m; 
+            }
+
+            return default;
+        }
     }
 
     public static class StringExtensions

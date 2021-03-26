@@ -127,15 +127,21 @@ namespace Primary.WinFormsApp
             grdArbitration.MultiSelect = false;
             grdArbitration.AutoGenerateColumns = false;
             grdArbitration.DataSource = _dataTable;
+
+            numMinProfit.Increment = 0.25m;
+            numMinProfit.Minimum = -10m;
         }
 
         private void grdArbitration_DoubleClick(object sender, EventArgs e)
         {
-            var frm = new FrmArbitrationTrade();
-            var trade = ((DataRowView)grdArbitration.SelectedRows[0].DataBoundItem).Row["DolarArbitrationTrade"] as DolarArbitrationTrade;
-            frm.Init(trade);
-            frm.MdiParent = MdiParent;
-            frm.Show();
+            if (grdArbitration.SelectedRows.Count > 0)
+            {
+                var frm = new FrmArbitrationTrade();
+                var trade = ((DataRowView)grdArbitration.SelectedRows[0].DataBoundItem).Row["DolarArbitrationTrade"] as DolarArbitrationTrade;
+                frm.Init(trade);
+                frm.MdiParent = MdiParent;
+                frm.Show();
+            }
         }
     }
 }

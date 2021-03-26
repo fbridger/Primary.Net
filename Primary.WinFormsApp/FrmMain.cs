@@ -36,17 +36,24 @@ namespace Primary.WinFormsApp
 
             if (login.ShowDialog() == DialogResult.OK)
             {
-                var success = await Argentina.Data.Api.Login(login.UserName, login.Password);
-
-                if (success == false)
+                if (string.IsNullOrWhiteSpace(login.Token) == false)
                 {
-                    MessageBox.Show("Login Failed", "Login Failed", MessageBoxButtons.OK);
-                    return;
+                    Argentina.Data.Api.SetAccessToken(login.Token);
                 }
+                else
+                {
+                    var success = await Argentina.Data.Api.Login(login.UserName, login.Password);
 
-                Properties.Settings.Default.UserName = login.UserName;
-                Properties.Settings.Default.Password = login.Password;
-                Properties.Settings.Default.Save();
+                    if (success == false)
+                    {
+                        MessageBox.Show("Login Failed", "Login Failed", MessageBoxButtons.OK);
+                        return;
+                    }
+
+                    Properties.Settings.Default.UserName = login.UserName;
+                    Properties.Settings.Default.Password = login.Password;
+                    Properties.Settings.Default.Save();
+                }
 
                 await Argentina.Data.Init();
 
@@ -65,6 +72,7 @@ namespace Primary.WinFormsApp
                 Argentina.Data.OnMarketData += Data_OnMarketData;
 
                 backgroundTasks.Add(Argentina.Data.WatchWithWebSocket(_watchedInstruments));
+                //backgroundTasks.AddRange(Argentina.Data.WatchWithRestApi(_watchedInstruments));
             }
         }
 
@@ -97,8 +105,9 @@ namespace Primary.WinFormsApp
             //var bonds = new[] { "AL29", "AL30", "AL35", "AE38", "AL41", "GD29", "GD30", "GD35", "GD38", "GD41", "GD46" };
             var owned = Properties.Settings.Default.OwnedTickers.Cast<string>().ToList();
             var arbitration = Properties.Settings.Default.ArbitrationTickers.Cast<string>().ToList();
+            var watched = Properties.Settings.Default.WatchedTickers.Cast<string>().ToList();
 
-            var bonds = arbitration.Concat(owned).Distinct();
+            var bonds = arbitration.Concat(owned).Concat(watched).Distinct();
 
             this.watchList = new List<string>();
             foreach (var item in bonds)
@@ -157,6 +166,13 @@ namespace Primary.WinFormsApp
         private void refreshDataToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Argentina.Data.RefreshMarketData(_watchedInstruments).ToArray();
+        }
+
+        private void buscadorArbitrajesSimplesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var frmSettlementTermsAnalyzer = new FrmSettlementTermsAnalyzer();
+            //frmSettlementTermsAnalyzer.MdiParent = this;
+            frmSettlementTermsAnalyzer.Show();
         }
     }
 }

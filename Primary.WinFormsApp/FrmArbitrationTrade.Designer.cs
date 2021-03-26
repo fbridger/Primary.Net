@@ -78,8 +78,8 @@
             this.lblProfit = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.lblArbitrationDiff = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
+            this.lblDolarSell = new System.Windows.Forms.Label();
+            this.lblDolarBuy = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.numDolar = new System.Windows.Forms.NumericUpDown();
             this.lblComisionTotal = new System.Windows.Forms.Label();
@@ -804,29 +804,29 @@
             this.lblArbitrationDiff.Text = "%";
             this.lblArbitrationDiff.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
-            // label4
+            // lblDolarSell
             // 
-            this.label4.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(436, 84);
-            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(145, 22);
-            this.label4.TabIndex = 17;
-            this.label4.Text = "Dolar Venta";
-            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.lblDolarSell.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.lblDolarSell.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDolarSell.Location = new System.Drawing.Point(436, 84);
+            this.lblDolarSell.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblDolarSell.Name = "lblDolarSell";
+            this.lblDolarSell.Size = new System.Drawing.Size(145, 22);
+            this.lblDolarSell.TabIndex = 17;
+            this.lblDolarSell.Text = "Dolar Venta";
+            this.lblDolarSell.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // label5
+            // lblDolarBuy
             // 
-            this.label5.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(943, 87);
-            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(139, 22);
-            this.label5.TabIndex = 18;
-            this.label5.Text = "Dolar Compra";
-            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lblDolarBuy.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.lblDolarBuy.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDolarBuy.Location = new System.Drawing.Point(943, 87);
+            this.lblDolarBuy.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblDolarBuy.Name = "lblDolarBuy";
+            this.lblDolarBuy.Size = new System.Drawing.Size(139, 22);
+            this.lblDolarBuy.TabIndex = 18;
+            this.lblDolarBuy.Text = "Dolar Compra";
+            this.lblDolarBuy.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label8
             // 
@@ -910,8 +910,8 @@
             this.Controls.Add(this.lblComisionTotal);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.numDolar);
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.label4);
+            this.Controls.Add(this.lblDolarBuy);
+            this.Controls.Add(this.lblDolarSell);
             this.Controls.Add(this.lblArbitrationDiff);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.lblProfit);
@@ -996,8 +996,8 @@
         private System.Windows.Forms.Label lblBookOwnedCompraOffer;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label lblArbitrationDiff;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label lblDolarSell;
+        private System.Windows.Forms.Label lblDolarBuy;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.NumericUpDown numDolar;
         private System.Windows.Forms.Label lblComisionTotal;

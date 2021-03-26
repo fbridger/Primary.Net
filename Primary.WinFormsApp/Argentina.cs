@@ -3,6 +3,7 @@ using Primary.WebSockets;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
@@ -39,7 +40,8 @@ namespace Primary.WinFormsApp
 
         public async Task Init()
         {
-            AllInstruments = await Api.GetAllInstruments();
+            var instruments = await Api.GetAllInstruments();
+            AllInstruments = instruments.OrderBy(x => x.Symbol).ToList();
         }
 
         public IEnumerable<Task> WatchWithRestApi(Instrument[] instruments)
@@ -65,13 +67,21 @@ namespace Primary.WinFormsApp
 
         private void OnReceiveMarketData(Api api, MarketData marketData)
         {
-            if (marketData.Instrument != null)
+            try
             {
-                //Console.WriteLine(marketData.Instrument?.Symbol + ": " + marketData.Data?.Last?.Price);
-                LatestMarketData.AddOrUpdate(marketData.Instrument.Symbol, marketData.Data, (key, data) => marketData.Data);
+                if (marketData.Instrument != null)
+                {
+                    //Console.WriteLine(marketData.Instrument?.Symbol + ": " + marketData.Data?.Last?.Price);
+                    LatestMarketData.AddOrUpdate(marketData.Instrument.Symbol, marketData.Data, (key, data) => marketData.Data);
 
-                OnMarketData?.Invoke(marketData.Instrument, marketData.Data);
+                    OnMarketData?.Invoke(marketData.Instrument, marketData.Data);
 
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                throw ex;
             }
         }
 
@@ -87,7 +97,7 @@ namespace Primary.WinFormsApp
 
                     OnMarketData?.Invoke(instrument, marketDataRestApi.Data);
 
-                    await Task.Delay(TimeSpan.FromSeconds(3), _tokenSource.Token);
+                    await Task.Delay(TimeSpan.FromSeconds(5), _tokenSource.Token);
 
                     if (_tokenSource.IsCancellationRequested)
                     {

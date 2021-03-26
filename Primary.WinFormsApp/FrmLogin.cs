@@ -25,6 +25,13 @@ namespace Primary.WinFormsApp
                 return txtUserName.Text;
             }
         }
+        public string Token
+        {
+            get
+            {
+                return txtToken.Text;
+            }
+        }
 
         public FrmLogin()
         {

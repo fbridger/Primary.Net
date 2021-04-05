@@ -1,12 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Security;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Primary.WinFormsApp
@@ -15,21 +7,16 @@ namespace Primary.WinFormsApp
     {
         public string Password
         {
-            get {
+            get
+            {
                 return txtPassword.Text;
             }
         }
         public string UserName
         {
-            get {
-                return txtUserName.Text;
-            }
-        }
-        public string Token
-        {
             get
             {
-                return txtToken.Text;
+                return txtUserName.Text;
             }
         }
 

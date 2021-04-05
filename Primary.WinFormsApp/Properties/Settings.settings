@@ -17,6 +17,18 @@
   &lt;string&gt;GD41&lt;/string&gt;
   &lt;string&gt;GD46&lt;/string&gt;
   &lt;string&gt;GOLD&lt;/string&gt;
+  &lt;string&gt;AAPL&lt;/string&gt;
+  &lt;string&gt;AMZN&lt;/string&gt;
+  &lt;string&gt;BABA&lt;/string&gt;
+  &lt;string&gt;BIDU&lt;/string&gt;
+  &lt;string&gt;BRKB&lt;/string&gt;
+  &lt;string&gt;KO&lt;/string&gt;
+  &lt;string&gt;MELI&lt;/string&gt;
+  &lt;string&gt;MRK&lt;/string&gt;
+  &lt;string&gt;MSFT&lt;/string&gt;
+  &lt;string&gt;NVDA&lt;/string&gt;
+  &lt;string&gt;PBR&lt;/string&gt;
+  &lt;string&gt;TSLA&lt;/string&gt;
 &lt;/ArrayOfString&gt;</Value>
     </Setting>
     <Setting Name="UserName" Type="System.String" Scope="User">
@@ -30,12 +42,9 @@
 &lt;ArrayOfString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
   &lt;string&gt;AL29&lt;/string&gt;
   &lt;string&gt;AL30&lt;/string&gt;
-  &lt;string&gt;AL35&lt;/string&gt;
   &lt;string&gt;AE38&lt;/string&gt;
-  &lt;string&gt;GD29&lt;/string&gt;
   &lt;string&gt;GD30&lt;/string&gt;
   &lt;string&gt;GD35&lt;/string&gt;
-  &lt;string&gt;GD38&lt;/string&gt;
 &lt;/ArrayOfString&gt;</Value>
     </Setting>
     <Setting Name="Enabled24Hours" Type="System.Boolean" Scope="Application">
@@ -70,6 +79,9 @@
   &lt;string&gt;GD41&lt;/string&gt;
   &lt;string&gt;GD46&lt;/string&gt;
 &lt;/ArrayOfString&gt;</Value>
+    </Setting>
+    <Setting Name="USDARS" Type="System.Decimal" Scope="User">
+      <Value Profile="(Default)">97.25</Value>
     </Setting>
   </Settings>
 </SettingsFile>

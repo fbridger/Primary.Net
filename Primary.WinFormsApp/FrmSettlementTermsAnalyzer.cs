@@ -54,9 +54,10 @@ namespace Primary.WinFormsApp
                     row["BuyTotal"] = buyTotal;
                     decimal comision = bestTrade.SellPrice * numBuySellSize.Value / 100m * numComision.Value / 100m;
                     row["Comision"] = comision;
+                    decimal interes = buyTotal * (numTasa.Value / 100m * numDiasCaucion.Value / 365m);
                     decimal caucion = buyTotal * (numComisionCaucion.Value / 100m * numDiasCaucion.Value / 365m) * 1.21m; // +IVA
-                    row["Caucion"] = caucion;
-                    row["ProfitCaucion"] = sellTotal - buyTotal - comision - caucion;
+                    row["Caucion"] = caucion + interes;
+                    row["ProfitCaucion"] = sellTotal - buyTotal - comision - caucion - interes;
 
                     row["Venta"] = bestTrade.Sell.Data.HasBids() ? (object)bestTrade.Sell.Data.Bids[0].Price : DBNull.Value;
                     row["Compra"] = bestTrade.Buy.Data.HasOffers() ? (object)bestTrade.Buy.Data.Offers[0].Price : DBNull.Value;

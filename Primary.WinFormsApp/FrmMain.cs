@@ -36,24 +36,18 @@ namespace Primary.WinFormsApp
 
             if (login.ShowDialog() == DialogResult.OK)
             {
-                if (string.IsNullOrWhiteSpace(login.Token) == false)
-                {
-                    Argentina.Data.Api.SetAccessToken(login.Token);
-                }
-                else
-                {
-                    var success = await Argentina.Data.Api.Login(login.UserName, login.Password);
+                var success = await Argentina.Data.Api.Login(login.UserName, login.Password);
 
-                    if (success == false)
-                    {
-                        MessageBox.Show("Login Failed", "Login Failed", MessageBoxButtons.OK);
-                        return;
-                    }
-
-                    Properties.Settings.Default.UserName = login.UserName;
-                    Properties.Settings.Default.Password = login.Password;
-                    Properties.Settings.Default.Save();
+                if (success == false)
+                {
+                    MessageBox.Show("Login Failed", "Login Failed", MessageBoxButtons.OK);
+                    return;
                 }
+
+                Properties.Settings.Default.UserName = login.UserName;
+                Properties.Settings.Default.Password = login.Password;
+                Properties.Settings.Default.Save();
+
 
                 await Argentina.Data.Init();
 
@@ -86,7 +80,7 @@ namespace Primary.WinFormsApp
                 {
                     _lastUpdate = DateTime.Now;
                     this.Invoke(new Action(() => this.Text = $"Arbitrador - Last WebSocket Message: {_lastUpdate:HH:mm:ss} {dif.TotalSeconds:#0} seconds ago"));
-                    
+
                 }
             }
             catch (Exception ex)
@@ -123,7 +117,7 @@ namespace Primary.WinFormsApp
             {
                 return true;
             }
-            
+
             return false;
         }
 

@@ -39,6 +39,18 @@ namespace Primary.WinFormsApp.Properties {
   <string>GD41</string>
   <string>GD46</string>
   <string>GOLD</string>
+  <string>AAPL</string>
+  <string>AMZN</string>
+  <string>BABA</string>
+  <string>BIDU</string>
+  <string>BRKB</string>
+  <string>KO</string>
+  <string>MELI</string>
+  <string>MRK</string>
+  <string>MSFT</string>
+  <string>NVDA</string>
+  <string>PBR</string>
+  <string>TSLA</string>
 </ArrayOfString>")]
         public global::System.Collections.Specialized.StringCollection ArbitrationTickers {
             get {
@@ -76,12 +88,9 @@ namespace Primary.WinFormsApp.Properties {
 <ArrayOfString xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"">
   <string>AL29</string>
   <string>AL30</string>
-  <string>AL35</string>
   <string>AE38</string>
-  <string>GD29</string>
   <string>GD30</string>
   <string>GD35</string>
-  <string>GD38</string>
 </ArrayOfString>")]
         public global::System.Collections.Specialized.StringCollection OwnedTickers {
             get {
@@ -131,6 +140,18 @@ namespace Primary.WinFormsApp.Properties {
         public global::System.Collections.Specialized.StringCollection WatchedTickers {
             get {
                 return ((global::System.Collections.Specialized.StringCollection)(this["WatchedTickers"]));
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("97.25")]
+        public decimal USDARS {
+            get {
+                return ((decimal)(this["USDARS"]));
+            }
+            set {
+                this["USDARS"] = value;
             }
         }
     }

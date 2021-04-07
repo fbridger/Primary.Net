@@ -28,6 +28,10 @@ namespace Primary.WinFormsApp
         private async void FrmMain_Load(object sender, EventArgs e)
         {
             await Login();
+
+            var frmArbitrationAnalyzer = new FrmArbitrationAnalyzer();
+            //frmArbitrationAnalyzer.MdiParent = this;
+            frmArbitrationAnalyzer.Show();
         }
 
         private async Task Login()
@@ -59,34 +63,17 @@ namespace Primary.WinFormsApp
                     cmbInstruments.Items.Add(item);
                 }
 
-                var frmArbitrationAnalyzer = new FrmArbitrationAnalyzer();
-                //frmArbitrationAnalyzer.MdiParent = this;
-                frmArbitrationAnalyzer.Show();
-
                 Argentina.Data.OnMarketData += Data_OnMarketData;
 
                 backgroundTasks.Add(Argentina.Data.WatchWithWebSocket(_watchedInstruments));
                 //backgroundTasks.AddRange(Argentina.Data.WatchWithRestApi(_watchedInstruments));
+                tmrConnection.Enabled = true;
             }
         }
 
         private void Data_OnMarketData(Instrument instrument, Entries data)
         {
-            try
-            {
-                var dif = DateTime.Now - _lastUpdate;
-
-                if (dif.TotalSeconds > 1)
-                {
-                    _lastUpdate = DateTime.Now;
-                    this.Invoke(new Action(() => this.Text = $"Arbitrador - Last WebSocket Message: {_lastUpdate:HH:mm:ss} {dif.TotalSeconds:#0} seconds ago"));
-
-                }
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            _lastUpdate = DateTime.Now;
         }
 
         private void MarketDataClosing(object sender, FormClosingEventArgs e)
@@ -167,6 +154,20 @@ namespace Primary.WinFormsApp
             var frmSettlementTermsAnalyzer = new FrmSettlementTermsAnalyzer();
             //frmSettlementTermsAnalyzer.MdiParent = this;
             frmSettlementTermsAnalyzer.Show();
+        }
+
+        private void tmrConnection_Tick(object sender, EventArgs e)
+        {
+            var dif = DateTime.Now - _lastUpdate;
+
+            if (dif.TotalMilliseconds < tmrConnection.Interval)
+            {
+                this.Text = $"Connected - Last WebSocket Message: {_lastUpdate:HH:mm:ss} {dif.TotalSeconds:#0} seconds ago";
+            }
+            else
+            {
+                this.Text = $"DISCONNECTED - Last WebSocket Message: {_lastUpdate:HH:mm:ss} {dif.TotalSeconds:#0} seconds ago";
+            }
         }
     }
 }

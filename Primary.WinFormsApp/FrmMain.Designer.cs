@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.loginToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.historicDataToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -37,6 +38,7 @@
             this.dolarPricesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.refreshDataToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.buscadorArbitrajesSimplesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tmrConnection = new System.Windows.Forms.Timer(this.components);
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -114,6 +116,11 @@
             this.buscadorArbitrajesSimplesToolStripMenuItem.Text = "Buscador Arbitrajes Simples";
             this.buscadorArbitrajesSimplesToolStripMenuItem.Click += new System.EventHandler(this.buscadorArbitrajesSimplesToolStripMenuItem_Click);
             // 
+            // tmrConnection
+            // 
+            this.tmrConnection.Interval = 10000;
+            this.tmrConnection.Tick += new System.EventHandler(this.tmrConnection_Tick);
+            // 
             // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -122,7 +129,7 @@
             this.Controls.Add(this.menuStrip1);
             this.IsMdiContainer = true;
             this.MainMenuStrip = this.menuStrip1;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "FrmMain";
             this.Text = "Primary";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
@@ -145,6 +152,7 @@
         private System.Windows.Forms.ToolStripMenuItem dolarPricesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem refreshDataToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem buscadorArbitrajesSimplesToolStripMenuItem;
+        private System.Windows.Forms.Timer tmrConnection;
     }
 }
 

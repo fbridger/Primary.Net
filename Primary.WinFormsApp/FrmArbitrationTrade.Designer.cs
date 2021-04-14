@@ -289,7 +289,6 @@
             // 
             // numArbitrationCompraSize
             // 
-            this.numArbitrationCompraSize.Enabled = false;
             this.numArbitrationCompraSize.Location = new System.Drawing.Point(149, 23);
             this.numArbitrationCompraSize.Margin = new System.Windows.Forms.Padding(4);
             this.numArbitrationCompraSize.Maximum = new decimal(new int[] {
@@ -301,6 +300,7 @@
             this.numArbitrationCompraSize.Size = new System.Drawing.Size(107, 22);
             this.numArbitrationCompraSize.TabIndex = 0;
             this.numArbitrationCompraSize.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.numArbitrationCompraSize.ValueChanged += new System.EventHandler(this.numArbitrationCompraSize_ValueChanged);
             // 
             // label7
             // 
@@ -619,7 +619,7 @@
             this.lblDolarSell.Name = "lblDolarSell";
             this.lblDolarSell.Size = new System.Drawing.Size(145, 22);
             this.lblDolarSell.TabIndex = 17;
-            this.lblDolarSell.Text = "Dolar Venta";
+            this.lblDolarSell.Text = "Dolar Compra";
             this.lblDolarSell.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // lblDolarBuy
@@ -631,7 +631,7 @@
             this.lblDolarBuy.Name = "lblDolarBuy";
             this.lblDolarBuy.Size = new System.Drawing.Size(139, 22);
             this.lblDolarBuy.TabIndex = 18;
-            this.lblDolarBuy.Text = "Dolar Compra";
+            this.lblDolarBuy.Text = "Dolar Venta";
             this.lblDolarBuy.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label8
@@ -655,10 +655,10 @@
             this.numDolar.Size = new System.Drawing.Size(107, 22);
             this.numDolar.TabIndex = 19;
             this.numDolar.Value = new decimal(new int[] {
-            9725,
+            98,
             0,
             0,
-            131072});
+            0});
             this.numDolar.ValueChanged += new System.EventHandler(this.numDolar_ValueChanged);
             // 
             // lblComisionTotal

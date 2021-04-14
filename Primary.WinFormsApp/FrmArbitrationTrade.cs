@@ -229,6 +229,12 @@ namespace Primary.WinFormsApp
             ArbitrationCompraPriceAutoUpdate = e.ClickType == BidsOffersClickType.TopOffer;
         }
 
+        private void numArbitrationCompraSize_ValueChanged(object sender, EventArgs e)
+        {
+            var amount = numArbitrationCompraSize.Value * numArbitrationCompraPrice.Value / _arbitrationQuantityPerPrice;
+            UpdateOwnedVentaSizeBasedOnAmount(amount);
+        }
+
         private void ArbitrationVentaBidsOffers_ClickSize(object sender, BidOffersEventArgs e)
         {
             numArbitrationVentaSize.Value = e.Value;
@@ -269,7 +275,10 @@ namespace Primary.WinFormsApp
         public void UpdateOwnedVentaSizeBasedOnAmount(decimal amount)
         {
             var ownedSellSize = amount / numOwnedVentaPrice.Value * _ownedQuantityPerPrice;
-            numOwnedVentaSize.Value = Math.Ceiling(ownedSellSize);
+            if (ownedSellSize < numOwnedVentaSize.Maximum)
+            {
+                numOwnedVentaSize.Value = Math.Ceiling(ownedSellSize);
+            }
         }
 
         public void CompleteOwnedVenta()
@@ -407,9 +416,9 @@ namespace Primary.WinFormsApp
             
             lblComisionTotal.Text = "Total Comision: " +  (_ownedVentaComision + _arbtrationVentaComision).ToCurrency();
 
-            var dolarVenta = numOwnedVentaPrice.Value > 0 ? numOwnedCompraPrice.Value / numOwnedVentaPrice.Value : 0;
-            var dolarCompra = numArbitrationCompraPrice.Value > 0 ? numArbitrationVentaPrice.Value / numArbitrationCompraPrice.Value : 0;
-            var dolarDiff = dolarVenta > 0 ? dolarCompra / dolarVenta - 1 : 0;
+            var dolarCompra = numOwnedVentaPrice.Value > 0 ? numOwnedCompraPrice.Value / numOwnedVentaPrice.Value : 0;
+            var dolarVenta = numArbitrationCompraPrice.Value > 0 ? numArbitrationVentaPrice.Value / numArbitrationCompraPrice.Value : 0;
+            var dolarDiff = dolarCompra > 0 ? dolarVenta / dolarCompra - 1 : 0;
 
             decimal profit;
 
@@ -424,7 +433,7 @@ namespace Primary.WinFormsApp
                 lblTotalProfit.Text = "Total: " + (_arbitrationVentaImporte - ownedCompraSizeInicialTotal).ToUSD();
             }
             lblProfit.Text = "Profit: " + profit.ToCurrency();
-            lblProfit.Text += Environment.NewLine + $"Dolar Venta: {dolarVenta:C2}     {dolarDiff:P}     Dolar Compra: {dolarCompra:C2}";
+            lblProfit.Text += Environment.NewLine + $"Dolar Compra: {dolarCompra:C2}     {dolarVenta - dolarCompra:C2} ({dolarDiff:P})     Dolar Venta: {dolarVenta:C2}";
 
             if (chkComprarNominales.Checked)
             {

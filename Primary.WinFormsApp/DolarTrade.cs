@@ -1,8 +1,11 @@
-﻿namespace Primary.WinFormsApp
+﻿using System.Diagnostics;
+
+namespace Primary.WinFormsApp
 {
     /// <summary>
     /// Permite obtener la cotización para comprar o vender Dolar
     /// </summary>
+    [DebuggerDisplay("{Buy.Instrument.InstrumentId.Market}:{Buy.Instrument.InstrumentId.Symbol} {Buy.Instrument.Currency}")]
     public class DolarTrade
     {
         public DolarTrade(InstrumentWithData buy, InstrumentWithData sell)
@@ -24,7 +27,7 @@
         public string Trade
         {
             get {
-                return Buy.Instrument.SymbolWithoutPrefix() + " / " + Sell.Instrument.SymbolWithoutPrefix();
+                return Buy.Instrument.InstrumentId.SymbolWithoutPrefix() + " / " + Sell.Instrument.InstrumentId.SymbolWithoutPrefix();
             }
         }
 

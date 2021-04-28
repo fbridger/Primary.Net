@@ -8,10 +8,10 @@ namespace Primary.WinFormsApp
     /// </summary>
     public class DolarTradedInstrument : TradedInstrumentWithSettlementTerms
     {
-        public DolarTradedInstrument(string ticker): base(ticker, true)
+        public DolarTradedInstrument(string ticker): base(ticker)
         {
-            Dolar = new TradedInstrumentWithSettlementTerms(ticker.AddDolarSuffix(), false);
-            Cable = new TradedInstrumentWithSettlementTerms(ticker.AddCableSuffix(), false);
+            Dolar = new TradedInstrumentWithSettlementTerms(ticker.AddDolarSuffix());
+            Cable = new TradedInstrumentWithSettlementTerms(ticker.AddCableSuffix());
 
             RefreshData();
         }
@@ -35,15 +35,15 @@ namespace Primary.WinFormsApp
         public bool ContainsSymbol(string symbol)
         {
             var isMatch =
-                T48.Instrument.Symbol == symbol ||
-                T24.Instrument.Symbol == symbol ||
-                TCI.Instrument.Symbol == symbol ||
-                Dolar.T48.Instrument.Symbol == symbol ||
-                Dolar.T24.Instrument.Symbol == symbol ||
-                Dolar.TCI.Instrument.Symbol == symbol ||
-                Cable.T48.Instrument.Symbol == symbol ||
-                Cable.T24.Instrument.Symbol == symbol ||
-                Cable.TCI.Instrument.Symbol == symbol;
+                T48.Instrument.InstrumentId.Symbol == symbol ||
+                T24.Instrument.InstrumentId.Symbol == symbol ||
+                TCI.Instrument.InstrumentId.Symbol == symbol ||
+                Dolar.T48.Instrument.InstrumentId.Symbol == symbol ||
+                Dolar.T24.Instrument.InstrumentId.Symbol == symbol ||
+                Dolar.TCI.Instrument.InstrumentId.Symbol == symbol ||
+                Cable.T48.Instrument.InstrumentId.Symbol == symbol ||
+                Cable.T24.Instrument.InstrumentId.Symbol == symbol ||
+                Cable.TCI.Instrument.InstrumentId.Symbol == symbol;
 
             return isMatch;
         }

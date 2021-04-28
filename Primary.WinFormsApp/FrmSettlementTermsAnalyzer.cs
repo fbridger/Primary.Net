@@ -27,8 +27,8 @@ namespace Primary.WinFormsApp
 
                 foreach (var bestTrade in trades)
                 {
-                    var ownedVenta = bestTrade.Sell.Instrument.SymbolWithoutPrefix();
-                    var arbitrationCompra = bestTrade.Buy.Instrument.SymbolWithoutPrefix();
+                    var ownedVenta = bestTrade.Sell.Instrument.InstrumentId.SymbolWithoutPrefix();
+                    var arbitrationCompra = bestTrade.Buy.Instrument.InstrumentId.SymbolWithoutPrefix();
 
                     DataRow row;
                     var existingRow = _dataTable.Rows.Find(new[] { ownedVenta, arbitrationCompra});
@@ -98,6 +98,7 @@ namespace Primary.WinFormsApp
 
         private void FrmArbitrationBestTrades_Load(object sender, EventArgs e)
         {
+            numComision.Value = Properties.Settings.Default.Comision;
             _processor = new SettlementTermArbitrationProcessor();
 
             _processor.Init();
@@ -130,17 +131,22 @@ namespace Primary.WinFormsApp
             grdArbitration.AutoGenerateColumns = false;
             grdArbitration.DataSource = _dataTable;
 
-            numMinProfit.Increment = 0.25m;
+            numMinProfit.Increment = 0.1m;
             numMinProfit.Minimum = -10m;
         }
 
         private void grdArbitration_DoubleClick(object sender, EventArgs e)
         {
-            /*var frm = new FrmArbitrationTrade();
-            var trade = ((DataRowView)grdArbitration.SelectedRows[0].DataBoundItem).Row["DolarArbitrationTrade"] as DolarArbitrationTrade;
+            var frm = new FrmSettlementTermTrade();
+            var trade = ((DataRowView)grdArbitration.SelectedRows[0].DataBoundItem).Row["Trade"] as SettlementTermTrade;
             frm.Init(trade);
             frm.MdiParent = MdiParent;
-            frm.Show();*/
+            frm.Show();
+        }
+
+        private void grdArbitration_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }

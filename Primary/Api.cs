@@ -80,6 +80,25 @@ namespace Primary
         #region Instruments information
 
         /// <summary>
+        /// Get all instruments with details currently traded on the exchange.
+        /// </summary>
+        /// <returns>Instruments information.</returns>
+        public async Task<IEnumerable<InstrumentDetail>> GetAllInstrumentsWithDetails()
+        {
+            var uri = new Uri(BaseUri, "rest/instruments/details");
+            var response = await HttpClient.GetStringAsync(uri);
+
+            var data = JsonConvert.DeserializeObject<GetAllInstrumentsWithDetailsResponse>(response);
+            return data.Instruments;
+        }
+
+        private class GetAllInstrumentsWithDetailsResponse
+        {
+            [JsonProperty("instruments")]
+            public List<InstrumentDetail> Instruments { get; set; }
+        }
+
+        /// <summary>
         /// Get all instruments currently traded on the exchange.
         /// </summary>
         /// <returns>Instruments information.</returns>

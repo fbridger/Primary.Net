@@ -50,6 +50,13 @@ namespace Primary.WinFormsApp
                 lnkLast.Text += $" {entries.Variation():P2}";
                 lnkLast.Tag = entries.Last;
             }
+            else if (entries.Close != null)
+            {
+                var formatted = entries.Close.Price.Value.ToString(CurrencyFormat);
+                lnkLast.Text = $"{CurrencySymbol} {formatted}";
+                lnkLast.Text += $" {entries.Variation():P2}";
+                lnkLast.Tag = entries.Close;
+            }
 
             SetText(lnkBidSize1, lnkBidPrice1, entries.Bids, 0, BidsOffersClickType.TopBid);
             SetText(lnkBidSize2, lnkBidPrice2, entries.Bids, 1, BidsOffersClickType.OtherBid);

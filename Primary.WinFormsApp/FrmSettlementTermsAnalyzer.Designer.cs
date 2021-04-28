@@ -114,6 +114,7 @@
             this.grdArbitration.ShowRowErrors = false;
             this.grdArbitration.Size = new System.Drawing.Size(2096, 621);
             this.grdArbitration.TabIndex = 2;
+            this.grdArbitration.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grdArbitration_CellContentClick);
             this.grdArbitration.DoubleClick += new System.EventHandler(this.grdArbitration_DoubleClick);
             // 
             // KeyOwnedVenta
@@ -434,7 +435,7 @@
             this.label6.Location = new System.Drawing.Point(1306, 6);
             this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(144, 21);
+            this.label6.Size = new System.Drawing.Size(115, 17);
             this.label6.TabIndex = 15;
             this.label6.Text = "Tasa Caucion%: ";
             // 

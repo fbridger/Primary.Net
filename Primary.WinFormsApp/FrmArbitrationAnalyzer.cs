@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace Primary.WinFormsApp
@@ -21,16 +22,37 @@ namespace Primary.WinFormsApp
             {
                 _processor.RefreshData();
                 var minProfit = numMinProfit.Value / 100;
+                
+                string[] tickers = null;
+                if (!string.IsNullOrWhiteSpace(txtFilter.Text))
+                {
+                    tickers = txtFilter.Text.Split(' ');
+                    minProfit = -100;
+                }
+
                 var trades = _processor.GetArbitrationTrades(minProfit, chkMEP.Checked, chkCCL.Checked, chkDolarDC.Checked, chkDolarCD.Checked);
 
+                if (tickers != null)
+                {
+                    trades = trades.Where(x => 
+                        tickers.Any(
+                            y => x.Owned.Buy.Instrument.InstrumentId.SymbolWithoutPrefix().Contains(y) ||
+                                x.Owned.Sell.Instrument.InstrumentId.SymbolWithoutPrefix().Contains(y) ||
+                                x.Arbitration.Buy.Instrument.InstrumentId.SymbolWithoutPrefix().Contains(y) ||
+                                x.Arbitration.Sell.Instrument.InstrumentId.SymbolWithoutPrefix().Contains(y)
+                            )
+                        ).ToList();
+                }
+
                 var processedRows = new List<DataRow>();
+                bool shouldFlash = false;
 
                 foreach (var bestTrade in trades)
                 {
-                    var ownedVenta = bestTrade.Owned.Sell.Instrument.SymbolWithoutPrefix();
-                    var arbitrationCompra = bestTrade.Arbitration.Sell.Instrument.SymbolWithoutPrefix();
-                    var arbitrationVenta = bestTrade.Arbitration.Buy.Instrument.SymbolWithoutPrefix();
-                    var ownedCompra = bestTrade.Owned.Buy.Instrument.SymbolWithoutPrefix();
+                    var ownedVenta = bestTrade.Owned.Sell.Instrument.InstrumentId.SymbolWithoutPrefix();
+                    var arbitrationCompra = bestTrade.Arbitration.Sell.Instrument.InstrumentId.SymbolWithoutPrefix();
+                    var arbitrationVenta = bestTrade.Arbitration.Buy.Instrument.InstrumentId.SymbolWithoutPrefix();
+                    var ownedCompra = bestTrade.Owned.Buy.Instrument.InstrumentId.SymbolWithoutPrefix();
 
                     DataRow row;
                     var existingRow = _dataTable.Rows.Find(new[] { ownedVenta, arbitrationCompra, arbitrationVenta, ownedCompra });
@@ -50,6 +72,10 @@ namespace Primary.WinFormsApp
                     }
 
                     row["Profit"] = bestTrade.Profit;
+                    if (bestTrade.Profit > numAlert.Value)
+                    {
+                        shouldFlash = true;
+                    }
                     row["ProfitLast"] = bestTrade.ProfitLast;
 
                     row["OwnedVenta"] = bestTrade.Owned.Sell.Data.HasBids() ? (object)bestTrade.Owned.Sell.Data.Bids[0].Price : DBNull.Value;
@@ -85,6 +111,10 @@ namespace Primary.WinFormsApp
                     _dataTable.Rows.Remove(dataRow);
                 }
 
+                if (shouldFlash)
+                {
+                    FlashWindow.Flash(this, 3);
+                }
 
                 //grdArbitration.DataSource = _dataTable;
             }
@@ -128,7 +158,7 @@ namespace Primary.WinFormsApp
             grdArbitration.AutoGenerateColumns = false;
             grdArbitration.DataSource = _dataTable;
 
-            numMinProfit.Increment = 0.25m;
+            numMinProfit.Increment = 0.1m;
             numMinProfit.Minimum = -10m;
         }
 
@@ -142,6 +172,11 @@ namespace Primary.WinFormsApp
                 frm.MdiParent = MdiParent;
                 frm.Show();
             }
+        }
+
+        private void txtFilter_TextChanged(object sender, EventArgs e)
+        {
+            
         }
     }
 }

@@ -1,8 +1,40 @@
 ﻿using Newtonsoft.Json;
+using System.Diagnostics;
 
 namespace Primary.Data
 {
+    [DebuggerDisplay("{MarketSegmentId}:{MarketId}")]
+    public class Segment
+    {
+        public string MarketSegmentId { get; set; }
+        public string MarketId { get; set; }
+    }
+
+    [DebuggerDisplay("{InstrumentId.Market}:{InstrumentId.Symbol} {Currency}")]
+    public class InstrumentDetail
+    {
+        public Segment Segment { get; set; }
+        public Instrument InstrumentId { get; set; }
+
+        public decimal LowLimitPrice { get; set; }
+        public decimal HighLimitPrice { get; set; }
+        public decimal MinPriceIncrement { get; set; }
+        public decimal MinTradevol { get; set; }
+        public decimal MaxTradeVol { get; set; }
+        public decimal TickSize { get; set; }
+        public string MaturityDate { get; set; }
+        public decimal ContractMultiplier { get; set; }
+        public decimal RoundLot { get; set; }
+        public decimal PriceConvertionFactor { get; set; }
+        public string Currency { get; set; }
+        public int InstrumentPricePrecision { get; set; }
+        public int InstrumentSizePrecision { get; set; }
+        public string CfiCode { get; set; }
+
+    }
+
     /// <summary>Identifies a market instrument.</summary>
+    [DebuggerDisplay("{Market}:{Symbol}")]
     public class Instrument
     {
         public const string MervalPrefix = "MERV - XMEV - ";

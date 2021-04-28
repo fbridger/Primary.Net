@@ -11,8 +11,48 @@ namespace Primary.WinFormsApp
     {
         public static IEnumerable<Instrument> FilterByTicker(this IEnumerable<Instrument> instruments, string ticker)
         {
-            var tickerSymbols = ticker.GetAllSymbols();
+            var tickerSymbols = ticker.GetAllMervalSymbols();
             return instruments.Where(x => tickerSymbols.Contains(x.Symbol));
+        }
+
+        public static bool IsPesos(this InstrumentDetail instrumentDetail)
+        {
+            return string.Equals(instrumentDetail.Currency, "ARS", System.StringComparison.InvariantCultureIgnoreCase);
+        }
+
+        public static bool IsCEDEAR(this InstrumentDetail instrumentDetail)
+        {
+            var exists = Properties.Settings.Default.CEDEARs.Cast<string>().Any(x => instrumentDetail.InstrumentId.Symbol.StartsWith($"{Instrument.MervalPrefix}{x}"));
+            return exists;
+        }
+
+        public static decimal GetComision(this InstrumentDetail instrumentDetail)
+        {
+            if (instrumentDetail.IsCEDEAR())
+            {
+                return (Properties.Settings.Default.Comision + Properties.Settings.Default.DerechoMercadoCEDEAR) / 100m;
+            }
+            else
+            {
+                return (Properties.Settings.Default.Comision + Properties.Settings.Default.DerechoMercado) / 100m;
+            }
+        }
+
+        public static decimal CalculateComision(this InstrumentDetail instrumentDetail, decimal amountInPesos)
+        {
+            var comision = instrumentDetail.GetComision();
+            return amountInPesos * comision;
+        }
+
+        public static string FormatCurrency(this InstrumentDetail instrumentDetail, decimal amount)
+        {
+            if (instrumentDetail.IsPesos())
+            {
+                return amount.ToCurrency();
+            }
+            else {
+                return amount.ToUSD();
+            }
         }
     }
 
@@ -136,7 +176,7 @@ namespace Primary.WinFormsApp
             return Instrument.MervalPrefix + $"{ticker} - {settlement}";
         }
 
-        public static string[] GetAllSymbols(this string ticker)
+        public static string[] GetAllMervalSymbols(this string ticker)
         {
             var tickerD = ticker.AddDolarSuffix();
             var tickerC = ticker.AddCableSuffix();

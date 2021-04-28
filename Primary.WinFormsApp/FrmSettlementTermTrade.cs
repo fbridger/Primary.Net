@@ -1,0 +1,258 @@
+﻿using System;
+using System.Windows.Forms;
+
+namespace Primary.WinFormsApp
+{
+    public partial class FrmSettlementTermTrade : Form
+    {
+        private SettlementTermTrade _trade;
+
+        public decimal Comision => numComision.Value / 100;
+
+        public FrmSettlementTermTrade()
+        {
+            InitializeComponent();
+        }
+
+        private void FrmArbitrationTrade_Load(object sender, EventArgs e)
+        {
+            numDolar.Value = Properties.Settings.Default.USDARS;
+            numComision.Value = Properties.Settings.Default.Comision;
+            timer1_Tick(sender, e);
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            if (_trade == null)
+                return;
+
+            VentaBidsOffers.LoadData(_trade.Sell.Data);
+
+            CompraBidsOffers.LoadData(_trade.Buy.Data);
+
+            if (VentaPriceAutoUpdate)
+            {
+                numVentaPrice.Value = _trade.Sell.Data.GetTopBidPrice();
+            }
+
+            if (CompraPriceAutoUpdate)
+            {
+                numCompraPrice.Value = _trade.Buy.Data.GetTopOfferPrice();
+            }
+
+        }
+
+        internal void Init(SettlementTermTrade trade)
+        {
+            _trade = trade;
+
+            VentaBidsOffers.IsPesos = trade.Sell.Instrument.IsPesos();
+            CompraBidsOffers.IsPesos = trade.Buy.Instrument.IsPesos();
+
+            VentaBidsOffers.ClickPrice += VentaBidsOffers_ClickPrice;
+            VentaBidsOffers.ClickSize += VentaBidsOffers_ClickSize;
+
+            CompraBidsOffers.ClickPrice += CompraBidsOffers_ClickPrice;
+            CompraBidsOffers.ClickSize += CompraBidsOffers_ClickSize;
+
+            var suffix = _trade.Sell.Instrument.IsCEDEAR() ? " (CEDEAR)" : "";
+            grpOwnedVenta.Text += " - " + _trade.Sell.Instrument.InstrumentId.SymbolWithoutPrefix() + suffix;
+            grpArbitrationCompra.Text += " - " + _trade.Buy.Instrument.InstrumentId.SymbolWithoutPrefix() + suffix;
+
+            numOwnedVentaSize.Value = 10000; // TODO: Get Max Size
+            if (_trade.Sell.Data.Last != null)
+                numVentaPrice.Value = _trade.Sell.Data.Last.Price.Value;
+
+            if (_trade.Buy.Data.Last != null)
+                numCompraPrice.Value = _trade.Buy.Data.Last.Price.Value;
+
+
+            this.Text = $"Venta {_trade.Sell.Instrument.InstrumentId.SymbolWithoutPrefix()} -> Compra {_trade.Buy.Instrument.InstrumentId.SymbolWithoutPrefix()}";
+            lnkArbitration.Text = Text;
+
+            numVentaPrice.Increment = _trade.Sell.Instrument.IsPesos() ? 1 : 0.01m;
+            numCompraPrice.Increment = _trade.Buy.Instrument.IsPesos() ? 1 : 0.01m;
+        }
+
+
+        public bool CompraPriceAutoUpdate
+        {
+            get
+            {
+                return numCompraPrice.ForeColor == System.Drawing.Color.Red;
+            }
+            set
+            {
+                if (value)
+                {
+                    numCompraPrice.ForeColor = System.Drawing.Color.Red;
+                }
+                else
+                {
+                    numCompraPrice.ForeColor = System.Drawing.SystemColors.WindowText;
+                }
+            }
+        }
+
+        public bool VentaPriceAutoUpdate
+        {
+            get
+            {
+                return numVentaPrice.ForeColor == System.Drawing.Color.Red;
+            }
+            set
+            {
+                if (value)
+                {
+                    numVentaPrice.ForeColor = System.Drawing.Color.Red;
+                }
+                else
+                {
+                    numVentaPrice.ForeColor = System.Drawing.SystemColors.WindowText;
+                }
+            }
+        }
+
+        private void CompraBidsOffers_ClickSize(object sender, BidOffersEventArgs e)
+        {
+            numCompraSize.Value = e.Value;
+        }
+
+        private void CompraBidsOffers_ClickPrice(object sender, BidOffersEventArgs e)
+        {
+            numCompraPrice.Value = e.Value;
+            CompraPriceAutoUpdate = e.ClickType == BidsOffersClickType.TopOffer;
+        }
+
+        private void numCompraSize_ValueChanged(object sender, EventArgs e)
+        {
+            numOwnedVentaSize.Value = numCompraSize.Value;
+            CompleteArbitrationCompra();
+        }
+
+
+        private void VentaBidsOffers_ClickSize(object sender, BidOffersEventArgs e)
+        {
+            numOwnedVentaSize.Value = e.Value;
+        }
+
+        private void VentaBidsOffers_ClickPrice(object sender, BidOffersEventArgs e)
+        {
+            numVentaPrice.Value = e.Value;
+            VentaPriceAutoUpdate = e.ClickType == BidsOffersClickType.TopBid;
+        }
+
+        public void UpdateOwnedVentaSizeBasedOnAmount(decimal amount)
+        {
+            var ownedSellSize = amount / numVentaPrice.Value * _trade.Buy.Instrument.PriceConvertionFactor;
+            if (ownedSellSize < numOwnedVentaSize.Maximum)
+            {
+                numOwnedVentaSize.Value = Math.Ceiling(ownedSellSize);
+            }
+        }
+
+        public void CompleteOwnedVenta()
+        {
+            txtOwnedVenta.Text = $"VENDER {numOwnedVentaSize.Value:#,##0} nominales de {_trade.Sell.Instrument.InstrumentId.SymbolWithoutPrefix()} a {numVentaPrice.Value:#,##0.00}";
+        }
+
+
+        public void CompleteArbitrationCompra()
+        {
+            txtArbitrationCompra.Text = $"COMPRAR {numCompraSize.Value:#,##0} nominales de {_trade.Buy.Instrument.InstrumentId.SymbolWithoutPrefix()} a {numCompraPrice.Value:#,##0.00}";
+        }
+
+        public void CalculateOwnedCompraTotalAndProfit()
+        {
+            if (numCompraPrice.Value > 0)
+            {
+
+                var importCompra = numCompraSize.Value * numCompraPrice.Value * _trade.Sell.Instrument.PriceConvertionFactor;
+                var comisionCompra = _trade.Sell.Instrument.CalculateComision(importCompra);
+
+                var importVenta = numOwnedVentaSize.Value * numVentaPrice.Value * _trade.Sell.Instrument.PriceConvertionFactor;
+                var comisionVenta = _trade.Sell.Instrument.CalculateComision(importVenta);
+                
+                var comision = comisionCompra + comisionVenta;
+                var plSinComision = importVenta - importCompra;
+                var pl = importVenta - importCompra - comision;
+                var percentage = numVentaPrice.Value / numCompraPrice.Value - 1m;
+
+                lblVentaImporte.Text = $"Importe: {importVenta:C2}";
+                lblVentaComision.Text = $"Comisión: {comisionVenta:C2}";
+
+                lblCompraImporte.Text = $"Importe: {importCompra:C2}";
+                lblCompraComision.Text = $"Comisión: {comisionCompra:C2}";
+
+                lblComisionTotal.Text = $"Total Comisión: {comision:C2}";
+                lblTotal.Text = $"Total: {plSinComision:C2}";
+                lblProfitPesos.Text = $"Profit: {pl:C2}";
+                lblHeader.Text = $"Profit: {pl:C2} ({percentage:P2})";
+            }
+        }
+
+        public void CalculateArbitrationCompraTotal()
+        {
+            lblCompraImporte.Text = "Importe: " + (numCompraPrice.Value * numCompraSize.Value / _trade.Buy.Instrument.PriceConvertionFactor).ToUSD();
+        }
+
+        private void numOwnedVentaSize_ValueChanged(object sender, EventArgs e)
+        {
+            numCompraSize.Value = numOwnedVentaSize.Value;
+            CompleteOwnedVenta();
+            CalculateOwnedCompraTotalAndProfit();
+        }
+
+        private void numOwnedVentaPrice_ValueChanged(object sender, EventArgs e)
+        {
+            CompleteOwnedVenta();
+            CalculateOwnedCompraTotalAndProfit();
+
+        }
+
+        private void numCompraPrice_ValueChanged(object sender, EventArgs e)
+        {
+            CompleteArbitrationCompra();
+            CalculateOwnedCompraTotalAndProfit();
+        }
+
+        private void numOwnedVentaPrice_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            VentaPriceAutoUpdate = false;
+        }
+
+        private void numArbitrationCompraPrice_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            CompraPriceAutoUpdate = false;
+        }
+
+        private void txtOwnedVenta_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Clipboard.SetText(txtOwnedVenta.Text);
+        }
+
+        private void txtArbitrationCompra_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Clipboard.SetText(txtArbitrationCompra.Text);
+        }
+
+        private void lnkArbitration_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Clipboard.SetText(lnkArbitration.Text);
+        }
+
+        private void numDolar_ValueChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.USDARS = numDolar.Value;
+            Properties.Settings.Default.Save();
+            CalculateOwnedCompraTotalAndProfit();
+        }
+
+        private void numComision_ValueChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.Comision = numComision.Value;
+            Properties.Settings.Default.Save();
+            CalculateOwnedCompraTotalAndProfit();
+        }
+    }
+}

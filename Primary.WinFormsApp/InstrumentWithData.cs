@@ -1,20 +1,21 @@
 ﻿using Primary.Data;
+using System.Diagnostics;
 
 namespace Primary.WinFormsApp
 {
+    [DebuggerDisplay("{Instrument.InstrumentId.Market}:{Instrument.InstrumentId.Symbol} {Instrument.Currency}")]
     public class InstrumentWithData
     {
-        public Instrument Instrument { get; set; }
+        public InstrumentDetail Instrument { get; set; }
         public Entries Data { get; set; }
-        public bool IsPesos { get; set; }
 
         public void RefreshData()
         {
-            Data = Argentina.Data.GetLatestOrNull(Instrument.Symbol);
+            Data = Argentina.Data.GetLatestOrNull(Instrument.InstrumentId.Symbol);
         }
         public bool UpdateData(string symbol, Entries data)
         {
-            if (Instrument.Symbol == symbol)
+            if (Instrument.InstrumentId.Symbol == symbol)
             {
                 Data = data;
                 return true;
@@ -23,22 +24,20 @@ namespace Primary.WinFormsApp
             return false;
         }
 
-        public InstrumentWithData(Instrument instrument, bool isPesos = true)
+        public InstrumentWithData(InstrumentDetail instrument)
         {
             Instrument = instrument;
-            IsPesos = isPesos;
         }
 
-        public InstrumentWithData(Instrument instrument, Entries data, bool isPesos = true)
+        public InstrumentWithData(InstrumentDetail instrument, Entries data)
         {
             Instrument = instrument;
             Data = data;
-            IsPesos = isPesos;
         }
 
         public override string ToString()
         {
-            return Instrument.SymbolWithoutPrefix();
+            return Instrument.InstrumentId.SymbolWithoutPrefix();
         }
     }
 }

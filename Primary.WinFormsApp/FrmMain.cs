@@ -56,9 +56,9 @@ namespace Primary.WinFormsApp
                 await Argentina.Data.Init();
 
                 InitWatchList();
-                _watchedInstruments = Argentina.Data.AllInstruments.Where(ShouldWatch).ToArray();
+                _watchedInstruments = Argentina.Data.AllInstruments.Where(ShouldWatch).Select(x => x.InstrumentId).ToArray();
 
-                foreach (var item in Argentina.Data.AllInstruments.OrderBy(x => x.SymbolWithoutPrefix()))
+                foreach (var item in Argentina.Data.AllInstruments.OrderBy(x => x.InstrumentId.SymbolWithoutPrefix()))
                 {
                     cmbInstruments.Items.Add(item);
                 }
@@ -93,14 +93,14 @@ namespace Primary.WinFormsApp
             this.watchList = new List<string>();
             foreach (var item in bonds)
             {
-                watchList.AddRange(item.GetAllSymbols());
+                watchList.AddRange(item.GetAllMervalSymbols());
             }
 
         }
 
-        private bool ShouldWatch(Instrument instrument)
+        private bool ShouldWatch(InstrumentDetail instrument)
         {
-            if (watchList.Contains(instrument.Symbol))
+            if (watchList.Contains(instrument.InstrumentId.Symbol))
             {
                 return true;
             }
@@ -160,14 +160,26 @@ namespace Primary.WinFormsApp
         {
             var dif = DateTime.Now - _lastUpdate;
 
-            if (dif.TotalMilliseconds < tmrConnection.Interval)
+            if (dif.TotalSeconds < 10)
             {
+                this.Icon = Properties.Resources.green_wifi;
                 this.Text = $"Connected - Last WebSocket Message: {_lastUpdate:HH:mm:ss} {dif.TotalSeconds:#0} seconds ago";
             }
             else
             {
+                this.Icon = Properties.Resources.red_wifi;
                 this.Text = $"DISCONNECTED - Last WebSocket Message: {_lastUpdate:HH:mm:ss} {dif.TotalSeconds:#0} seconds ago";
             }
+
+            foreach (Form openedForm in Application.OpenForms)
+            {
+                openedForm.Icon = this.Icon;
+            }
+        }
+
+        private void connectToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            backgroundTasks.Add(Argentina.Data.WatchWithWebSocket(_watchedInstruments));
         }
     }
 }

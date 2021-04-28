@@ -59,5 +59,25 @@ namespace Primary.WinFormsApp.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon green_wifi {
+            get {
+                object obj = ResourceManager.GetObject("green_wifi", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon red_wifi {
+            get {
+                object obj = ResourceManager.GetObject("red_wifi", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
     }
 }

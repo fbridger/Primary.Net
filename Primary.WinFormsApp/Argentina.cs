@@ -16,7 +16,7 @@ namespace Primary.WinFormsApp
         private CancellationTokenSource _tokenSource;
 
         public Primary.Api Api;
-        public IEnumerable<Instrument> AllInstruments;
+        public IEnumerable<InstrumentDetail> AllInstruments;
         private MarketDataWebSocket marketDataSocket;
         public delegate void MarketDataEventHandler(Instrument instrument, Entries data);
         public event MarketDataEventHandler OnMarketData;
@@ -40,8 +40,8 @@ namespace Primary.WinFormsApp
 
         public async Task Init()
         {
-            var instruments = await Api.GetAllInstruments();
-            AllInstruments = instruments.OrderBy(x => x.Symbol).ToList();
+            var instruments = await Api.GetAllInstrumentsWithDetails();
+            AllInstruments = instruments.OrderBy(x => x.InstrumentId.Symbol).ToList();
         }
 
         public IEnumerable<Task> WatchWithRestApi(Instrument[] instruments)

@@ -82,6 +82,13 @@
     <Compile Include="DolarArbitrationProcessor.cs" />
     <Compile Include="DolarArbitrationInstruments.cs" />
     <Compile Include="DolarTradedInstrument.cs" />
+    <Compile Include="FlashWindow.cs" />
+    <Compile Include="FrmSettlementTermTrade.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmSettlementTermTrade.Designer.cs">
+      <DependentUpon>FrmSettlementTermTrade.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmSettlementTermsAnalyzer.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -141,6 +148,9 @@
     <EmbeddedResource Include="BidsOffersControl.resx">
       <DependentUpon>BidsOffersControl.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FrmSettlementTermTrade.resx">
+      <DependentUpon>FrmSettlementTermTrade.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FrmSettlementTermsAnalyzer.resx">
       <DependentUpon>FrmSettlementTermsAnalyzer.cs</DependentUpon>
     </EmbeddedResource>
@@ -194,6 +204,12 @@
       <Project>{93f50e83-d1ea-4537-bd12-b9ded3203341}</Project>
       <Name>Primary</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\red-wifi.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\green-wifi.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

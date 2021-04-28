@@ -1,8 +1,11 @@
-﻿namespace Primary.WinFormsApp
+﻿using System.Diagnostics;
+
+namespace Primary.WinFormsApp
 {
     /// <summary>
     /// Permite calcular la ganancia al realizar una operación de arbitraje de dolar (MEP o CCL)
     /// </summary>
+    [DebuggerDisplay("{Owned.Buy.Instrument.InstrumentId.Symbol} / {Arbitration.Buy.Instrument.InstrumentId.Symbol}")]
     public class DolarArbitrationTrade
     {
         public DolarTrade Owned { get; set; }

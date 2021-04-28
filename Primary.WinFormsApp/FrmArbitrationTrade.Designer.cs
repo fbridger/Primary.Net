@@ -63,7 +63,7 @@
             this.lblOwnedLast = new System.Windows.Forms.Label();
             this.lblArbitrationLast = new System.Windows.Forms.Label();
             this.numComision = new System.Windows.Forms.NumericUpDown();
-            this.lblProfit = new System.Windows.Forms.Label();
+            this.lblHeader = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.lblArbitrationDiff = new System.Windows.Forms.Label();
             this.lblDolarSell = new System.Windows.Forms.Label();
@@ -79,6 +79,8 @@
             this.ArbitrationVentaBidsOffers = new Primary.WinFormsApp.BidsOffersControl();
             this.ArbitrationCompraBidsOffers = new Primary.WinFormsApp.BidsOffersControl();
             this.OwnedVentaBidsOffers = new Primary.WinFormsApp.BidsOffersControl();
+            this.lblArbirtationCompraComision = new System.Windows.Forms.Label();
+            this.lblOwnedCompraComision = new System.Windows.Forms.Label();
             this.grpOwnedVenta.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numOwnedVentaPrice)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numOwnedVentaSize)).BeginInit();
@@ -212,6 +214,7 @@
             // grpArbitrationCompra
             // 
             this.grpArbitrationCompra.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.grpArbitrationCompra.Controls.Add(this.lblArbirtationCompraComision);
             this.grpArbitrationCompra.Controls.Add(this.ArbitrationCompraBidsOffers);
             this.grpArbitrationCompra.Controls.Add(this.txtArbitrationCompra);
             this.grpArbitrationCompra.Controls.Add(this.lblArbitrationCompraImporte);
@@ -315,7 +318,7 @@
             // timer1
             // 
             this.timer1.Enabled = true;
-            this.timer1.Interval = 2000;
+            this.timer1.Interval = 1000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // grpArbitrationVenta
@@ -435,6 +438,7 @@
             // grpOwnedCompra
             // 
             this.grpOwnedCompra.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.grpOwnedCompra.Controls.Add(this.lblOwnedCompraComision);
             this.grpOwnedCompra.Controls.Add(this.OwnedCompraBidsOffers);
             this.grpOwnedCompra.Controls.Add(this.txtOwnedCompra);
             this.grpOwnedCompra.Controls.Add(this.lblOwnedCompraImporte);
@@ -576,16 +580,16 @@
             // 
             // lblProfit
             // 
-            this.lblProfit.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.lblProfit.Dock = System.Windows.Forms.DockStyle.Top;
-            this.lblProfit.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblProfit.Location = new System.Drawing.Point(0, 0);
-            this.lblProfit.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblProfit.Name = "lblProfit";
-            this.lblProfit.Size = new System.Drawing.Size(1527, 66);
-            this.lblProfit.TabIndex = 11;
-            this.lblProfit.Text = "Profit: $ / %";
-            this.lblProfit.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblHeader.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.lblHeader.Dock = System.Windows.Forms.DockStyle.Top;
+            this.lblHeader.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblHeader.Location = new System.Drawing.Point(0, 0);
+            this.lblHeader.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblHeader.Name = "lblProfit";
+            this.lblHeader.Size = new System.Drawing.Size(1527, 66);
+            this.lblHeader.TabIndex = 11;
+            this.lblHeader.Text = "Profit: $ / %";
+            this.lblHeader.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label3
             // 
@@ -760,6 +764,28 @@
             this.OwnedVentaBidsOffers.Size = new System.Drawing.Size(443, 180);
             this.OwnedVentaBidsOffers.TabIndex = 11;
             // 
+            // lblArbirtationCompraComision
+            // 
+            this.lblArbirtationCompraComision.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblArbirtationCompraComision.Location = new System.Drawing.Point(11, 120);
+            this.lblArbirtationCompraComision.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblArbirtationCompraComision.Name = "lblArbirtationCompraComision";
+            this.lblArbirtationCompraComision.Size = new System.Drawing.Size(245, 22);
+            this.lblArbirtationCompraComision.TabIndex = 14;
+            this.lblArbirtationCompraComision.Text = "Comisión";
+            this.lblArbirtationCompraComision.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // lblOwnedCompraComision
+            // 
+            this.lblOwnedCompraComision.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblOwnedCompraComision.Location = new System.Drawing.Point(11, 118);
+            this.lblOwnedCompraComision.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblOwnedCompraComision.Name = "lblOwnedCompraComision";
+            this.lblOwnedCompraComision.Size = new System.Drawing.Size(245, 22);
+            this.lblOwnedCompraComision.TabIndex = 15;
+            this.lblOwnedCompraComision.Text = "Comisión";
+            this.lblOwnedCompraComision.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
             // FrmArbitrationTrade
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -776,7 +802,7 @@
             this.Controls.Add(this.lblDolarSell);
             this.Controls.Add(this.lblArbitrationDiff);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.lblProfit);
+            this.Controls.Add(this.lblHeader);
             this.Controls.Add(this.numComision);
             this.Controls.Add(this.lblArbitrationLast);
             this.Controls.Add(this.lblOwnedLast);
@@ -843,7 +869,7 @@
         private System.Windows.Forms.Label lblOwnedLast;
         private System.Windows.Forms.Label lblArbitrationLast;
         private System.Windows.Forms.NumericUpDown numComision;
-        private System.Windows.Forms.Label lblProfit;
+        private System.Windows.Forms.Label lblHeader;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label lblArbitrationDiff;
         private System.Windows.Forms.Label lblDolarSell;
@@ -863,5 +889,7 @@
         private BidsOffersControl ArbitrationVentaBidsOffers;
         private BidsOffersControl OwnedCompraBidsOffers;
         private System.Windows.Forms.LinkLabel lnkArbitration;
+        private System.Windows.Forms.Label lblArbirtationCompraComision;
+        private System.Windows.Forms.Label lblOwnedCompraComision;
     }
 }

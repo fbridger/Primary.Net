@@ -5,13 +5,13 @@ namespace Primary.WinFormsApp
 {
     public class TradedInstrumentWithSettlementTerms
     {
-        public TradedInstrumentWithSettlementTerms(string ticker, bool isPesos)
+        public TradedInstrumentWithSettlementTerms(string ticker)
         {
             Ticker = ticker;
 
-            T48 = new InstrumentWithData(Argentina.Data.AllInstruments.Single(x => x.Symbol == ticker.ToMervalSymbol48H()), isPesos);
-            T24 = new InstrumentWithData(Argentina.Data.AllInstruments.Single(x => x.Symbol == ticker.ToMervalSymbol24H()), isPesos);
-            TCI = new InstrumentWithData(Argentina.Data.AllInstruments.Single(x => x.Symbol == ticker.ToMervalSymbolCI()), isPesos);
+            T48 = new InstrumentWithData(Argentina.Data.AllInstruments.Single(x => x.InstrumentId.Symbol == ticker.ToMervalSymbol48H()));
+            T24 = new InstrumentWithData(Argentina.Data.AllInstruments.Single(x => x.InstrumentId.Symbol == ticker.ToMervalSymbol24H()));
+            TCI = new InstrumentWithData(Argentina.Data.AllInstruments.Single(x => x.InstrumentId.Symbol == ticker.ToMervalSymbolCI()));
 
         }
 

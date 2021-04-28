@@ -31,6 +31,19 @@ namespace Primary.Tests
         }
 
         [Test]
+        public async Task AllAvailableInstrumentsWithDetailsCanBeRetrieved()
+        {
+            var instruments = await _api.GetAllInstrumentsWithDetails();
+            Assert.That(instruments, Is.Not.Empty);
+
+            foreach (var instrument in instruments)
+            {
+                Assert.That(instrument.InstrumentId.Market, Is.Not.Null.And.Not.Empty);
+                Assert.That(instrument.InstrumentId.Symbol, Is.Not.Null.And.Not.Empty);
+            }
+        }
+
+        [Test]
         public async Task HistoricalTradesCanBeRetrievedForAnInstrument()
         {
             // Get a dollar future

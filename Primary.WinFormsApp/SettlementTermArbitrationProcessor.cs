@@ -104,6 +104,13 @@ namespace Primary.WinFormsApp
                 if (trades != null && trades.Count() > 0)
                     allTrades.AddRange(trades);
 
+                var dolarTrades = tradedInstrument.Dolar.GetSettlementTermTrades(minProfitPercentage);
+                if (dolarTrades != null && dolarTrades.Count() > 0)
+                    allTrades.AddRange(dolarTrades);
+
+                var cableTrades = tradedInstrument.Cable.GetSettlementTermTrades(minProfitPercentage);
+                if (cableTrades != null && cableTrades.Count() > 0)
+                    allTrades.AddRange(cableTrades);
             }
 
             return allTrades;

@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using Newtonsoft.Json;
-using Primary.Serialization;
+﻿using Newtonsoft.Json;
 
 namespace Primary.Data
 {
@@ -10,9 +8,9 @@ namespace Primary.Data
     public struct MarketDataInfo
     {
         /// <summary>Order type.</summary>
-        [JsonProperty("type", Order=-2)] 
+        [JsonProperty("type", Order = -2)]
         public string Type => "smd";
-        
+
         /// <summary>
         /// Real-time message update time.
         /// <list type="table">
@@ -38,7 +36,7 @@ namespace Primary.Data
 
         /// <summary>Products to get the information for.</summary>
         [JsonProperty("products")]
-        public Instrument[] Products;
+        public InstrumentId[] Products;
     }
 
     /// <summary>
@@ -52,7 +50,7 @@ namespace Primary.Data
 
         /// <summary>Instrument id.</summary>
         [JsonProperty("instrumentId")]
-        public Instrument Instrument { get; set; }
+        public InstrumentId InstrumentId { get; set; }
 
         /// <summary>Market data grouped by entry.</summary>
         [JsonProperty("marketData")]
@@ -60,15 +58,15 @@ namespace Primary.Data
 
         public class Entries
         {
-            [JsonProperty("BI")] public Trade[] Bids { get; set; }
-            [JsonProperty("OF")] public Trade[] Offers { get; set; }
+            [JsonProperty("BI")] public PriceSize[] Bids { get; set; }
+            [JsonProperty("OF")] public PriceSize[] Offers { get; set; }
 
-            [JsonProperty("LA")] public Trade Last { get; set; }
+            [JsonProperty("LA")] public PriceDate Last { get; set; }
             [JsonProperty("OP")] public decimal? Open { get; set; }
-            [JsonProperty("CL")] public Trade Close { get; set; }
+            [JsonProperty("CL")] public PriceDate Close { get; set; }
 
-            [JsonProperty("SE")] public Trade SettlementPrice { get; set; }
-            [JsonProperty("OI")] public Trade OpenInterest { get; set; }
+            [JsonProperty("SE")] public PriceDate SettlementPrice { get; set; }
+            [JsonProperty("OI")] public SizeDate OpenInterest { get; set; }
 
             [JsonProperty("HI")] public decimal? SessionHighPrice { get; set; }
             [JsonProperty("LO")] public decimal? SessionLowPrice { get; set; }
@@ -77,6 +75,6 @@ namespace Primary.Data
             [JsonProperty("TV")] public decimal? Volume { get; set; }
             [JsonProperty("NV")] public decimal? NominalVolume { get; set; }
             [JsonProperty("EV")] public decimal? EffectiveVolume { get; set; }
-        }                        
+        }
     }
 }

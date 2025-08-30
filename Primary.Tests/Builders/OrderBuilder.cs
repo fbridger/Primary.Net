@@ -1,7 +1,7 @@
-﻿using System;
-using System.Linq;
-using Primary.Data;
+﻿using Primary.Data;
 using Primary.Data.Orders;
+using System;
+using System.Linq;
 
 namespace Primary.Tests.Builders
 {
@@ -16,20 +16,23 @@ namespace Primary.Tests.Builders
 
         private Order Build()
         {
-            var instruments = _api.GetAllInstruments().Result;
-            var instrument = instruments.Last( i => i.Symbol == Tests.Build.DollarFutureSymbol() );
+            var instrumentId = new InstrumentId()
+            {
+                Market = "ROFX",
+                Symbol = Tests.Build.DollarFutureSymbol()
+            };
 
             // Get a valid price
             var today = DateTime.Today;
-            var prices = _api.GetHistoricalTrades(instrument, today.AddDays(-5), today).Result;
+            var prices = _api.GetHistoricalTrades(instrumentId, today.AddDays(-5), today).Result;
 
             return new Order
             {
-                Instrument = instrument,
+                InstrumentId = instrumentId,
                 Expiration = Expiration.Day,
                 Type = Data.Orders.Type.Limit,
                 Side = Side.Buy,
-                Quantity = 1000,
+                Quantity = 1,
                 Price = prices.Last().Price - 1m
             };
         }
